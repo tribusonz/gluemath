@@ -8,4 +8,4 @@ It is a library for compilers, but independent. Include it so that the language 
 	* Refined Math  
 	* Distribution Function Support  
 	* ANSI C Math Support (named as legacy)  
-
+	* Adopts C++ naming convention
