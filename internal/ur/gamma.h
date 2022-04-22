@@ -50,8 +50,6 @@ gamma_core(register double x)
 
 	switch (fpclassify(y = fmod_core(x, 1))) {
 	case FP_NAN:
-		return NAN;
-		break;
 	case FP_INFINITE:
 		return x > 0 ? HUGE_VAL : NAN;
 		break;
