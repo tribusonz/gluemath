@@ -1,0 +1,226 @@
+# Test routine compile recipes, for GNU gcc
+
+# ---- Architecture Directives ----
+# <rcm2>
+$ gcc -Wall -Wextra -O3 -lm -o bin/rcm2 test/rcm2.c arch/rcm2.c arch/rcm2l.c arch/rcm2f.c
+
+# <rcm10>
+$ gcc -Wall -Wextra -O3 -lm -o bin/rcm10 test/rcm10.c arch/rcm10.c arch/rcm10l.c arch/rcm10f.c
+
+# ---- Builtins & Operators & System ----
+# <hugeval_nan>
+$ gcc -Wall -Wextra -O3 -o bin/hugeval_nan test/hugeval_nan.c
+
+# <float_info>
+$ gcc -Wall -Wextra -O3 -o bin/float_info test/float_info.c sys/float/info.c
+
+# <fpclassify>
+$ gcc -Wall -Wextra -O3 -o bin/fpclassify test/fpclassify.c
+
+# <signbit>
+$ gcc -Wall -Wextra -O3 -o bin/signbit test/signbit.c
+
+# <fabs>
+$ gcc -Wall -Wextra -O3 -o bin/fabs test/fabs.c
+
+# <pow>
+$ gcc -Wall -Wextra -O3 -o bin/pow test/pow.c
+
+# <fmod>
+$ gcc -Wall -Wextra -O3 -o bin/fmod test/fmod.c
+
+# <floor>
+$ gcc -Wall -Wextra -O3 -o bin/floor test/floor.c
+
+# <ceil>
+$ gcc -Wall -Wextra -O3 -o bin/ceil test/ceil.c
+
+# <trunc>
+$ gcc -Wall -Wextra -O3 -o bin/trunc test/trunc.c
+
+# <round>
+$ gcc -Wall -Wextra -O3 -o bin/round test/round.c
+
+# ---- Legacy (ANSI C99 Math Compatibility) ----
+# <frexp>
+$ gcc -Wall -Wextra -O3 -o bin/frexp test/frexp.c legacy/frexp.c legacy/frexpl.c legacy/frexpf.c
+
+# <ldexp>
+$ gcc -Wall -Wextra -O3 -o bin/ldexp test/ldexp.c legacy/ldexp.c legacy/ldexpl.c legacy/ldexpf.c
+
+# <modf>
+$ gcc -Wall -Wextra -O3 -o bin/modf test/modf.c legacy/modf.c legacy/modfl.c legacy/modff.c
+
+# ---- Realmaths ----
+# <exp>
+$ gcc -Wall -Wextra -O3 -o bin/exp test/exp.c realmath/exp_r8.c realmath/exp_r4.c realmath/exp_re.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/exp test/exp.c legacy/exp.c legacy/expl.c legacy/expf.c
+
+# <exp2>
+$ gcc -Wall -Wextra -O3 -o bin/exp2 test/exp2.c realmath/exp2_r8.c realmath/exp2_re.c realmath/exp2_r4.c 
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/exp2 test/exp2.c legacy/exp2.c legacy/exp2l.c legacy/exp2f.c 
+
+# <log>
+$ gcc -Wall -Wextra -O3 -o bin/log test/log.c realmath/log_r8.c realmath/log_re.c realmath/log_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/log test/log.c legacy/log.c legacy/logl.c legacy/logf.c
+
+# <log2>
+$ gcc -Wall -Wextra -O3 -o bin/log2 test/log2.c realmath/log2_r8.c realmath/log2_re.c realmath/log2_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/log2 test/log2.c legacy/log2.c legacy/log2l.c legacy/log2f.c
+
+# <log10>
+$ gcc -Wall -Wextra -O3 -o bin/log10 test/log10.c realmath/log10_r8.c realmath/log10_re.c realmath/log10_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/log10 test/log10.c legacy/log10.c legacy/log10l.c legacy/log10f.c
+
+# <sqrt>
+$ gcc -Wall -Wextra -O3 -o bin/sqrt test/sqrt.c realmath/sqrt_r8.c realmath/sqrt_re.c realmath/sqrt_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/sqrt test/sqrt.c legacy/sqrt.c legacy/sqrtl.c legacy/sqrtf.c
+
+# <cbrt>
+$ gcc -Wall -Wextra -O3 -o bin/cbrt test/cbrt.c realmath/cbrt_r8.c realmath/cbrt_re.c realmath/cbrt_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/cbrt test/cbrt.c legacy/cbrt.c legacy/cbrtl.c legacy/cbrtf.c
+
+# <sinasin>
+$ gcc -Wall -Wextra -O3 -o bin/sinasin test/sinasin.c realmath/asin_r8.c realmath/asin_re.c realmath/asin_r4.c realmath/sin_r8.c realmath/sin_re.c realmath/sin_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/sinasin test/sinasin.c legacy/asin.c legacy/asinl.c legacy/asinf.c legacy/sinl.c legacy/sin.c legacy/sinf.c
+
+# <sinc>
+$ gcc -Wall -Wextra -O3 -o bin/sinc test/sinc.c realmath/sinc_r8.c
+
+# <cosacos>
+$ gcc -Wall -Wextra -O3 -o bin/cosacos test/cosacos.c realmath/acos_r8.c realmath/acos_re.c realmath/acos_r4.c realmath/cos_r8.c realmath/cos_re.c realmath/cos_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/cosacos test/cosacos.c legacy/acos.c legacy/acosl.c legacy/acosf.c legacy/cos.c legacy/cosl.c legacy/cosf.c
+
+# <cos1>
+$ gcc -Wall -Wextra -O3 -o bin/cos1 test/cos1.c realmath/cos1_r8.c realmath/cos1_re.c realmath/cos1_r4.c
+
+# <tanatan>
+$ gcc -Wall -Wextra -O3 -o bin/tanatan test/tanatan.c realmath/atan_re.c realmath/tan_re.c realmath/atan_r8.c realmath/tan_r8.c realmath/atan_r4.c realmath/tan_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/tanatan test/tanatan.c legacy/atanl.c legacy/tanl.c legacy/atan.c legacy/tan.c legacy/atanf.c legacy/tanf.c
+
+# <secasec>
+$ gcc -Wall -Wextra -O3 -o bin/secasec test/secasec.c realmath/asec_r8.c realmath/asec_re.c realmath/asec_r4.c realmath/sec_r8.c realmath/sec_re.c realmath/sec_r4.c
+
+# <cscacsc>
+$ gcc -Wall -Wextra -O3 -o bin/cscacsc test/cscacsc.c realmath/acsc_r8.c realmath/acsc_re.c realmath/acsc_r4.c realmath/csc_r8.c realmath/csc_re.c realmath/csc_r4.c
+
+# <cotacot>
+$ gcc -Wall -Wextra -O3 -o bin/cotacot test/cotacot.c realmath/acot_r8.c realmath/acot_re.c realmath/acot_r4.c realmath/cot_r8.c realmath/cot_re.c realmath/cot_r4.c
+
+# <quadrant/atan2>
+$ gcc -Wall -Wextra -O3 -o bin/quadrant test/quadrant.c realmath/quadrant_r8.c realmath/quadrant_re.c realmath/quadrant_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/quadrant test/quadrant.c legacy/atan2.c legacy/atan2l.c legacy/atan2f.c
+
+# <hypot>
+$ gcc -Wall -Wextra -O3 -o bin/hypot test/hypot.c realmath/hypot_r8.c realmath/hypot_re.c realmath/hypot_r4.c realmath/atan_r8.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/hypot test/hypot.c legacy/hypot.c legacy/hypotl.c legacy/hypotf.c legacy/atan.c
+
+# <sinhasinh>
+$ gcc -Wall -Wextra -O3 -o bin/sinhasinh test/sinhasinh.c realmath/asinh_r8.c realmath/asinh_re.c realmath/asinh_r4.c realmath/sinh_r8.c realmath/sinh_re.c realmath/sinh_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/sinhasinh test/sinhasinh.c legacy/asinh.c legacy/asinhl.c legacy/asinhf.c legacy/sinh.c legacy/sinhl.c legacy/sinhf.c
+
+# <coshacosh>
+$ gcc -Wall -Wextra -O3 -o bin/coshacosh test/coshacosh.c realmath/acosh_r8.c realmath/acosh_re.c realmath/acosh_r4.c realmath/cosh_r8.c realmath/cosh_re.c realmath/cosh_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/coshacosh test/coshacosh.c legacy/acosh.c legacy/acoshl.c legacy/acoshf.c legacy/cosh.c legacy/coshl.c legacy/coshf.c
+
+# <tanhatanh>
+$ gcc -Wall -Wextra -O3 -o bin/tanhatanh test/tanhatanh.c realmath/tanh_r8.c realmath/tanh_re.c realmath/tanh_r4.c realmath/atanh_r8.c realmath/atanh_re.c realmath/atanh_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/tanhatanh test/tanhatanh.c legacy/tanh.c legacy/tanhl.c legacy/tanhf.c legacy/atanh.c legacy/atanhl.c legacy/atanhf.c
+
+# <sechasech>
+$ gcc -Wall -Wextra -O3 -o bin/sechasech test/sechasech.c realmath/asech_r8.c realmath/asech_re.c realmath/asech_r4.c realmath/sech_r8.c realmath/sech_re.c realmath/sech_r4.c
+
+# <cschacsch>
+$ gcc -Wall -Wextra -O3 -o bin/cschacsch test/cschacsch.c realmath/acsch_r8.c realmath/acsch_re.c realmath/acsch_r4.c realmath/csch_r8.c realmath/csch_re.c realmath/csch_r4.c
+
+# <cothacoth>
+$ gcc -Wall -Wextra -O3 -o bin/cothacoth test/cothacoth.c realmath/acoth_r8.c realmath/acoth_re.c realmath/acoth_r4.c realmath/coth_r8.c realmath/coth_re.c realmath/coth_r4.c
+
+# <erf>
+$ gcc -Wall -Wextra -O3 -o bin/erf test/erf.c realmath/erf_r8.c realmath/erf_re.c realmath/erf_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/erf test/erf.c legacy/erf.c legacy/erfl.c legacy/erff.c
+
+# <erfc>
+$ gcc -Wall -Wextra -O3 -o bin/erfc test/erfc.c realmath/erfc_r8.c realmath/erfc_re.c realmath/erfc_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/erfc test/erfc.c legacy/erfc.c legacy/erfcl.c legacy/erfcf.c
+
+# <erfinv/erfcinv>
+$ gcc -Wall -Wextra -O3 -o bin/erfinv test/erfinv.c realmath/erfinv_r8.c realmath/erfcinv_r8.c
+
+# <lgamma>
+$ gcc -Wall -Wextra -O3 -o bin/lgamma test/lgamma.c realmath/lgamma_r8.c realmath/lgamma_re.c realmath/lgamma_r4.c
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/lgamma test/lgamma.c legacy/lgamma.c legacy/lgammal.c legacy/lgammaf.c
+
+# <gamma>
+$ gcc -Wall -Wextra -O3 -D_CMATH_TEST -o bin/gamma test/gamma.c legacy/tgamma.c legacy/tgammaf.c legacy/tgammal.c
+$ gcc -Wall -Wextra -O3 -o bin/gamma test/gamma.c realmath/gamma_r8.c realmath/gamma_r4.c realmath/gamma_re.c
+
+# <lbeta>
+$ gcc -Wall -Wextra -O3 -o bin/lbeta test/lbeta.c realmath/lbeta_r8.c
+
+# <beta>
+$ gcc -Wall -Wextra -O3 -o bin/beta test/beta.c realmath/beta_r8.c
+
+# <gammaincr>
+$ gcc -Wall -Wextra -O3 -o bin/gammaincr test/gammaincr.c realmath/gammaincr1_r8.c realmath/gammaincr2_r8.c
+
+# <p_gamma/q_gamma>
+$ gcc -Wall -Wextra -O3 -o bin/p_gamma test/p_gamma.c realmath/p_gamma_r8.c realmath/q_gamma_r8.c realmath/lgamma_r8.c
+
+# <p_beta/q_beta>
+$ gcc -Wall -Wextra -O3 -o bin/p_beta test/p_beta.c realmath/p_beta_r8.c realmath/q_beta_r8.c
+
+# <ei>
+$ gcc -Wall -Wextra -O3 -o bin/ei test/ei.c realmath/ei_r8.c
+
+# <li>
+$ gcc -Wall -Wextra -O3 -o bin/li test/li.c realmath/li_r8.c
+
+# <si>
+$ gcc -Wall -Wextra -O3 -o bin/si test/si.c realmath/si_r8.c
+
+# <ci>
+$ gcc -Wall -Wextra -O3 -o bin/ci test/ci.c realmath/ci_r8.c
+
+# ---- Complex ----
+
+# ---- Statistics ----
+# <normpdf/snormpdf>
+$ gcc -Wall -Wextra -O3 -o bin/normpdf test/normpdf.c dist/normpdf.c dist/snormpdf.c
+
+# <normcdf/snormcdf>
+$ gcc -Wall -Wextra -O3 -o bin/normcdf test/normcdf.c dist/normcdf.c dist/normcdfc.c dist/snormcdf.c dist/snormcdfc.c
+
+# <normcdfinv/snormcdfinv>
+$ gcc -Wall -Wextra -O3 -o bin/normcdfinv test/normcdfinv.c dist/normcdfinv.c dist/normcdfcinv.c dist/snormcdfinv.c dist/snormcdfcinv.c
+
+# <chisqpdf>
+$ gcc -Wall -Wextra -O3 -o bin/chisqpdf test/chisqpdf.c dist/chisqpdf.c
+
+# <chisqcdf>
+$ gcc -Wall -Wextra -O3 -o bin/chisqcdf test/chisqcdf.c dist/chisqcdf.c dist/chisqcdfc.c
+
+# <fcdf>
+$ gcc -Wall -Wextra -O3 -o bin/fcdf test/fcdf.c dist/fcdf.c dist/fcdfc.c
+
+# <binompmf>
+$ gcc -Wall -Wextra -O3 -o bin/binompmf test/binompmf.c dist/binompmf.c
+
+# <binomcdf>
+$ gcc -Wall -Wextra -O3 -o bin/binomcdf test/binomcdf.c dist/binomcdf.c dist/binomcdfc.c
+
+# <binomcdfinv>
+$ gcc -Wall -Wextra -O3 -o bin/binomcdfinv test/binomcdfinv.c dist/binomcdfinv.c dist/binomcdfcinv.c
+
+# <geomcdf/geomcdfinv>
+$ gcc -Wall -Wextra -O3 -o bin/geomcdfinv test/geomcdfinv.c dist/geomcdfinv.c dist/geomcdfcinv.c dist/geomcdf.c dist/geomcdfc.c
+
+# <poisspmf>
+$ gcc -Wall -Wextra -O3 -o bin/poisspmf test/poisspmf.c dist/poisspmf.c
+
+# <poisscdf/poisscdfinv>
+$ gcc -Wall -Wextra -O3 -o bin/poisscdfinv test/poisscdfinv.c dist/poisscdfinv.c dist/poisscdfcinv.c dist/poisscdf.c dist/poisscdfc.c
+
+# <irandom> // Descrete Random Variate (Geometric, Binomial, Poisson)
+$ gcc -Wall -Wextra -O3 -lm -o bin/irandom test/irandom.c dist/binomrng.c dist/poissrng.c dist/geomrng.c
+
