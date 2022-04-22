@@ -50,8 +50,6 @@ gammaf_core(register float x)
 
 	switch (fpclassify(y = fmodf_core(x, 1))) {
 	case FP_NAN:
-		return NAN;
-		break;
 	case FP_INFINITE:
 		return x > 0 ? HUGE_VALF : NAN;
 		break;
