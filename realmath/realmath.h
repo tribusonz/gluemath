@@ -453,7 +453,7 @@ extern float cot_r4(float);
 extern double cot_r8(double);
 extern long double cot_re(long double);
 
-/***** Inverse Trigonometric Function and its Reciprocal, Related Function *****/
+/***** Inverse Trigonometric Function with its Reciprocal, Related Function *****/
 /*
  *  call-seq:
  *    (UserLevel Code)
