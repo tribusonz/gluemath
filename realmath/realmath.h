@@ -1366,24 +1366,6 @@ extern double gammaincr2_r8(double, double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.gamma(a, x0, x1, kind: 1, regular: true) -> real (r8)
- *      (Multiplex Overload)
- *    (Native Code)
- *    :: regularized, 1st
- *      gammaincrg1(a, x0, x1) -> real (r8)
- *    :: regularized, 2nd
- *      gammaincrg2(a, x0, x1) -> real (r8)
- *    :: generalized incomplete, 1st
- *      gammaincg1(a, x0, x1) -> real (r8)
- *    :: generalized incomplete, 2nd
- *      gammaincg2(a, x0, x1) -> real (r8)
- *  
- *  Computes the generalized incomplete gamma function of {a} and {x0} and {x1}.
- */
-
-/*
- *  call-seq:
- *    (UserLevel Code)
  *      RMath.lbeta(a, b) -> real(r8)
  *    (Native Code)
  *      lbeta_r8(a, b) -> real (r8)
