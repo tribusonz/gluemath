@@ -50,8 +50,6 @@ gammal_core(register long double x)
 
 	switch (fpclassify(y = fmodl_core(x, 1))) {
 	case FP_NAN:
-		return NAN;
-		break;
 	case FP_INFINITE:
 		return x > 0 ? HUGE_VALL : NAN;
 		break;
