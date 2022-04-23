@@ -9,8 +9,8 @@
 	Reference:
 	  Ooura's Mathematical Software Packages
 *******************************************************************************/
-#ifndef GML_BESSEL_I0_DBL_INTERNAL
-#define GML_BESSEL_I0_DBL_INTERNAL
+#ifndef GML_BESSEL_I1_DBL_INTERNAL
+#define GML_BESSEL_I1_DBL_INTERNAL
 
 #if defined(__cplusplus)
 extern "C" {
@@ -170,4 +170,4 @@ ur_bessel_i1(double x)
 }
 #endif
 
-#endif /* GML_BESSEL_I0_DBL_INTERNAL */
+#endif /* GML_BESSEL_I1_DBL_INTERNAL */
