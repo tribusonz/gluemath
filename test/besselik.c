@@ -7,9 +7,24 @@
 #include <float.h>
 /*******************************************************************************
 MinGW 64bit gcc build:
-$ gcc -Wall -Wextra -O3 -o bin/besselik test/besselik.c realmath/k0_r8.c realmath/k1_r8.c realmath/kn_r8.c
+$ gcc -Wall -Wextra -O3 -o bin/besselik test/besselik.c realmath/i0_r8.c realmath/i1_r8.c realmath/in_r8.c realmath/k0_r8.c realmath/k1_r8.c realmath/kn_r8.c
 
 And test result:
+GLUE-Math with POSIX standard
+Test Suite:
+  Modified Bessel Functions
+
+I_n(x) (the 1st kind)
+ x   I_0(x)        I_1(x)        I_2(x)        I_3(x)
+ 0  1.0000000000  0.0000000000  0.0000000000  0.0000000000
+ 1  1.2660658778  0.5651591040  0.1357476698  0.0221684249
+ 2  2.2795853023  1.5906368546  0.6889484477  0.2127399592
+ 3  4.8807925859  3.9533702174  2.2452124409  0.9597536295
+ 4 11.3019219521  9.7594651537  6.4221893753  3.3372757784
+ 5 27.2398718236 24.3356421425 17.5056149666 10.3311501692
+ 6 67.2344069765 61.3419367776 46.7870947173 30.1505402995
+
+K_n(x) (the 2nd kind)
  x   K_0(x)        K_1(x)        K_2(x)        K_3(x)
  1  0.4210244382  0.6019072302  1.6248388986  7.1012628247
  2  0.1138938727  0.1398658818  0.2537597546  0.6473853909
@@ -44,7 +59,16 @@ main(void)
 	puts("  Modified Bessel Functions");
 	puts("");
 
-    printf("\n x   %-13s %-13s %-13s %-13s\n",
+	puts("I_n(x) (the 1st kind)");
+    printf(" x   %-13s %-13s %-13s %-13s\n",
+        "I_0(x)", "I_1(x)", "I_2(x)", "I_3(x)");
+    for (x = 0; x <= 6; x++)
+            printf("%2d %13.10f %13.10f %13.10f %13.10f\n",
+                x, in_r8(0, x), in_r8(1, x),
+                   in_r8(2, x), in_r8(3, x));
+	puts("");
+	puts("K_n(x) (the 2nd kind)");
+    printf(" x   %-13s %-13s %-13s %-13s\n",
         "K_0(x)", "K_1(x)", "K_2(x)", "K_3(x)");
     for (x = 1; x <= 20; x++)
             printf("%2d %13.10f %13.10f %13.10f %13.10f\n",
