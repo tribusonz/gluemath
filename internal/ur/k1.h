@@ -28,7 +28,7 @@ static inline double ur_bessel_k1(double);
 static inline double
 k1_core(double x)
 {
-	swtich (fpclassify(x)) {
+	switch (fpclassify(x)) {
 	case FP_NAN:
 		return NAN;
 		break;
@@ -40,7 +40,7 @@ k1_core(double x)
 		return HUGE_VAL;
 		break;
 	default:
-		if (x >= 0)  return ur_bessel_k0(x);
+		if (x >= 0)  return ur_bessel_k1(x);
 		break;
 	}
 	return NAN;
