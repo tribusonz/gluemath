@@ -35,8 +35,25 @@ extern dcomplex gml_log_c8(dcomplex);
 extern lcomplex gml_log_ce(lcomplex);
 #define log_ce gml_log_ce
 
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.gamma(z) -> complex (c4/c8/ceX)
+ *    (Native Code)
+ *      gamma_c4(z) -> c32, gamma_c8(z) -> c64, gamma_ce(z) -> c80|c128
+ *  
+ *  Computes complex gamma function of z.
+ *  
+ *  @z: complex number
+ *  @retval: solve of complex gamma function
+ *  
+ */
+extern fcomplex gml_gamma_c4(fcomplex);
+#define gamma_c4 gml_gamma_c4
 extern dcomplex gml_gamma_c8(dcomplex);
 #define gamma_c8 gml_gamma_c8
+extern lcomplex gml_gamma_ce(lcomplex);
+#define gamma_ce gml_gamma_ce
 
 #if defined(__cplusplus)
 }
