@@ -1394,6 +1394,7 @@ extern double gammaincr2_r8(double, double);
  *  @retval .. solve of logarithm of beta function
  */
 extern double lbeta_r8(double, double);
+extern double lbeta_r_r8(double, double, int*);
 
 /*
  *  call-seq:
