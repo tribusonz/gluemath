@@ -1469,8 +1469,50 @@ extern double q_gamma_r8(double, double, double);
 extern double p_beta_r8(double, double, double);
 extern double q_beta_r8(double, double, double);
 
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.i0(x) -> real (r8)
+ *      RMath.i1(x) -> real (r8)
+ *      RMath.in(n, x) -> real (r8)
+ *    (Native Code)
+ *    :: 0th
+ *      i0_r8(x) -> real (r8)
+ *    :: 1st
+ *      i1_r8(x) -> real (r8)
+ *    :: nth integer
+ *      in_r8(n, x) -> real (r8)
+ *  
+ *  Computes the Modified Bessel Function the 1st kind of {x}.
+ *  
+ *  NOTE:
+ *    Integer nth the farther away from 0, the more out-of-range the principal value and slower the process;
+ *    The effective range is -24 <= n <=24 at best.
+ */
+extern double i0_r8(double);
+extern double i1_r8(double);
+extern double in_r8(int, double);
 
-
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.k0(x) -> real (r8)
+ *      RMath.k1(x) -> real (r8)
+ *      RMath.kn(n, x) -> real (r8)
+ *    (Native Code)
+ *    :: 0th
+ *      k0_r8(x) -> real (r8)
+ *    :: 1st
+ *      k1_r8(x) -> real (r8)
+ *    :: nth integer
+ *      kn_r8(n, x) -> real (r8)
+ *  
+ *  Computes the Modified Bessel Function the 2nd kind of {x}.
+ *  
+ *  NOTE:
+ *    Integer nth the farther away from 0, the more out-of-range the principal value and slower the process;
+ *    The effective range is -24 <= n <=24 at best.
+ */
 extern double k0_r8(double);
 extern double k1_r8(double);
 extern double kn_r8(int, double);
