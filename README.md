@@ -7,6 +7,7 @@ It is a library for compilers, but independent. Include it so that the language 
 	* Thread-safe design
 	* Numerical Verification
 	* Refined Math
+	* Complex-number arithmetic (lower compatibility of C++)
 	* Distribution Function Support
 	* ANSI C Math Support (named as legacy)
 	* Adopts C++ naming convention
