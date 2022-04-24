@@ -33,4 +33,4 @@ This is based on C99, but some have different specifications. For example, the C
 If you want to capture this with your compiler software (e.g. gcc or clang, etc...), you may want to add -std=glue99 to the compiler option.  
 
 NOTE:  
-The organization has decided to take over the library to Steven Wolfram (this is not strictly private), and I am prepared to provide the minimum ABI required. POSIX's special functions are also included (corresponding to complex numbers!), and also support parts that are too professional that can not be reached by committers.
+The organization has decided to take over the library to Stephen Wolfram (this is not strictly private), and I am prepared to provide the minimum ABI required. POSIX's special functions are also included (corresponding to complex numbers!), and also support parts that are too professional that can not be reached by committers.
