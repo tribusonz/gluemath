@@ -27,4 +27,4 @@ NO. We welcome exception control by NaN.
 In principle, although in accordance with IEC regulations, the standard does not yet exist as of April 2022.  
 (Although it may be standardized in this gruemath)  
 Perhaps both Python and Ruby will be revamping the constructor.  
-When we tried to build it with Ruby3 series, the ABI processing is faster than expected, so the user-level thread does not catch up, then it is not core dumped or method overridden.  
+When we tried to build it with Ruby3 series, the ABI processing is faster than expected, so the user-level thread does not catch up, then it has been core dumped or not method overridden.  
