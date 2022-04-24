@@ -1622,8 +1622,32 @@ extern double ei_r8(double);
  */
 extern double li_r8(double);
 
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.si(x) -> real (r8)
+ *    (Native Code)
+ *      si_r8(x) -> real (r8)
+ *
+ *  Computes the Sine Integral of {x}.
+ *  
+ *  @x .. complex plane of z
+ *  @retval .. solve of sine integral
+ */
 extern double si_r8(double);
 
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.ci(x) -> real (r8)
+ *    (Native Code)
+ *      ci_r8(x) -> real (r8)
+ *
+ *  Computes the Cosine Integral of {x}.
+ *  
+ *  @x .. complex plane of z
+ *  @retval .. solve of cosine integral
+ */
 extern double ci_r8(double);
 
 #if defined(__cplusplus)
