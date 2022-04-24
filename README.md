@@ -21,3 +21,8 @@ However, it is not necessary to link as an external library. This is because it 
 Trend:  
 Python and Ruby committers are looking for a thread-safe mathematical function library, and as a result of providing it because it is frequently used by organizations, it has become a small framework library.  
 On the mailing list (organization's), the C++ committee and the R language developers have also decided to adopt it, and Microsoft, Apple and Google are also expected to incorporate it into the operating system.  
+
+Dislike Exception?:  
+NO. We welcome exception control by NaN.  
+In principle, although in accordance with IEC regulations, the standard does not yet exist as of April 2022.  
+(Although it may be standardized in this gruemath)  
