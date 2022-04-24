@@ -23,6 +23,8 @@ extern "C" {
 #include "../../sys/complex/class.h"
 #include "../../sys/float/absolute.h"
 #include "../../sys/float/copysign.h"
+#include "../../sys/float/fpclassify.h"
+#include "../sys/primitive/float/fpclassify.h"
 #include "log.h"
 #include "sqrt.h"
 #include "atan.h"
@@ -37,17 +39,21 @@ clog_core(dcomplex z)
 	a = z.real;
 	b = z.imag;
 
-	if (a != a || b != b)
-	{
-		return z;
-	}
-	else if (b == 0.0)
-	{
+	if (a != a || b != b)  return z;
+	switch (fpclassify(b)) {
+	case FP_INFINITE:
+		if (b > 0)
+			{ value.real = NAN; value.imag = NAN; }
+		else
+			{ value.real = HUGE_VAL; value.imag = NAN; }
+		return value;
+		break;
+	case FP_ZERO:
+	case FP_SUBNORMAL:
 		c = log_core(fabs(a));
 		d = a < 0 ? PI : 0;
-	}
-	else
-	{
+		break;
+	default:
 		e = a / 2.0;
 		f = b / 2.0;
 		if (fabs(e) < 0.5 && fabs(f) < 0.5)
@@ -58,7 +64,7 @@ clog_core(dcomplex z)
 		}
 		else
 		{
-			c = fabs(e / 2.0) + fabs (f / 2.0);
+			c = fabs(e / 2.0) + fabs(f / 2.0);
 			d = 0.5 * (e / c) * e + 0.5 * (f / c) * f;
 			c = 0.5 * (log_core(c) + log_core(d)) + log_core(sqrt_core(8.0));
 		}
@@ -74,6 +80,7 @@ clog_core(dcomplex z)
 		}
 		else
 			d = -atan_core(a / b) + PI / 2.0 * copysign(1.0, b);
+		break;
 	}
 	
 	value.real = c; value.imag = d;
