@@ -5,13 +5,16 @@
 	License: GPL + X11(MIT)
 *******************************************************************************/
 
+#include "huge_val_nan.h"
+#include "absolute.h"
+
 #ifndef copysign
 # define copysign copysign_core
 static inline double
 copysign_core(register double a, register double b)
 {
-	if (a != a || b != b)  return b;
-	return a * -1 < 0 ? b * -1 < 0 ? b : -b : b * -1 < 0 ? -b : b;
+	double absolute_value = a != a ? NAN : fabs(a);
+	return b >= 0 ? absolute_value : -absolute_value;
 }
 #endif
 
@@ -20,8 +23,8 @@ copysign_core(register double a, register double b)
 static inline long double
 copysignl_core(register long double a, register long double b)
 {
-	if (a != a || b != b)  return b;
-	return a * -1 < 0 ? b * -1 < 0 ? b : -b : b * -1 < 0 ? -b : b;
+	long double absolute_value = a != a ? NAN : fabsl(a);
+	return b >= 0 ? absolute_value : -absolute_value;
 }
 #endif
 
@@ -30,7 +33,7 @@ copysignl_core(register long double a, register long double b)
 static inline float
 copysignf_core(float a, float b)
 {
-	if (a != a || b != b)  return b;
-	return a * -1 < 0 ? b * -1 < 0 ? b : -b : b * -1 < 0 ? -b : b;
+	float absolute_value = a != a ? NAN : fabsf(a);
+	return b >= 0 ? absolute_value : -absolute_value;
 }
 #endif
