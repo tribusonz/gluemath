@@ -5,7 +5,7 @@ It is a library for compilers, but independent. Include it so that the language 
 (So it can be adopted by Fortran)  
 
 * Features:  
-	* Thread-safe design
+	* Thread-safe design (POSIX-base)
 	* Numerical Verification
 	* Refined Math
 	* Complex-number arithmetic (lower compatibility of C++)
