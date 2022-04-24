@@ -1492,9 +1492,9 @@ extern double q_beta_r8(double, double, double);
  *    Integer nth the farther away from 0, the more out-of-range the principal value and slower the process;
  *    The effective range is -24 <= n <=24 at best.
  */
-extern double i0_r8(double);
-extern double i1_r8(double);
-extern double in_r8(int, double);
+extern double j0_r8(double);
+extern double j1_r8(double);
+extern double jn_r8(int, double);
 
 /*
  *  call-seq:
