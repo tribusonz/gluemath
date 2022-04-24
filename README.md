@@ -27,3 +27,7 @@ NO. We welcome exception control by NaN.
 In principle, although in accordance with IEC regulations, the standard does not yet exist as of April 2022. (Although it may be standardized by this gluemath)  
 Perhaps both Python and Ruby will be revamping the constructor.  
 When we tried to build it with Ruby3 series, the ABI processing is faster than expected, so the user-level thread does not catch up, then it has been core dumped or method overridden is don't work.  
+
+For compiler developers:  
+This is based on C99, but some have different specifications. For example, the C99 complex number library specification is made with this as lower compatibility of C++. In other words, it is not compatible with the C99 complex number library.  
+If you want to capture this with your compiler software (e.g. gcc or clang, etc...), you may want to add -std=glue99 to the compiler option.  
