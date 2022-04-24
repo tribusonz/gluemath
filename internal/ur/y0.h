@@ -23,7 +23,7 @@ extern "C" {
 static inline double ur_bessel_y0(double);
 
 static inline double
-y0_core(double)
+y0_core(double x)
 {
 	if (x != x)
 		return x;

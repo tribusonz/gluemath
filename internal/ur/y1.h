@@ -18,23 +18,24 @@ extern "C" {
 
 #include "log.h"
 #include "cos.h"
+#include "sqrt.h"
 
-static inline double ur_besel_y1(double x);
+static inline double ur_bessel_y1(double x);
 
 static inline double
-y1_core(double)
+y1_core(double x)
 {
 	if (x != x)
 		return x;
 	else if (x < 0)
-		return -ur_bessel_y0(-x);
+		return -ur_bessel_y1(-x);
 	else
-		return ur_bessel_y0(x);
+		return ur_bessel_y1(x);
 }
 
 /* Bessel Y_1(x) function in double precision */
 static inline double
-ur_besel_y1(double x)
+ur_bessel_y1(double x)
 {
 	int k;
 	double t, y, v, theta;
@@ -246,7 +247,7 @@ ur_besel_y1(double x)
 		k = 13 * ((int) t);
 		y = ((((((d[k] * t + d[k + 1]) * t + 
 			d[k + 2]) * t + d[k + 3]) * t + d[k + 4]) * t + 
-			d[k + 5]) * t + d[k + 6]) * sqrt(v);
+			d[k + 5]) * t + d[k + 6]) * sqrt_core(v);
 		theta = (((((d[k + 7] * t + d[k + 8]) * t + 
 			d[k + 9]) * t + d[k + 10]) * t + d[k + 11]) * t + 
 			d[k + 12]) * v - 0.78539816339744830962;
