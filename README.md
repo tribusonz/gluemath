@@ -7,6 +7,7 @@ It is a library for compilers, but independent. Include it so that the language 
 * Features:  
 	* Thread-safe design (POSIX-base)
 	* Numerical Verification
+	* Portable (Linux, UNIX-like, Windows)
 	* Refined Math
 	* Complex-number arithmetic (lower compatibility of C++)
 	* Distribution Function Support
