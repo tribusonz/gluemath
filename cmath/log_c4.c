@@ -17,7 +17,7 @@
 #include "../internal/ur/clogf.h"
 
 fcomplex
-gml_log_c4(fcomplex z)
+log_c4(fcomplex z)
 {
 	return clogf_core(z);
 }

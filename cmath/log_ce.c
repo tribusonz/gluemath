@@ -17,7 +17,7 @@
 #include "../internal/ur/clogl.h"
 
 lcomplex
-gml_log_ce(lcomplex z)
+log_ce(lcomplex z)
 {
 	return clogl_core(z);
 }

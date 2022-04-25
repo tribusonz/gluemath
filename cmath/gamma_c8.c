@@ -14,7 +14,7 @@
 #include "../internal/ur/cgamma.h"
 
 dcomplex
-gml_gamma_c8(dcomplex z)
+gamma_c8(dcomplex z)
 {
 	return cgamma_core(z);
 }

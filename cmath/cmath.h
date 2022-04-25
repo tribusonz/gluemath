@@ -16,6 +16,25 @@ extern "C" {
 /*
  *  call-seq:
  *    (UserLevel Code)
+ *      RMath.exp(z) -> complex (c4/c8/ceX)
+ *    (Native Code)
+ *      exp_c4(z) -> c32, exp_c8(z) -> c64, exp_ce(z) -> c80|c128
+ *  
+ *  Computes Complex Exponential Function of z.
+ *  
+ *  @z: complex number
+ *  @retval: solve of complex exponential function
+ *  
+ *  Mathematical Notation:
+ *  $e^z$
+ */
+extern fcomplex exp_c4(fcomplex);
+extern dcomplex exp_c8(dcomplex);
+extern lcomplex exp_ce(lcomplex);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
  *      RMath.log(z) -> complex (c4/c8/ceX)
  *    (Native Code)
  *      log_c4(z) -> c32, log_c8(z) -> c64, log_ce(z) -> c80|c128
@@ -28,12 +47,9 @@ extern "C" {
  *  Mathematical Notation:
  *  $\ln(z)$
  */
-extern fcomplex gml_log_c4(fcomplex);
-#define log_c4 gml_log_c4
-extern dcomplex gml_log_c8(dcomplex);
-#define log_c8 gml_log_c8
-extern lcomplex gml_log_ce(lcomplex);
-#define log_ce gml_log_ce
+extern fcomplex log_c4(fcomplex);
+extern dcomplex log_c8(dcomplex);
+extern lcomplex log_ce(lcomplex);
 
 /*
  *  call-seq:
@@ -48,12 +64,9 @@ extern lcomplex gml_log_ce(lcomplex);
  *  @retval: solve of complex gamma function
  *  
  */
-extern fcomplex gml_gamma_c4(fcomplex);
-#define gamma_c4 gml_gamma_c4
-extern dcomplex gml_gamma_c8(dcomplex);
-#define gamma_c8 gml_gamma_c8
-extern lcomplex gml_gamma_ce(lcomplex);
-#define gamma_ce gml_gamma_ce
+extern fcomplex gamma_c4(fcomplex);
+extern dcomplex gamma_c8(dcomplex);
+extern lcomplex gamma_ce(lcomplex);
 
 #if defined(__cplusplus)
 }

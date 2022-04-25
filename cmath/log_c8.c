@@ -17,7 +17,7 @@
 #include "../internal/ur/clog.h"
 
 dcomplex
-gml_log_c8(dcomplex z)
+log_c8(dcomplex z)
 {
 	return clog_core(z);
 }
