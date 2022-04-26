@@ -54,6 +54,40 @@ extern lcomplex log_ce(lcomplex);
 /*
  *  call-seq:
  *    (UserLevel Code)
+ *      RMath.erf(z) -> complex (c4/c8/ceX)
+ *    (Native Code)
+ *      erf_c4(z) -> c32, erf_c8(z) -> c64, erf_ce(z) -> c80|c128
+ *  
+ *  Computes complex error function of z.
+ *  
+ *  @z: complex number
+ *  @retval: solve of complex error function
+ *  
+ */
+extern fcomplex erf_c4(fcomplex);
+extern dcomplex erf_c8(dcomplex);
+extern lcomplex erf_ce(lcomplex);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.erfc(z) -> complex (c4/c8/ceX)
+ *    (Native Code)
+ *      erfc_c4(z) -> c32, erfc_c8(z) -> c64, erfc_ce(z) -> c80|c128
+ *  
+ *  Computes complex complementary error function of z.
+ *  
+ *  @z: complex number
+ *  @retval: solve of complex complementary error function
+ *  
+ */
+extern fcomplex erfc_c4(fcomplex);
+extern dcomplex erfc_c8(dcomplex);
+extern lcomplex erfc_ce(lcomplex);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
  *      RMath.gamma(z) -> complex (c4/c8/ceX)
  *    (Native Code)
  *      gamma_c4(z) -> c32, gamma_c8(z) -> c64, gamma_ce(z) -> c80|c128
