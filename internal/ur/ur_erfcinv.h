@@ -9,8 +9,8 @@
 	Reference:
 	  Ooura's Mathematical Software Packages
 *******************************************************************************/
-#ifndef GML_ERFCINV_DBL_INTERNAL
-#define GML_ERFCINV_DBL_INTERNAL
+#ifndef GML_ERFCINV_DBL_CORE_INTERNAL
+#define GML_ERFCINV_DBL_CORE_INTERNAL
 
 #if defined(__cplusplus)
 extern "C" {
@@ -96,4 +96,4 @@ ur_erfcinv(register double y)
 }
 #endif
 
-#endif /* GML_ERFCINV_DBL_INTERNAL */
+#endif /* GML_ERFCINV_DBL_CORE_INTERNAL */
