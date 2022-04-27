@@ -1,7 +1,9 @@
 /*******************************************************************************
 	GLUE-Math Library -- Inverse Error Function
 	
-	Author: Hironobu Inatsuka aka tribusonz
+	Author:
+	  Mike B. Giles (Original algorithm)
+	  Hironobu Inatsuka aka tribusonz (ABI Modify)
 	License: GPL + X11(MIT)
 	Following paper:
 		Small CUDA Project
