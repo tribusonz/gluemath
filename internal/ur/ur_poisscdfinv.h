@@ -1,7 +1,9 @@
 /*******************************************************************************
 	GLUE-Math Library -- Poisson Distribution Inverse CDF
 
-	Author: Hironobu Inatsuka aka tribusonz
+	Author:
+	  Mike B. Giles (Original algorithm)
+	  Hironobu Inatsuka aka tribusonz (ABI modify)
 	License: GPL + X11(MIT)
 	Following paper:
 		Algorithm 955: approximation of the inverse Poisson cumulative
