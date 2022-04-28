@@ -1319,7 +1319,7 @@ extern long double gamma_re(long double);
  *  the negative {x} should also be determined for a solution, but it is designed to return NaN.
  *  
  *  @a .. factorial of prime
- *  @x .. complex plane of z
+ *  @x .. integral partition
  *  @kind: .. Kind (keyword argument). 1 or 2. Default: 2
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
  *  @retval .. solve of regularized incomplete gamma function
@@ -1361,7 +1361,6 @@ extern double gammaincr2_r8(double, double);
  *  as integral partition, {x0} = 0 and {x1} = finite: equivalent to incomplete gamma function the 1st kind
  *  as integral partition, {x0} = finite and {x1} = infinity: equivalent to incomplete gamma function the 2nd kind
  */
-
 
 /*
  *  call-seq:
@@ -1410,6 +1409,30 @@ extern double lbeta_r_r8(double, double, int*);
  *  @retval .. solve of beta function
  */
 extern double beta_r8(double, double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.beta(x, a, b, regular: true) -> real(r8)
+ *    (Native Code)
+ *    :: regularized
+ *      betaincr(x, a, b) -> real (r8)
+ *    :: incomplete, 1st
+ *      betainc(x, a, b) -> real (r8)
+ *
+ *  Computes the Incomplete beta function of {x}, {a} and {b}.
+ *  An incomplete beta function is basically a complex function,
+ *  so it is internally calculated as a complex number.
+ *  If an imaginary number does not appear, return the real number, and if it appears, return NaN.
+ *  Although it is not very useful except for the domain "0 <= x <= 1" which is the principal value,
+ *  it is prepared for analysis continuation.
+ *  
+ *  @x .. integral partition
+ *  @a .. factorial (general)
+ *  @b .. factorial (determinant)
+ *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
+ *  @retval .. solve of incomplete beta function
+ */
 
 /*
  *  call-seq:
@@ -1468,6 +1491,7 @@ extern double q_gamma_r8(double, double, double);
  */
 extern double p_beta_r8(double, double, double);
 extern double q_beta_r8(double, double, double);
+
 /*
  *  call-seq:
  *    (UserLevel Code)
