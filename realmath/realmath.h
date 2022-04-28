@@ -1414,10 +1414,11 @@ extern double beta_r8(double, double);
  *  call-seq:
  *    (UserLevel Code)
  *      RMath.beta(x, a, b, regular: true) -> real(r8)
+ *      (Multiplex Overload)
  *    (Native Code)
  *    :: regularized
  *      betaincr(x, a, b) -> real (r8)
- *    :: incomplete, 1st
+ *    :: incomplete
  *      betainc(x, a, b) -> real (r8)
  *
  *  Computes the Incomplete beta function of {x}, {a} and {b}.
@@ -1425,7 +1426,7 @@ extern double beta_r8(double, double);
  *  so it is internally calculated as a complex number.
  *  If an imaginary number does not appear, return the real number, and if it appears, return NaN.
  *  Although it is not very useful except for the domain "0 <= x <= 1" which is the principal value,
- *  it is prepared for analysis continuation.
+ *  it is prepared for analytic continuation.
  *  
  *  @x .. integral partition
  *  @a .. factorial (general)
