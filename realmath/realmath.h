@@ -343,8 +343,8 @@ extern long double cos_re(long double);
  *  Special behaviors:
  *  supports pole: $\mathbb{R}$
  *  pole of primary value: ${0}\leq{x}<{\pi}}$
- *  Arg is +Infinity: return  2.0
- *  Arg is -Infinity: return  0.0
+ *  Arg is +Infinity: return  0.0
+ *  Arg is -Infinity: return  2.0
  *  Arg is NaN: return NaN (context-switching NaN handling)
  */
 extern float cos1_r4(float);
