@@ -272,7 +272,8 @@ extern long double cbrt_re(long double);
  *  adopting algorithm: Okumura System, Decomposition Formula
  *  Domain: $\mathbb{R}$
  *  Pole: $\left\{y\in\mathbb{R}:-1\leq{y}\leq{1}\right\}$
- *  Arg is +-Infinity: return Infinity
+ *  Arg is +Infinity: return  1.0
+ *  Arg is -Infinity: return -1.0
  *  Arg is NaN: return NaN (context-switching NaN handling)
  */
 extern float sin_r4(float);
@@ -319,7 +320,8 @@ extern double sinc_r8(double);
  *  adopting algorithm: Okumura System, Decomposition Formula
  *  Domain: $\mathbb{R}$
  *  Pole: $\left\{y\in\mathbb{R}:-1\leq{y}\leq{1}\right\}$
- *  Arg is +-Infinity: return Infinity
+ *  Arg is +Infinity: return  1.0
+ *  Arg is -Infinity: return -1.0
  *  Arg is NaN: return NaN (context-switching NaN handling)
  */
 extern float cos_r4(float);
@@ -341,7 +343,8 @@ extern long double cos_re(long double);
  *  Special behaviors:
  *  supports pole: $\mathbb{R}$
  *  pole of primary value: ${0}\leq{x}<{\pi}}$
- *  Arg is +-Infinity: return Infinity
+ *  Arg is +Infinity: return  2.0
+ *  Arg is -Infinity: return  0.0
  *  Arg is NaN: return NaN (context-switching NaN handling)
  */
 extern float cos1_r4(float);
