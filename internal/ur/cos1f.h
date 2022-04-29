@@ -35,7 +35,7 @@ cos1f_core(register float x)
 			return NAN;
 			break;
 		case FP_INFINITE:
-			return HUGE_VALF;
+			return x < 0 ? 0 : 2;
 			break;
 		case FP_ZERO:
 		case FP_SUBNORMAL:

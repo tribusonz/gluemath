@@ -35,7 +35,7 @@ cos1_core(register double x)
 			return NAN;
 			break;
 		case FP_INFINITE:
-			return HUGE_VAL;
+			return x < 0 ? 0 : 2;
 			break;
 		case FP_ZERO:
 		case FP_SUBNORMAL:

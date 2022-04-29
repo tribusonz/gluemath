@@ -25,7 +25,7 @@ sinh_core(register double x)
 	case FP_NAN:
 		break;
 	case FP_INFINITE:
-		return HUGE_VAL;
+		return HUGE_VAL; 
 		break;
 	case FP_ZERO:
 	case FP_SUBNORMAL:

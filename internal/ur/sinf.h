@@ -34,7 +34,7 @@ sinf_core(register float x)
 			return NAN;
 			break;
 		case FP_INFINITE:
-			return HUGE_VALF;
+			return x < 0 ? -1 : 1;
 			break;
 		case FP_ZERO:
 		case FP_SUBNORMAL:
