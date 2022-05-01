@@ -1,7 +1,9 @@
 /*******************************************************************************
 	GLUE-Math Library: Incomplete Gamma Function
 
-	Author: Hironobu Inatsuka aka tribusonz
+	Author:
+	  Haruhiko Okumura (Original algorithm)
+	  Hironobu Inatsuka aka tribusonz (ABI modify)
 	License: GPL + X11(MIT)
 	Reference:
 	  C-gengo ni yoru Hyoujun Algorithm Jiten - Haruhiko Okumura

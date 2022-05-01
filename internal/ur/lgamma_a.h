@@ -1,7 +1,9 @@
 /*******************************************************************************
 	GLUE-Math Library: Logarithm of Gamma Function
 
-	Author: Hironobu Inatsuka aka tribusonz
+	Author:
+	  Takuya Ooura (Original algorithm)
+	  Hironobu Inatsuka aka tribusonz (ABI modify)
 	License: GPL + X11(MIT)
 	Reference:
 		Ooura's Mathematical Software Packages
