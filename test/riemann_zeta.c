@@ -13,6 +13,10 @@ GLUE-Math with POSIX standard
 Test Suite:
   Riemann Zeta Function
 
+  It's supported a negative argument.
+  But, the series expansion algorithm
+  gives accurate is until -2 at best.
+
 zeta(-14) =  0.000116704696817
 zeta(-13) = -0.083310848666419
 zeta(-12) = -0.000002328427378
@@ -57,6 +61,11 @@ main(void)
 	puts("GLUE-Math with POSIX standard");
 	puts("Test Suite:");
 	puts("  Riemann Zeta Function");
+	puts("");
+
+	puts("  It's supported a negative argument.");
+	puts("  But, the series expansion algorithm");
+	puts("  gives accurate is until -2 at best.");
 	puts("");
 
 	for (x = -14; x <= 20; x++)
