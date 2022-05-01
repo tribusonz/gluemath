@@ -1368,7 +1368,7 @@ extern double gammaincr2_r8(double, double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.lbeta(a, b) -> real(r8)
+ *      RMath.lbeta(a, b) -> real (r8)
  *    (Native Code)
  *      lbeta_r8(a, b) -> real (r8)
  *
@@ -1401,7 +1401,7 @@ extern double lbeta_r_r8(double, double, int*);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.beta(a, b) -> real(r8)
+ *      RMath.beta(a, b) -> real (r8)
  *    (Native Code)
  *      beta_r8(a, b) -> real (r8)
  *
@@ -1416,7 +1416,7 @@ extern double beta_r8(double, double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.beta(x, a, b, regular: true) -> real(r8)
+ *      RMath.beta(x, a, b, regular: true) -> real (r8)
  *      (Multiplex Overload)
  *    (Native Code)
  *    :: regularized
@@ -1437,6 +1437,21 @@ extern double beta_r8(double, double);
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
  *  @retval .. solve of incomplete beta function
  */
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.riemann_zeta(x) -> real (r8)
+ *    (Native Code)
+ *      riemann_zeta_r8(x) -> real (r8)
+ *  
+ *  Computes the Riemann zeta function of {x}.
+ *  
+ *  @x .. X-axis
+ *  @retval .. solve of riemann zeta function
+ */
+extern double riemann_zeta_r8(double);
+
 
 /*
  *  call-seq:
