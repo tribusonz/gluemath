@@ -9,5 +9,5 @@ https://na-inet.jp/
 Q:  
 In some functions 0.49999999999... error occurs.  
 A:  
-Error bound. Some functions are model-dependent because of the suppression of architecture.  
+Error bound. Some functions are machine-dependent because of the suppression of architecture.  
 
