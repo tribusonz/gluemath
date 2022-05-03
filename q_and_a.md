@@ -15,3 +15,8 @@ Q:
 Why are you write native code for glue language and in C?  
 A:  
 There is no post-C language like Python or Ruby, and ABI cannot achieve faster processing than anything written in C.  
+  
+Q:  
+With IEEE754 extended double precision, some functions pick up errors.  
+A:  
+We do not recommend numerical calculations with extended double precision. This is because the mant number part is cut off in the middle, making it easy to pick up errors.  
