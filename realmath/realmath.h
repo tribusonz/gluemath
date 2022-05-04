@@ -1456,13 +1456,13 @@ extern double riemann_zeta_r8(double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.p_gamma(a, x, loggamma_a) -> real (r8)
- *      RMath.q_gamma(a, x, loggamma_a) -> real (r8)
+ *      RMath.p_gamma(a, x) -> real (r8)
+ *      RMath.q_gamma(a, x) -> real (r8)
  *    (Native Code)
  *    :: p-adic
- *      p_gamma_r8(a, x, loggamma_a) -> real (r8)
+ *      p_gamma_r8(a, x) -> real (r8)
  *    :: q-analog
- *      q_gamma_r8(a, x, loggamma_a) -> real (r8)
+ *      q_gamma_r8(a, x) -> real (r8)
  *  
  *  Computes the p-adic gamma function of {a} and {x}. The infinite multivalence analysis function.
  *  The deform of regularized incomplete gamma function.
@@ -1470,7 +1470,6 @@ extern double riemann_zeta_r8(double);
  *  
  *  @a .. normalized factorial of prime
  *  @x .. X-axis, No limits
- *  @loggamma_a .. log-factorial for {a}
  *  @retval .. solve of gamma function both of p-adic or q-analog
  *  
  *  Special behaviors:
@@ -1479,8 +1478,8 @@ extern double riemann_zeta_r8(double);
  *  cannot convergence's mechanism:
  *    The arguments are always out of the calculation range or given nonnumeric or infinite.
  */
-extern double p_gamma_r8(double, double, double);
-extern double q_gamma_r8(double, double, double);
+extern double p_gamma_r8(double, double);
+extern double q_gamma_r8(double, double);
 
 /*
  *  call-seq:

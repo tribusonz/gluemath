@@ -9,11 +9,12 @@
 *******************************************************************************/
 #include "realmath.h"
 #include "../internal/ur/p_gamma.h"
+#include "../internal/ur/lgamma.h"
 
 double
-p_gamma_r8(double a, double x, double loggamma_a)
+p_gamma_r8(double a, double x)
 {
-	if (a != a || x != x || loggamma_a != loggamma_a)
+	if (a != a || x != x)
 		return NAN;
-	return p_gamma_core(a, x, loggamma_a);
+	return p_gamma_core(a, x, lgamma_core(a));
 }
