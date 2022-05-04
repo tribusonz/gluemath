@@ -1477,6 +1477,11 @@ extern double riemann_zeta_r8(double);
  *  q_gamma: q-analog
  *  cannot convergence's mechanism:
  *    The arguments are always out of the calculation range or given nonnumeric or infinite.
+ *  
+ *  NOTE:
+ *  The p-adic special function is defined by Y. Morita (1975) in a positive way. He's Gamma function is $\Gamma_p(s)$.
+ *  For analytic continuation, the p-adically field represents the real variable value region appearing in $\pi$ as an imaginary number.
+ *  This type of p-adic gamma function (e.g. Gamma Star Function $\Gamma^\ast(s)$) is an extended type called a modular form.
  */
 extern double p_gamma_r8(double, double);
 extern double q_gamma_r8(double, double);
