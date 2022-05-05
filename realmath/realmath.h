@@ -1484,8 +1484,8 @@ extern double riemann_zeta_r8(double);
  *  
  *  NOTE:
  *  The p-adic special function is defined by Y. Morita (1975) in a positive way. He's Gamma function is $\Gamma_p(s)$.
- *  For analytic continuation, the p-adically field represents the real variable value region appearing in $\pi$ as an imaginary number.
- *  This type of p-adic gamma function (e.g. Gamma Star Function $\Gamma^\ast(s)$) is an extended type called a modular form.
+ *  The p-adically field refers to the extraction of the regular rules of these function, so there are a huge number even if it is said that the p-adic gamma function in a word.
+ *  Among them, the generalized one is the gamma star function $\Gamma^\ast(s)$.
  */
 extern double p_gamma_r8(double, double);
 extern double q_gamma_r8(double, double);
