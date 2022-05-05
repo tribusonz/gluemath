@@ -1483,8 +1483,9 @@ extern double riemann_zeta_r8(double);
  *    The arguments are always out of the calculation range or given nonnumeric or infinite.
  *  
  *  NOTE:
- *  The p-adic special function is defined by Y. Morita (1975) in a positive way. He's Gamma function is $\Gamma_p(s)$.
- *  The p-adically field refers to the extraction of the regular rules of these function, so there are a huge number even if it is said that the p-adic gamma function in a word.
+ *  The p-adic special function is defined by Y. Morita (1975) in a positive way. His Gamma function is $\Gamma_p(s)$.
+ *  The p-adically field refers to the extraction of the regular rules of these function,
+ *  so there are a huge number even if it is said that the p-adic gamma function in a word.
  *  Among them, the generalized one is the gamma star function $\Gamma^\ast(s)$.
  */
 extern double p_gamma_r8(double, double);
