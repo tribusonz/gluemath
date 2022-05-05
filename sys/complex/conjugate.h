@@ -4,8 +4,8 @@
 	Author: Hironobu Inatsuka aka tribusonz
 	License: GPL + X11(MIT)
 *******************************************************************************/
-#ifndef GML_COMPLEX_ABSOLUTE
-#define GML_COMPLEX_ABSOLUTE
+#ifndef GML_COMPLEX_CONJUGATE
+#define GML_COMPLEX_CONJUGATE
 
 #if defined(__cplusplus)
 extern "C" {
@@ -38,5 +38,4 @@ lc_conj(lcomplex z)
 }
 #endif
 
-#endif /* GML_COMPLEX_ABSOLUTE */
-
+#endif /* GML_COMPLEX_CONJUGATE */
