@@ -1325,7 +1325,7 @@ extern long double gamma_re(long double);
  *  @x .. integral partition
  *  @kind: .. Kind (keyword argument). 1 or 2. Default: 2
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of regularized incomplete gamma function
+ *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
  *  
  *  Special behaviors:
  *  gammaincr1: supports the 1st kind
@@ -1359,7 +1359,7 @@ extern double gammaincr2_r8(double, double);
  *  @x0 .. complex plane of z, integral partition parameter 1
  *  @x1 .. complex plane of z, integral partition parameter 2
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of regularized incomplete gamma function
+ *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
  *  
  *  Special behaviors:
  *  nonregular as integral partition $\int_{x0}^{x1}$ of:
@@ -1440,7 +1440,7 @@ extern double beta_r8(double, double);
  *  @a .. factorial (general)
  *  @b .. factorial (determinant)
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of incomplete beta function
+ *  @retval .. solve of incomplete beta function (but complex solve sends out NaN)
  */
 
 /*
