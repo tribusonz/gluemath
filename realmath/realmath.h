@@ -1352,6 +1352,8 @@ extern double gammaincr2_r8(double, double);
  *      gammaincg(a, x0, x1) -> real (r8)
  *  
  *  Computes the generalized incomplete gamma function of {a} and {x0}, {x1}.
+ *  Unlike p-adically filed, this ABI calculates the real solution steadily.
+ *  (Regularization does not necessarily solve between 0 and 1)
  *  
  *  @a .. factorial of prime
  *  @x0 .. complex plane of z, integral partition parameter 1
@@ -1360,9 +1362,12 @@ extern double gammaincr2_r8(double, double);
  *  @retval .. solve of regularized incomplete gamma function
  *  
  *  Special behaviors:
- *  as integral partition, {x0} = 0 and {x1} = Infinity: equivalent to (complete) gamma function
- *  as integral partition, {x0} = 0 and {x1} = finite: equivalent to incomplete gamma function the 1st kind
- *  as integral partition, {x0} = finite and {x1} = infinity: equivalent to incomplete gamma function the 2nd kind
+ *  nonregular as integral partition $\int_{x0}^{x1}$ of:
+ *    $\int_0^\infty$: equivalent to (complete) gamma function, a >= 0
+ *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, a < 0
+ *    $\int_{-\infty}^\infty$: equivalent to (complete) gamma function, a = $\mathbb{R}$
+ *    $\int_0^{\mathbb{R}}$: equivalent to incomplete gamma function the 1st kind
+ *    $\int_{\mathbb{R}^\infty$: equivalent to incomplete gamma function the 2nd kind
  */
 
 /*
@@ -1452,7 +1457,6 @@ extern double beta_r8(double, double);
  */
 extern double riemann_zeta_r8(double);
 
-
 /*
  *  call-seq:
  *    (UserLevel Code)
@@ -1485,6 +1489,28 @@ extern double riemann_zeta_r8(double);
  */
 extern double p_gamma_r8(double, double);
 extern double q_gamma_r8(double, double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.p_gamma(a, x0, x1) -> real (r8)
+ *      RMath.q_gamma(a, x0, x1) -> real (r8)
+ *      (Multiplex Overload)
+ *    (Native Code)
+ *    :: p-adic
+ *      p_gammag_r8(a, x0, x1) -> real (r8)
+ *    :: q-analog
+ *      q_gammag_r8(a, x0, x1) -> real (r8)
+ *  
+ *  Computes the p-adic gamma function of {a}, {x0} and {x1}.
+ *  This function is equivalent to the regularized generalized incomplete gamma function, but extracts only the principal value.
+ *  Otherwise, it sends out 0 or 1, or NaN. This function should be used for statistical accumulation.
+ *  
+ *  @a .. normalized factorial of prime
+ *  @x0 .. complex plane of z, integral partition parameter 1
+ *  @x1 .. complex plane of z, integral partition parameter 2
+ *  @retval .. solve of gamma function both of p-adic or q-analog
+ */
 
 /*
  *  call-seq:
