@@ -4,6 +4,7 @@
 	Author: Hironobu Inatsuka aka tribusonz
 	License: GPL + X11(MIT)
 *******************************************************************************/
+#include "quadrature.h"
 #include "../internal/ur/intdei.h"
 
 void
