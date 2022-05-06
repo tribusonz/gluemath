@@ -72,7 +72,7 @@ extern void intdei(integrand, double, double*, double*);
  *    (UserLevel Code)
  *      Quadrature.deo(integrand, a, omega) -> [real (r8), real (r8)]
  *    (Native Code)
- *      intdei(integrand, a, omega, *i, *err) -> void
+ *      intdeo(integrand, a, omega, *i, *err) -> void
  *  
  *  Evaluates DE-rule for integral. Infinite limits of integration starts by {a}.
  *  This is called a non-vibratory type. calculates f(x) = sin(omega * x + theta) as x -> infinity.
