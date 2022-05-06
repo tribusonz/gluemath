@@ -1330,12 +1330,7 @@ extern long double gamma_re(long double);
  *  Special behaviors:
  *  gammaincr1: supports the 1st kind
  *  gammaincr2: supports the 2nd kind
- *  {a} is infinite or NaN: return NaN (context-switching NaN handling)
- *  {a} is negative: (implementary dependent)
- *  {a} is natural number without zero with {x} is negative: return NaN (undefined for realmath)
- *  {x} is NaN: return NaN (context-switching NaN handling)
- *  {x} is +Infinity: return 1.0 (1st), 0.0 (2nd)
- *  {x} is -Infinity: return NaN (undefined)
+ *  The basic behavior follows the generalized incomplete gamma function.
  */
 extern double gammaincr1_r8(double, double);
 extern double gammaincr2_r8(double, double);
@@ -1362,12 +1357,16 @@ extern double gammaincr2_r8(double, double);
  *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
  *  
  *  Special behaviors:
- *  nonregular as integral partition $\int_{x0}^{x1}$ of:
- *    $\int_0^\infty$: equivalent to (complete) gamma function, a >= 0
- *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, a < 0
+ *  nonregular as limits of integral $\int_{x0}^{x1}$ of:
+ *    $\int_0^\infty$: equivalent to (complete) gamma function, a >= 0, (negative a always sends out Infinity)
+ *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, a <= 0 (positive a always sends out 0.0)
  *    $\int_{-\infty}^\infty$: equivalent to (complete) gamma function, a = $\mathbb{R}$
  *    $\int_0^{\mathbb{R}}$: equivalent to incomplete gamma function the 1st kind
  *    $\int_{\mathbb{R}^\infty$: equivalent to incomplete gamma function the 2nd kind
+ *  secondary behavior:
+ *  {a} is NaN: always return NaN
+ *  {a} is branch in (-Infinity, 0]: continuation as 'infinitely' ideal class field
+ *  {a} is branch in [0, +Infinity): continuation as ideal class field
  */
 
 /*
