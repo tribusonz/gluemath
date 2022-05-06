@@ -1325,7 +1325,7 @@ extern long double gamma_re(long double);
  *  @x .. limits of integral as 1st: 0 -> x, 2nd: x -> infinity
  *  @kind: .. Kind (keyword argument). 1 or 2. Default: 2
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
+ *  @retval .. solve of incomplete gamma integrals (but complex solve sends out NaN)
  *  
  *  Special behaviors:
  *  gammaincr1: supports the 1st kind
@@ -1354,7 +1354,7 @@ extern double gammaincr2_r8(double, double);
  *  @x0 .. lower limits of integral
  *  @x1 .. upper limits of integral
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
+ *  @retval .. solve of incomplete gamma integrals (but complex solve sends out NaN)
  *  
  *  Special behaviors:
  *  nonregular as limits of integral $\int_{x0}^{x1}$ of:
