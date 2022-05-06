@@ -50,7 +50,7 @@ extern void intde(integrand, double, double, double*, double*);
  *      intdei(integrand, a, *i, *err) -> void
  *  
  *  Evaluates DE-rule for integral. Infinite limits of integration starts by {a}.
- *  This is called a vibratory type. Attempts to converge to infinity.
+ *  This is called a non-vibratory type. Attempts to converge to infinity.
  *  The result is returned in a two-pair array.
  *  The first item is the result, and the last item is an error.
  *  If it can be terminated normally, the absolute error is returned as a real number,
@@ -75,7 +75,7 @@ extern void intdei(integrand, double, double*, double*);
  *      intdeo(integrand, a, omega, *i, *err) -> void
  *  
  *  Evaluates DE-rule for integral. Infinite limits of integration starts by {a}.
- *  This is called a non-vibratory type. calculates f(x) = sin(omega * x + theta) as x -> infinity.
+ *  This is called a vibratory type. calculates f(x) = sin(omega * x + theta) as x -> infinity.
  *  The result is returned in a two-pair array.
  *  The first item is the result, and the last item is an error.
  *  If it can be terminated normally, the absolute error is returned as a real number,
