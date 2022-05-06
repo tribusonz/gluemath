@@ -1322,7 +1322,7 @@ extern long double gamma_re(long double);
  *  the negative {x} should also be determined for a solution, but it is designed to return NaN.
  *  
  *  @a .. factorial of prime
- *  @x .. integral partition
+ *  @x .. limits of integral as 1st: 0 -> x, 2nd: x -> infinity
  *  @kind: .. Kind (keyword argument). 1 or 2. Default: 2
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
  *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
@@ -1356,8 +1356,8 @@ extern double gammaincr2_r8(double, double);
  *  (Regularization does not necessarily solve between 0 and 1)
  *  
  *  @a .. factorial of prime
- *  @x0 .. complex plane of z, integral partition parameter 1
- *  @x1 .. complex plane of z, integral partition parameter 2
+ *  @x0 .. lower limits of integral
+ *  @x1 .. upper limits of integral
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
  *  @retval .. solve of regularized incomplete gamma function (but complex solve sends out NaN)
  *  
@@ -1436,7 +1436,7 @@ extern double beta_r8(double, double);
  *  Although it is not very useful except for the domain "0 <= x <= 1" which is the principal value,
  *  it is prepared for analytic continuation.
  *  
- *  @x .. integral partition
+ *  @x .. upper limits of integral as 0 -> x
  *  @a .. factorial (general)
  *  @b .. factorial (determinant)
  *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
