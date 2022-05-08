@@ -118,6 +118,22 @@ extern long double log_re(long double);
 /*
  *  call-seq:
  *    (UserLevel Code)
+ *      RMath.log1p(x) -> real (r4/r8/reX)
+ *    (Native Code)
+ *      log1p_r4(x) -> f32, log1p_r8(x) -> f64, log1p_re(x) -> f80|f128
+ *  
+ *  Computes log(1 + x).
+ *  
+ *  @x: X-axis
+ *  @retval: solve of log1p()
+ */
+extern float log1p_r4(float);
+extern double log1p_r8(double);
+extern long double log1p_re(long double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
  *      RMath.log2(x) -> real (r4/r8/reX)
  *    (Native Code)
  *      log2_r4(x) -> f32, log2_r8(x) -> f64, log2_re(x) -> f80|f128
@@ -1347,7 +1363,7 @@ extern double gammaincr2_r8(double, double);
  *      gammaincg(a, x0, x1) -> real (r8)
  *  
  *  Computes the generalized incomplete gamma function of {a} and {x0}, {x1}.
- *  Unlike p-adically filed, this ABI calculates the real solution steadily.
+ *  Unlike p-adically field, this ABI calculates the real solution steadily.
  *  (Regularization does not necessarily solve between 0 and 1)
  *  
  *  @a .. factorial of prime
@@ -1358,9 +1374,9 @@ extern double gammaincr2_r8(double, double);
  *  
  *  Special behaviors:
  *  nonregular as limits of integral $\int_{x0}^{x1}$ of:
- *    $\int_0^\infty$: equivalent to (complete) gamma function, a >= 0, (negative a always sends out Infinity)
- *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, a <= 0 (positive a always sends out 0.0)
- *    $\int_{-\infty}^\infty$: equivalent to (complete) gamma function, a = $\mathbb{R}$
+ *    $\int_0^\infty$: equivalent to (complete) gamma function, $a \ge 0$, (negative a always sends out Infinity)
+ *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, $a \le 0$ (positive a always sends out 0.0)
+ *    $\int_{-\infty}^\infty$: equivalent to (complete) gamma function, $a \in \mathbb{R}$
  *    $\int_0^{\mathbb{R}}$: equivalent to incomplete gamma function the 1st kind
  *    $\int_{\mathbb{R}^\infty$: equivalent to incomplete gamma function the 2nd kind
  *  secondary behavior:
@@ -1472,7 +1488,7 @@ extern double riemann_zeta_r8(double);
  *  It is prepared for numerical analysis. If it cannot converge, returns NaN.
  *  
  *  @a .. normalized factorial of prime
- *  @x .. X-axis, No limits
+ *  @x .. limits of integral
  *  @retval .. solve of gamma function both of p-adic or q-analog
  *  
  *  Special behaviors:
@@ -1507,8 +1523,8 @@ extern double q_gamma_r8(double, double);
  *  Otherwise, it sends out 0 or 1, or NaN. This function should be used for statistical accumulation.
  *  
  *  @a .. normalized factorial of prime
- *  @x0 .. complex plane of z, integral partition parameter 1
- *  @x1 .. complex plane of z, integral partition parameter 2
+ *  @x0 .. lower limits of integral
+ *  @x1 .. upper limits of integral
  *  @retval .. solve of gamma function both of p-adic or q-analog
  */
 
@@ -1527,7 +1543,7 @@ extern double q_gamma_r8(double, double);
  *  The deform of regularized incomplete beta function.
  *  It is prepared for numerical analysis. If it cannot converge, returns NaN.
  *  
- *  @x .. X-axis, No limits
+ *  @x .. upper limits of integral, $\int_0^x$
  *  @a .. normalized factorial (general)
  *  @b .. normalized factorial (determinant)
  *  @retval .. solve of beta function both of p-adic or q-analog
