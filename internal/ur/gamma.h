@@ -43,7 +43,7 @@ static inline double
 gamma_core(register double x)
 {
 	static int check = 0;
-	int signp;
+	int signp = 1;
 	register double y;
 
 	if (check == 0) { get_gamma_const(); check = 1; }
