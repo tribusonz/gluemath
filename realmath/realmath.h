@@ -52,6 +52,22 @@ extern long double exp_re(long double);
 /*
  *  call-seq:
  *    (UserLevel Code)
+ *      RMath.expm1(x) -> real (r4/r8/reX)
+ *    (Native Code)
+ *      expm1_r4(x) -> f32, expm1_r8(x) -> f64, expm1_re(x) -> f80|f128
+ *  
+ *  Computes exp(x)-1.
+ *  
+ *  @x: X-axis
+ *  @retval: solve of expm1()
+ */
+extern float expm1_r4(float);
+extern double expm1_r8(double);
+extern long double expm1_re(long double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
  *      RMath.exp2(x) -> real (r4/r8/reX)
  *    (Native Code)
  *      exp2_r4(x) -> f32, exp2_r8(x) -> f64, exp2_re(x) -> f80|f128
