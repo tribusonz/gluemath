@@ -4,7 +4,6 @@
 	Author:
 	  John Burkardt (Original Code)
 	  Hironobu Inatsuka aka tribusonz (ABI modify)
-
 	License:
 	  John Burkardt's (See below term)
 	  GPL + X11(MIT)  (ABI modify)
@@ -46,6 +45,7 @@
 extern "C" {
 #endif
 
+#if 0
 // uses math library: fabs(), log()
 #include "../../sys/float/absolute.h"
 #include "log.h"
@@ -77,6 +77,25 @@ log1p_core(double a)
 
 	return value;
 }
+#else
+
+#include "../../sys/float/huge_val_nan.h"
+#include "log.h"
+#include "atanh.h"
+
+// Portable version
+static inline double
+log1p_core(double x)
+{
+	if (x < 1)
+		return 2 * atanh_core(x / (2 + x));
+	else if (x >= 1)
+		return log_core(1 + x);
+	else
+		return NAN;
+}
+#endif
+
 
 #if defined(__cplusplus)
 }
