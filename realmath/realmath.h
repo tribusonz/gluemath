@@ -1336,74 +1336,6 @@ extern long double gamma_re(long double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.gamma(a, x, kind: 2, regular: true) -> real (r8)
- *      (Multiplex Overload)
- *    (Native Code)
- *    :: regularized, 1st
- *      gammaincr1(a, x) -> real (r8)
- *    :: regularized, 2nd
- *      gammaincr2(a, x) -> real (r8)
- *    :: incomplete, 1st
- *      gammainc1(a, x) -> real (r8)
- *    :: incomplete, 2nd
- *      gammainc2(a, x) -> real (r8)
- *  
- *  Computes the incomplete gamma function of {a} and {x}.
- *  This is a normalized variant that is easy to use for numerical analysis.
- *  It is a complex quantity function, and if {a} is a natural number other than 0,
- *  the negative {x} should also be determined for a solution, but it is designed to return NaN.
- *  
- *  @a .. factorial of prime
- *  @x .. limits of integral as 1st: 0 -> x, 2nd: x -> infinity
- *  @kind: .. Kind (keyword argument). 1 or 2. Default: 2
- *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of incomplete gamma integrals (but complex solve sends out NaN)
- *  
- *  Special behaviors:
- *  gammaincr1: supports the 1st kind
- *  gammaincr2: supports the 2nd kind
- *  The basic behavior follows the generalized incomplete gamma function.
- */
-extern double gammaincr1_r8(double, double);
-extern double gammaincr2_r8(double, double);
-
-/*
- *  call-seq:
- *    (UserLevel Code)
- *      RMath.gamma(a, x0, x1, regular: true) -> real (r8)
- *      (Multiplex Overload)
- *    (Native Code)
- *    :: regularized
- *      gammaincrg(a, x0, x1) -> real (r8)
- *    :: generalized
- *      gammaincg(a, x0, x1) -> real (r8)
- *  
- *  Computes the generalized incomplete gamma function of {a} and {x0}, {x1}.
- *  Unlike p-adically field, this ABI calculates the real solution steadily.
- *  (Regularization does not necessarily solve between 0 and 1)
- *  
- *  @a .. factorial of prime
- *  @x0 .. lower limits of integral
- *  @x1 .. upper limits of integral
- *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of incomplete gamma integrals (but complex solve sends out NaN)
- *  
- *  Special behaviors:
- *  nonregular as limits of integral $\int_{x0}^{x1}$ of:
- *    $\int_0^\infty$: equivalent to (complete) gamma function, $a \ge 0$, (negative a always sends out Infinity)
- *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, $a \le 0$ (positive a always sends out 0.0)
- *    $\int_{-\infty}^\infty$: equivalent to (complete) gamma function, $a \in \mathbb{R}$
- *    $\int_0^{\mathbb{R}}$: equivalent to incomplete gamma function the 1st kind
- *    $\int_{\mathbb{R}^\infty$: equivalent to incomplete gamma function the 2nd kind
- *  secondary behavior:
- *  {a} is NaN: always return NaN
- *  {a} is branch in (-Infinity, 0]: continuation as 'infinitely' ideal class field
- *  {a} is branch in [0, +Infinity): continuation as ideal class field
- */
-
-/*
- *  call-seq:
- *    (UserLevel Code)
  *      RMath.lbeta(a, b) -> real (r8)
  *    (Native Code)
  *      lbeta_r8(a, b) -> real (r8)
@@ -1452,31 +1384,6 @@ extern double beta_r8(double, double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.beta(x, a, b, regular: true) -> real (r8)
- *      (Multiplex Overload)
- *    (Native Code)
- *    :: regularized
- *      betaincr(x, a, b) -> real (r8)
- *    :: incomplete
- *      betainc(x, a, b) -> real (r8)
- *
- *  Computes the Incomplete beta function of {x}, {a} and {b}.
- *  An incomplete beta function is basically a complex function,
- *  so it is internally calculated as a complex number.
- *  If an imaginary number does not appear, return the real number, and if it appears, return NaN.
- *  Although it is not very useful except for the domain "0 <= x <= 1" which is the principal value,
- *  it is prepared for analytic continuation.
- *  
- *  @x .. upper limits of integral as 0 -> x
- *  @a .. factorial (general)
- *  @b .. factorial (determinant)
- *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
- *  @retval .. solve of incomplete beta function (but complex solve sends out NaN)
- */
-
-/*
- *  call-seq:
- *    (UserLevel Code)
  *      RMath.riemann_zeta(x) -> real (r8)
  *    (Native Code)
  *      riemann_zeta_r8(x) -> real (r8)
@@ -1487,91 +1394,6 @@ extern double beta_r8(double, double);
  *  @retval .. solve of riemann zeta function
  */
 extern double riemann_zeta_r8(double);
-
-/*
- *  call-seq:
- *    (UserLevel Code)
- *      RMath.p_gamma(a, x) -> real (r8)
- *      RMath.q_gamma(a, x) -> real (r8)
- *    (Native Code)
- *    :: p-adic
- *      p_gamma_r8(a, x) -> real (r8)
- *    :: q-analog
- *      q_gamma_r8(a, x) -> real (r8)
- *  
- *  Computes the p-adic gamma function of {a} and {x}. The infinite multivalence analysis function.
- *  The deform of regularized incomplete gamma function.
- *  It is prepared for numerical analysis. If it cannot converge, returns NaN.
- *  
- *  @a .. normalized factorial of prime
- *  @x .. limits of integral
- *  @retval .. solve of gamma function both of p-adic or q-analog
- *  
- *  Special behaviors:
- *  p_gamma: p-adic
- *  q_gamma: q-analog
- *  cannot convergence's mechanism:
- *    The arguments are always out of the calculation range or given nonnumeric or infinite.
- *  
- *  NOTE:
- *  The p-adic special function is defined by Y. Morita (1975) in a positive way. His Gamma function is $\Gamma_p(s)$.
- *  The p-adically field refers to the extraction of the regular rules of these function,
- *  so there are a huge number even if it is said that the p-adic gamma function in a word.
- *  Among them, the generalized one is the gamma star function $\Gamma^\ast(s)$.
- */
-extern double p_gamma_r8(double, double);
-extern double q_gamma_r8(double, double);
-
-/*
- *  call-seq:
- *    (UserLevel Code)
- *      RMath.p_gamma(a, x0, x1) -> real (r8)
- *      RMath.q_gamma(a, x0, x1) -> real (r8)
- *      (Multiplex Overload)
- *    (Native Code)
- *    :: p-adic
- *      p_gammag_r8(a, x0, x1) -> real (r8)
- *    :: q-analog
- *      q_gammag_r8(a, x0, x1) -> real (r8)
- *  
- *  Computes the p-adic gamma function of {a}, {x0} and {x1}.
- *  This function is equivalent to the regularized generalized incomplete gamma function, but extracts only the principal value.
- *  Otherwise, it sends out 0 or 1, or NaN. This function should be used for statistical accumulation.
- *  
- *  @a .. normalized factorial of prime
- *  @x0 .. lower limits of integral
- *  @x1 .. upper limits of integral
- *  @retval .. solve of gamma function both of p-adic or q-analog
- */
-
-/*
- *  call-seq:
- *    (UserLevel Code)
- *      RMath.p_beta(x, a, b) -> real (r8)
- *      RMath.q_beta(x, a, b) -> real (r8)
- *    (Native Code)
- *    :: p-adic
- *      p_beta_r8(x, a, b) -> real (r8)
- *    :: q-analog
- *      q_beta_r8(x, a, b) -> real (r8)
- *  
- *  Computes the p-adic beta function of {x}, {a} and {b}. The infinite multivalence analysis function.
- *  The deform of regularized incomplete beta function.
- *  It is prepared for numerical analysis. If it cannot converge, returns NaN.
- *  
- *  @x .. upper limits of integral, $\int_0^x$
- *  @a .. normalized factorial (general)
- *  @b .. normalized factorial (determinant)
- *  @retval .. solve of beta function both of p-adic or q-analog
- *  
- *  Special behaviors:
- *  p_beta: p-adic
- *  q_beta: q-analog
- *  cannot convergence's mechanism:
- *    The arguments are always out of the calculation range or given nonnumeric or infinite.
- */
-extern double p_beta_r8(double, double, double);
-extern double q_beta_r8(double, double, double);
 
 /*
  *  call-seq:
@@ -1754,6 +1576,186 @@ extern double si_r8(double);
  *  @retval .. solve of cosine integral
  */
 extern double ci_r8(double);
+
+/**** Euler Integral Functions Extention ****/
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.gamma(a, x, kind: 2, regular: true) -> real (r8)
+ *      (Multiplex Overload)
+ *    (Native Code)
+ *    :: regularized, 1st
+ *      gammaincr1(a, x) -> real (r8)
+ *    :: regularized, 2nd
+ *      gammaincr2(a, x) -> real (r8)
+ *    :: incomplete, 1st
+ *      gammainc1(a, x) -> real (r8)
+ *    :: incomplete, 2nd
+ *      gammainc2(a, x) -> real (r8)
+ *  
+ *  Computes the incomplete gamma function of {a} and {x}.
+ *  This is a normalized variant that is easy to use for numerical analysis.
+ *  It is a complex quantity function, and if {a} is a natural number other than 0,
+ *  the negative {x} should also be determined for a solution, but it is designed to return NaN.
+ *  
+ *  @a .. factorial of prime
+ *  @x .. limits of integral as 1st: 0 -> x, 2nd: x -> infinity
+ *  @kind: .. Kind (keyword argument). 1 or 2. Default: 2
+ *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
+ *  @retval .. solve of incomplete gamma integrals (but complex solve sends out NaN)
+ *  
+ *  Special behaviors:
+ *  gammaincr1: supports the 1st kind
+ *  gammaincr2: supports the 2nd kind
+ *  The basic behavior follows the generalized incomplete gamma function.
+ */
+extern double gammaincr1_r8(double, double);
+extern double gammaincr2_r8(double, double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.gamma(a, x0, x1, regular: true) -> real (r8)
+ *      (Multiplex Overload)
+ *    (Native Code)
+ *    :: regularized
+ *      gammaincrg(a, x0, x1) -> real (r8)
+ *    :: generalized
+ *      gammaincg(a, x0, x1) -> real (r8)
+ *  
+ *  Computes the generalized incomplete gamma function of {a} and {x0}, {x1}.
+ *  Unlike p-adically field, this ABI calculates the real solution steadily.
+ *  (Regularization does not necessarily solve between 0 and 1)
+ *  
+ *  @a .. factorial of prime
+ *  @x0 .. lower limits of integral
+ *  @x1 .. upper limits of integral
+ *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
+ *  @retval .. solve of incomplete gamma integrals (but complex solve sends out NaN)
+ *  
+ *  Special behaviors:
+ *  nonregular as limits of integral $\int_{x0}^{x1}$ of:
+ *    $\int_0^\infty$: equivalent to (complete) gamma function, $a \ge 0$, (negative a always sends out Infinity)
+ *    $\int_{-\infty}^0$: equivalent to (complete) gamma function, $a \le 0$ (positive a always sends out 0.0)
+ *    $\int_{-\infty}^\infty$: equivalent to (complete) gamma function, $a \in \mathbb{R}$
+ *    $\int_0^{\mathbb{R}}$: equivalent to incomplete gamma function the 1st kind
+ *    $\int_{\mathbb{R}^\infty$: equivalent to incomplete gamma function the 2nd kind
+ *  secondary behavior:
+ *  {a} is NaN: always return NaN
+ *  {a} is branch in (-Infinity, 0]: continuation as 'infinitely' ideal class field
+ *  {a} is branch in [0, +Infinity): continuation as ideal class field
+ */
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.beta(x, a, b, regular: true) -> real (r8)
+ *      (Multiplex Overload)
+ *    (Native Code)
+ *    :: regularized
+ *      betaincr(x, a, b) -> real (r8)
+ *    :: incomplete
+ *      betainc(x, a, b) -> real (r8)
+ *
+ *  Computes the Incomplete beta function of {x}, {a} and {b}.
+ *  An incomplete beta function is basically a complex function,
+ *  so it is internally calculated as a complex number.
+ *  If an imaginary number does not appear, return the real number, and if it appears, return NaN.
+ *  Although it is not very useful except for the domain "0 <= x <= 1" which is the principal value,
+ *  it is prepared for analytic continuation.
+ *  
+ *  @x .. upper limits of integral as 0 -> x
+ *  @a .. factorial (general)
+ *  @b .. factorial (determinant)
+ *  @regular: .. Regularized or Non-regularized(keyword argument). Boolean. Default: true (Regularized)
+ *  @retval .. solve of incomplete beta function (but complex solve sends out NaN)
+ */
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.gamma_p(a, x) -> real (r8)
+ *      RMath.gamma_q(a, x) -> real (r8)
+ *    (Native Code)
+ *    :: p-adic
+ *      p_gamma_r8(a, x) -> real (r8)
+ *    :: q-analog
+ *      q_gamma_r8(a, x) -> real (r8)
+ *  
+ *  Computes the p-adic gamma function of {a} and {x}. The infinite multivalence analysis function.
+ *  The deform of regularized incomplete gamma function.
+ *  It is prepared for numerical analysis. If it cannot converge, returns NaN.
+ *  
+ *  @a .. normalized factorial of prime
+ *  @x .. limits of integral
+ *  @retval .. solve of gamma function both of p-adic or q-analog
+ *  
+ *  Special behaviors:
+ *  p_gamma: p-adic
+ *  q_gamma: q-analog
+ *  cannot convergence's mechanism:
+ *    The arguments are always out of the calculation range or given nonnumeric or infinite.
+ *  
+ *  NOTE:
+ *  The p-adic special function is defined by Y. Morita (1975) in a positive way. His Gamma function is $\Gamma_p(s)$.
+ *  The p-adically field refers to the extraction of the regular rules of these function,
+ *  so there are a huge number even if it is said that the p-adic gamma function in a word.
+ *  Among them, the generalized one is the gamma star function $\Gamma^\ast(s)$.
+ */
+extern double p_gamma_r8(double, double);
+extern double q_gamma_r8(double, double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.gamma_p(a, x0, x1) -> real (r8)
+ *      RMath.gamma_q(a, x0, x1) -> real (r8)
+ *      (Multiplex Overload)
+ *    (Native Code)
+ *    :: p-adic
+ *      p_gammag_r8(a, x0, x1) -> real (r8)
+ *    :: q-analog
+ *      q_gammag_r8(a, x0, x1) -> real (r8)
+ *  
+ *  Computes the p-adic gamma function of {a}, {x0} and {x1}.
+ *  This function is equivalent to the regularized generalized incomplete gamma function, but extracts only the principal value.
+ *  Otherwise, it sends out 0 or 1, or NaN. This function should be used for statistical accumulation.
+ *  
+ *  @a .. normalized factorial of prime
+ *  @x0 .. lower limits of integral
+ *  @x1 .. upper limits of integral
+ *  @retval .. solve of gamma function both of p-adic or q-analog
+ */
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.beta_p(x, a, b) -> real (r8)
+ *      RMath.beta_q(x, a, b) -> real (r8)
+ *    (Native Code)
+ *    :: p-adic
+ *      p_beta_r8(x, a, b) -> real (r8)
+ *    :: q-analog
+ *      q_beta_r8(x, a, b) -> real (r8)
+ *  
+ *  Computes the p-adic beta function of {x}, {a} and {b}. The infinite multivalence analysis function.
+ *  The deform of regularized incomplete beta function.
+ *  It is prepared for numerical analysis. If it cannot converge, returns NaN.
+ *  
+ *  @x .. upper limits of integral, $\int_0^x$
+ *  @a .. normalized factorial (general)
+ *  @b .. normalized factorial (determinant)
+ *  @retval .. solve of beta function both of p-adic or q-analog
+ *  
+ *  Special behaviors:
+ *  p_beta: p-adic
+ *  q_beta: q-analog
+ *  cannot convergence's mechanism:
+ *    The arguments are always out of the calculation range or given nonnumeric or infinite.
+ */
+extern double p_beta_r8(double, double, double);
+extern double q_beta_r8(double, double, double);
 
 #if defined(__cplusplus)
 }
