@@ -15,6 +15,8 @@ extern "C" {
 #endif
 
 // Uses math library: fabsl(), expl(), sqrtl()
+#include "../../sys/float/info.h"
+#include "../sys/primitive/float/info.h"
 #include "../../sys/float/absolute.h"
 #include "expl.h"
 #include "sqrtl.h"
@@ -29,27 +31,34 @@ ur_erfl(register long double x)
 	static long double sqrt2fpi = 0;
 	register long double absx;
 	register long double a, c, y;
+	volatile int n;
+	static int check = 0;
 	
-	if (pi       == 0.0)  pi       = m_pi_ld();
-	if (sqrt_pi  == 0.0)  sqrt_pi  = sqrtl_core(pi);
-	if (sqrt2    == 0.0)  sqrt2    = sqrtl_core(2);
-	if (sqrt2fpi == 0.0)  sqrt2fpi = sqrtl_core(2.0/pi);
+	if (check == 0)
+	{
+		pi      = m_pi_ld();
+		sqrt_pi = sqrtl_core(pi);
+		sqrt2   = sqrtl_core(2);
+		sqrt2fpi = sqrtl_core(2.0/pi);
+		get_ldbl_info();
+		check = 1;
+	}
 	
 	absx = fabsl(x);
 	if (absx < 2.4)
 	{
-		c = 1;
-		a = 0;
-		for(volatile int n = 1; n <= 40; n++)
-		{
+		n = 1; c = 1; a = 0;
+		do {
 			a += x / (2 * n - 1) * c;
+			if (fabsl(c) < ldbl_info.epsilon)  break;
 			c = -c * x * x / n;
-		}
+			n++;
+		} while (1);
 		return a * 2 / sqrt_pi;
 	}
 	else if (absx >= 2.4)
 	{
-		if (absx > 1.0E50)
+		if ((c = expl_core(-x * x)) == 0.0)
 			a = 1;
 		else
 		{
@@ -57,7 +66,7 @@ ur_erfl(register long double x)
 			a = 0;
 			for (volatile int n = 40; n >= 1; n--)
 				a = n / (y + a);
-			a = 1 - expl_core(-x * x) / (y + a) * sqrt2fpi;
+			a = 1 - c / (y + a) * sqrt2fpi;
 		}
 		return x < 0 ? -a : a;
 	}
