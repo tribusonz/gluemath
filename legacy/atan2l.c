@@ -5,10 +5,10 @@
 	License: GPL + X11(MIT)
 *******************************************************************************/
 #include "legacy.h"
-#include "../internal/ur/quadrantl.h"
+#include "../internal/ur/atan2l.h"
 
 long double
 legacy_atan2l(long double y, long double x)
 {
-	return quadrantl_core(x, y);
+	return atan2l_core(x, y);
 }

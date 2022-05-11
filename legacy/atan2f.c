@@ -5,10 +5,10 @@
 	License: GPL + X11(MIT)
 *******************************************************************************/
 #include "legacy.h"
-#include "../internal/ur/quadrantf.h"
+#include "../internal/ur/atan2f.h"
 
 float
 legacy_atan2f(float y, float x)
 {
-	return quadrantf_core(x, y);
+	return atan2f_core(x, y);
 }
