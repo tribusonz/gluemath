@@ -51,8 +51,8 @@ quadrantf_core(register float x, register float y)
 	case FP_INFINITE:
 		switch (kind) {
 		case 0:
-			kind = 2;  // re-correction to kind is radian
-			quadrant = -1;  // mark zero
+			kind = 0;  // re-correction to kind is complex argument
+			quadrant = -2;  // mark zero
 			break;
 		case 1:
 			kind = 2;  // re-correction to kind is radian
