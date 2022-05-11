@@ -690,7 +690,7 @@ extern long double acot_re(long double);
  *  x is non-zero, y is zero: absolute (x is negative: $\pi$, positive: $0$)
  *  <#quadrant>
  *  x is positive finite, y is positive finite: 1st quadrant
- *  x is positive finite, y is negative finite: 2nd quadrant
+ *  x is negative finite, y is negative finite: 2nd quadrant
  *  x is negative finite, y is negative finite: 3rd quadrant
  *  x is negative finite, y is positive finite: 4th quadrant
  *  <#radian>
