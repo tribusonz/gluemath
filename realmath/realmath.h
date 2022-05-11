@@ -668,9 +668,12 @@ extern long double acot_re(long double);
  *      quadrant_r4(x, y) -> f32, quadrant_r8(x, y) -> f64, quadrant_re(x, y) -> f80|f128
  *  
  *  Computes Quadrant-XY of two arguments {x} and {y}.
- *  This function behaves the same as atan2(y, x).
- *  Quadrant-XY obtaining that its not only an arctangent, complex-argument and angles.
- *  Therefore, it is not implemented as the C standard library atan2, we called quadrant that is used.
+ *  The well-known the polar coordinates' polarization formula $tan^{-1}\frac{y}{x}$,
+ *  when obtained on the real axis, will be converted from the cartesian coordinates, 
+ *  so it will be overturned to 90 degrees in the quadrant.
+ *  The ancient function atan2(y, x) scales two variables in polar coordinates thoroughly,
+ *  so that the analytic-continuation's target only in the fourth quadrant;
+ *  Because of this problem, it is difficult to use atan2 in a complex-argument's formula.
  *  
  *  @x: quadrant-XY of x
  *  @y: quadrant-XY of y
