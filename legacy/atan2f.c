@@ -10,5 +10,5 @@
 float
 legacy_atan2f(float y, float x)
 {
-	return quadrantf_core(y, x);
+	return quadrantf_core(x, y);
 }

@@ -10,5 +10,5 @@
 long double
 legacy_atan2l(long double y, long double x)
 {
-	return quadrantl_core(y, x);
+	return quadrantl_core(x, y);
 }
