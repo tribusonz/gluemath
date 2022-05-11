@@ -578,6 +578,25 @@ extern long double atan_re(long double);
 /*
  *  call-seq:
  *    (UserLevel Code)
+ *      RMath.atan2(y, x) -> real (r4/r8/reX)
+ *    (Native Code)
+ *      atan_r4(y, x) -> f32, atan_r8(y, x) -> f64, atan_re(y, x) -> f80|f128
+ *  
+ *  Computes Arctangent of {y} and {x}.
+ *  This function is a two-variable arctan, but it is often used to solve quadrant.
+ *  Because of the behavior targeting quadrants, it may differ from existing regulation.
+ *  
+ *  @y: tangent value
+ *  @x: tangent value
+ *  @retval: arctangent of {y} and {x} in radian
+ */
+extern float atan2_r4(float, float);
+extern double atan2_r8(double, double);
+extern long double atan2_re(long double, long double);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
  *      RMath.asec(x) -> real (r4/r8/reX)
  *    (Native Code)
  *      asec_r4(x) -> f32, asec_r8(x) -> f64, asec_re(x) -> f80|f128
@@ -668,12 +687,7 @@ extern long double acot_re(long double);
  *      quadrant_r4(x, y) -> f32, quadrant_r8(x, y) -> f64, quadrant_re(x, y) -> f80|f128
  *  
  *  Computes Quadrant-XY of two arguments {x} and {y}. Solve of unit is a radian.
- *  The well-known the polar coordinates' polarization formula $tan^{-1}\frac{y}{x}$,
- *  when obtained on the real axis, will be converted from the cartesian coordinates, 
- *  so it will be overturned to 90 degrees in the quadrant.
- *  The ancient function atan2(y, x) scales two variables in polar coordinates thoroughly,
- *  so that the analytic-continuation's target only in the fourth quadrant;
- *  Because of this problem, it is difficult to use atan2 in a complex-argument's formula.
+ *  Note that the purpose is the same as atan2(), but the order of arguments is different.
  *  
  *  @x: quadrant-XY of x
  *  @y: quadrant-XY of y
@@ -705,7 +719,7 @@ extern long double acot_re(long double);
  *  x is -infinite, y is -infinite: (cartesian: -135-degree -> polar: -135-degree)
  *  x is -finite, y is -infinite: (caetesian: -180-degree -> polar: -90-degree)
  *  NOTE:
- *  Solve of 0-degree is undefined in mathematical view, but in gruemath it returns 0.
+ *  Solve of 0-degree is undefined in mathematical view, but in gluemath it returns 0.
  */
 extern float quadrant_r4(float, float);
 extern double quadrant_r8(double, double);
