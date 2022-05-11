@@ -52,11 +52,11 @@ quadrantf_core(register float x, register float y)
 		switch (kind) {
 		case 0:
 			kind = 0;  // re-correction to kind is complex argument
-			quadrant = -2;  // mark zero
+			quadrant = -1;  // mark zero
 			break;
 		case 1:
 			kind = 2;  // re-correction to kind is radian
-			quadrant = x < 0 ? 8 : 6;
+			quadrant = x < 0 ? 7 : 5;
 			break;
 		case 2:
 			quadrant = y >= 0 ? x >= 0 ? 1 : 2 : x < 0 ? 3 : 4;
@@ -74,7 +74,7 @@ quadrantf_core(register float x, register float y)
 		case 1:
 		case 2:
 			kind = 0;  // re-correction to kind is arg
-			quadrant = -1;  // calculate complex-absolute
+			quadrant = -2;  // calculate complex-arg
 			break;
 		default:
 			break;
@@ -83,14 +83,14 @@ quadrantf_core(register float x, register float y)
 	default:
 		switch (kind) {
 		case 0:
-			quadrant = -2;  // calculate complex-arg
+			quadrant = -1;  // calculate complex-absolute
 			break;
 		case 1:
 			quadrant = y >= 0 ? x >= 0 ? 1 : 2 : x < 0 ? 3 : 4;
 			x = fabs(x); y = fabs(y);
 			break;
 		case 2: // y is infinite and x is finite
-				quadrant = y < 0 ? 7 : 5;
+			quadrant = y < 0 ? 8 : 6;
 			break;
 		default:
 			break;
@@ -101,10 +101,10 @@ quadrantf_core(register float x, register float y)
 	case 0:  // arg
 		switch (quadrant) {
 		case -1:  // Absolute
-			return y < 0 ? PI : 0;  // $\pi$
+			return x < 0 ? PI : 0;  // $\pi$
 			break;
 		case -2:  // Arg
-			return x < 0 ? -0.5 * PI : 0.5 * PI;  // $\frac{1}{2}\pi$
+			return y < 0 ? -0.5 * PI : 0.5 * PI;  // $\frac{1}{2}\pi$
 			break;
 		case -3:
 			return 0.0; // arg(0+0i) is originally the undefined but returns 0.0
@@ -114,19 +114,19 @@ quadrantf_core(register float x, register float y)
 		}
 		break;
 	case 1:  // quadrant
-		atanxy = ur_atanf(x / y);
+		atanxy = ur_atanf(y / x);
 		switch (quadrant) {
 		case 1:
 			return atanxy;
 			break;
 		case 2:
-			return -atanxy;
+			return PI - atanxy;
 			break;
 		case 3:
 			return atanxy - PI;
 			break;
 		case 4:
-			return PI - atanxy;
+			return -atanxy;
 			break;
 		default:
 			break;
@@ -138,22 +138,22 @@ quadrantf_core(register float x, register float y)
 			return 0.25 * PI;
 			break;
 		case 2: // 2nd: $-45^{\circ}$
-			return -0.25 * PI;
+			return 3.0/4.0 * PI;
 			break;
 		case 3: // 3rd: $-135^{\circ}$
 			return -3.0/4.0 * PI;
 			break;
 		case 4: // 4th: $135^{\circ}$
-			return 3.0/4.0 * PI;
+			return -0.25 * PI;
 			break;
 		case 5: // $\rm{just} 0^{\circ}$
-			return x < 0 ? -0.0 : 0.0; // 0-deg is originally the undefined but return 0
+			return y < 0 ? -0.0 : 0.0; // 0-deg is originally the undefined but return 0
 			break;
 		case 6: // $\rm{just} 90^{\circ}$
 			return 0.5 * PI; // $\frac{1}{2}\pi$
 			break;
 		case 7: // $\rm{just} 180^{\circ}$
-			return x < 0 ? -PI : PI; // $\frac{1}{2}\pi$
+			return y < 0 ? -PI : PI; // $\frac{1}{2}\pi$
 			break;
 		case 8: // $\rm{just} 270^{\circ}$
 			return -0.5 * PI; // $\neg\frac{1}{2}\pi$
