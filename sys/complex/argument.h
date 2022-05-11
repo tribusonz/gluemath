@@ -17,21 +17,24 @@ extern "C" {
 static inline float
 fc_arg(fcomplex z)
 {
-	return quadrantf_core(z.imag, z.real);
+//	return atan2f_core(z.imag, z.real);
+	return quadrantf_core(z.real, z.imag);
 }
 
 #include "../../internal/ur/quadrant.h"
 static inline double
 dc_arg(dcomplex z)
 {
-	return quadrant_core(z.imag, z.real);
+//	return atan2_core(z.imag, z.real);
+	return quadrant_core(z.real, z.imag);
 }
 
 #include "../../internal/ur/quadrantl.h"
 static inline long double
 lc_arg(lcomplex z)
 {
-	return quadrantl_core(z.imag, z.real);
+//	return atan2l_core(z.imag, z.real);
+	return quadrantl_core(z.real, z.imag);
 }
 
 #if defined(__cplusplus)
