@@ -25,90 +25,90 @@ Test Suite:
 
 for float:
 complex argument switched by zero
-  quadrant( 0.0,  1.0) =  0.00000
-  quadrant( 1.0,  0.0) =  1.57079
-  quadrant( 0.0, -1.0) =  3.14159
-  quadrant(-1.0,  1.0) = -0.78539
-  quadrant( 0.0,  inf) =  0.00000
-  quadrant( 0.0, -inf) =  3.14159
+  quadrant( 0.0,  1.0) =  1.57079
+  quadrant( 1.0,  0.0) =  0.00000
+  quadrant( 0.0, -1.0) = -1.57079
+  quadrant(-1.0,  0.0) =  3.14159
+  quadrant( 0.0,  inf) =  1.57079
+  quadrant( 0.0, -inf) = -1.57079
 
 quadrant switched by finite
   quadrant( 1.0,  1.0) =  0.78539
-  quadrant( 1.0, -1.0) =  2.35619
+  quadrant( 1.0, -1.0) = -0.78539
   quadrant(-1.0, -1.0) = -2.35619
-  quadrant(-1.0,  1.0) = -0.78539
+  quadrant(-1.0,  1.0) =  2.35619
 
 radian switched by infinite
-     0deg:  quadrant( 1.0,  inf) =  0.00000
-            quadrant(-1.0,  inf) = -0.00000
+     0deg:  quadrant( 1.0,  inf) =  1.57079
+            quadrant(-1.0,  inf) =  1.57079
     45deg:  quadrant( inf,  inf) =  0.78539
-    90deg:  quadrant( inf,  1.0) =  1.57079
-            quadrant( inf, -1.0) =  1.57079
-   135deg:  quadrant( inf, -inf) =  2.35619
-   180deg:  quadrant( 1.0, -inf) =  3.14159
-   -45deg:  quadrant(-inf,  inf) = -0.78539
-   -90deg:  quadrant(-inf,  1.0) = -1.57079
-            quadrant(-inf, -1.0) = -1.57079
+    90deg:  quadrant( inf,  1.0) =  0.00000
+            quadrant( inf, -1.0) = -0.00000
+   135deg:  quadrant( inf, -inf) = -0.78539
+   180deg:  quadrant( 1.0, -inf) = -1.57079
+   -45deg:  quadrant(-inf,  inf) =  2.35619
+   -90deg:  quadrant(-inf,  1.0) =  3.14159
+            quadrant(-inf, -1.0) = -3.14159
   -135deg:  quadrant(-inf, -inf) = -2.35619
-  -180deg:  quadrant(-1.0, -inf) = -3.14159
+  -180deg:  quadrant(-1.0, -inf) = -1.57079
 
 for double:
 complex argument switched by zero
-  quadrant( 0.0,  1.0) =  0.00000000000000
-  quadrant( 1.0,  0.0) =  1.57079632679489
-  quadrant( 0.0, -1.0) =  3.14159265358979
-  quadrant(-1.0,  1.0) = -0.78539816339744
-  quadrant( 0.0,  inf) =  0.00000000000000
-  quadrant( 0.0, -inf) =  3.14159265358979
+  quadrant( 0.0,  1.0) =  1.57079632679489
+  quadrant( 1.0,  0.0) =  0.00000000000000
+  quadrant( 0.0, -1.0) = -1.57079632679489
+  quadrant(-1.0,  0.0) =  3.14159265358979
+  quadrant( 0.0,  inf) =  1.57079632679489
+  quadrant( 0.0, -inf) = -1.57079632679489
 
 quadrant switched by finite
   quadrant( 1.0,  1.0) =  0.78539816339744
-  quadrant( 1.0, -1.0) =  2.35619449019234
+  quadrant( 1.0, -1.0) = -0.78539816339744
   quadrant(-1.0, -1.0) = -2.35619449019234
-  quadrant(-1.0,  1.0) = -0.78539816339744
+  quadrant(-1.0,  1.0) =  2.35619449019234
 
 radian switched by infinite
-     0deg:  quadrant( 1.0,  inf) =  0.00000000000000
-            quadrant(-1.0,  inf) = -0.00000000000000
+     0deg:  quadrant( 1.0,  inf) =  1.57079632679489
+            quadrant(-1.0,  inf) =  1.57079632679489
     45deg:  quadrant( inf,  inf) =  0.78539816339744
-    90deg:  quadrant( inf,  1.0) =  1.57079632679489
-            quadrant( inf, -1.0) =  1.57079632679489
-   135deg:  quadrant( inf, -inf) =  2.35619449019234
-   180deg:  quadrant( 1.0, -inf) =  3.14159265358979
-   -45deg:  quadrant(-inf,  inf) = -0.78539816339744
-   -90deg:  quadrant(-inf,  1.0) = -1.57079632679489
-            quadrant(-inf, -1.0) = -1.57079632679489
+    90deg:  quadrant( inf,  1.0) =  0.00000000000000
+            quadrant( inf, -1.0) = -0.00000000000000
+   135deg:  quadrant( inf, -inf) = -0.78539816339744
+   180deg:  quadrant( 1.0, -inf) = -1.57079632679489
+   -45deg:  quadrant(-inf,  inf) =  2.35619449019234
+   -90deg:  quadrant(-inf,  1.0) =  3.14159265358979
+            quadrant(-inf, -1.0) = -3.14159265358979
   -135deg:  quadrant(-inf, -inf) = -2.35619449019234
-  -180deg:  quadrant(-1.0, -inf) = -3.14159265358979
+  -180deg:  quadrant(-1.0, -inf) = -1.57079632679489
 
 for long double:
 complex argument switched by zero
-  quadrant( 0.0,  1.0) =  0.00000000000000000
-  quadrant( 1.0,  0.0) =  1.57079632679489661
-  quadrant( 0.0, -1.0) =  3.14159265358979323
-  quadrant(-1.0,  1.0) = -0.78539816339744831
-  quadrant( 0.0,  inf) =  0.00000000000000000
-  quadrant( 0.0, -inf) =  3.14159265358979323
+  quadrant( 0.0,  1.0) =  1.57079632679489661
+  quadrant( 1.0,  0.0) =  0.00000000000000000
+  quadrant( 0.0, -1.0) = -1.57079632679489661
+  quadrant(-1.0,  0.0) =  3.14159265358979323
+  quadrant( 0.0,  inf) =  1.57079632679489661
+  quadrant( 0.0, -inf) = -1.57079632679489661
 
 quadrant switched by finite
   quadrant( 1.0,  1.0) =  0.78539816339744831
-  quadrant( 1.0, -1.0) =  2.35619449019234492
+  quadrant( 1.0, -1.0) = -0.78539816339744831
   quadrant(-1.0, -1.0) = -2.35619449019234492
-  quadrant(-1.0,  1.0) = -0.78539816339744831
+  quadrant(-1.0,  1.0) =  2.35619449019234492
 
 radian switched by infinite
-     0deg:  quadrant( 1.0,  inf) =  0.00000000000000000
-            quadrant(-1.0,  inf) = -0.00000000000000000
+     0deg:  quadrant( 1.0,  inf) =  1.57079632679489661
+            quadrant(-1.0,  inf) =  1.57079632679489661
     45deg:  quadrant( inf,  inf) =  0.78539816339744831
-    90deg:  quadrant( inf,  1.0) =  1.57079632679489661
-            quadrant( inf, -1.0) =  1.57079632679489661
-   135deg:  quadrant( inf, -inf) =  2.35619449019234492
-   180deg:  quadrant( 1.0, -inf) =  3.14159265358979323
-   -45deg:  quadrant(-inf,  inf) = -0.78539816339744831
-   -90deg:  quadrant(-inf,  1.0) = -1.57079632679489661
-            quadrant(-inf, -1.0) = -1.57079632679489661
+    90deg:  quadrant( inf,  1.0) =  0.00000000000000000
+            quadrant( inf, -1.0) = -0.00000000000000000
+   135deg:  quadrant( inf, -inf) = -0.78539816339744831
+   180deg:  quadrant( 1.0, -inf) = -1.57079632679489661
+   -45deg:  quadrant(-inf,  inf) =  2.35619449019234492
+   -90deg:  quadrant(-inf,  1.0) =  3.14159265358979323
+            quadrant(-inf, -1.0) = -3.14159265358979323
   -135deg:  quadrant(-inf, -inf) = -2.35619449019234492
-  -180deg:  quadrant(-1.0, -inf) = -3.14159265358979323
+  -180deg:  quadrant(-1.0, -inf) = -1.57079632679489661
 *******************************************************************************/
 
 #define A_SIZE 6
@@ -120,7 +120,7 @@ static const char at[] = "complex argument switched by zero";
 static const char bt[] = "quadrant switched by finite";
 static const char ct[] = "radian switched by infinite";
 static const double ax[A_SIZE]  = { 0.0, 1.0, 0.0, -1.0, 0.0, 0.0 };
-static const double ay[A_SIZE]  = { 1.0, 0.0, -1.0, 1.0, HUGE_VAL, -HUGE_VAL };
+static const double ay[A_SIZE]  = { 1.0, 0.0, -1.0, 0.0, HUGE_VAL, -HUGE_VAL };
 static const double bx[B_SIZE]  = { 1.0, 1.0, -1.0, -1.0 };
 static const double by[B_SIZE]  = { 1.0, -1.0, -1.0, 1.0 };
 static const double cx[C_SIZE] =
