@@ -56,7 +56,7 @@ extern long double exp_re(long double);
  *    (Native Code)
  *      expm1_r4(x) -> f32, expm1_r8(x) -> f64, expm1_re(x) -> f80|f128
  *  
- *  Computes exp(x)-1.
+ *  Computes exp(x)-1. The neighborhood of 0 is more accurate than the direct calculation.
  *  
  *  @x: X-axis
  *  @retval: solve of expm1()
@@ -138,7 +138,7 @@ extern long double log_re(long double);
  *    (Native Code)
  *      log1p_r4(x) -> f32, log1p_r8(x) -> f64, log1p_re(x) -> f80|f128
  *  
- *  Computes log(1 + x).
+ *  Computes log(1 + x). The neighborhood of 0 is more accurate than the direct calculation.
  *  
  *  @x: X-axis
  *  @retval: solve of log1p()
@@ -715,6 +715,8 @@ extern long double quadrant_re(long double, long double);
  *      hypot_r4(a, b) -> f32, hypot_r8(a, b) -> f64, hypot_re(a, b) -> f80|f128
  *  
  *  Computes the length of the hypotenuse of a right triangle.
+ *  This function strictly examines whether the two variables have reached a singular point.
+ *  It's more subdividing, but generally 0 or +Infinity is sent out.
  *  
  *  Formal method:
  *  $a^2+b^2=c^2 \rightarrow c=\sqrt{a^2+b^2}$
@@ -725,8 +727,9 @@ extern long double quadrant_re(long double, long double);
  *  
  *  Special behaviors:
  *  adopting algorithm: Moler-Morrison
- *  Arg is +-Infinity: Depends on algorithm
- *  Arg is NaN: Depends on algorithm
+ *  two arguments has NaN: return NaN (context-switching NaN handling)
+ *  two arguments has +-Infinity: return +Infinity (without a special reason)
+ *  two arguments has 0: return 0 (without a special reason)
  */
 extern float hypot_r4(float, float);
 extern double hypot_r8(double, double);
@@ -1577,7 +1580,7 @@ extern double si_r8(double);
  */
 extern double ci_r8(double);
 
-/**** Euler Integral Functions Extention ****/
+/**** Euler Integral Functions Extension ****/
 
 /*
  *  call-seq:
