@@ -667,7 +667,7 @@ extern long double acot_re(long double);
  *    (Native Code)
  *      quadrant_r4(x, y) -> f32, quadrant_r8(x, y) -> f64, quadrant_re(x, y) -> f80|f128
  *  
- *  Computes Quadrant-XY of two arguments {x} and {y}.
+ *  Computes Quadrant-XY of two arguments {x} and {y}. Solve of unit is a radian.
  *  The well-known the polar coordinates' polarization formula $tan^{-1}\frac{y}{x}$,
  *  when obtained on the real axis, will be converted from the cartesian coordinates, 
  *  so it will be overturned to 90 degrees in the quadrant.
@@ -686,23 +686,24 @@ extern long double acot_re(long double);
  *  ::quadrant (switched by finite)
  *  ::radian (switched by infinite)
  *  <#complex_argument>
- *  x is zero, y is non-zero: argument
- *  x is non-zero, y is zero: absolute
+ *  x is zero, y is non-zero: argument (y is negative: $-\pi/2$, positive: $\pi/2$)
+ *  x is non-zero, y is zero: absolute (x is negative: $\pi$, positive: $0$)
  *  <#quadrant>
  *  x is positive finite, y is positive finite: 1st quadrant
  *  x is positive finite, y is negative finite: 2nd quadrant
  *  x is negative finite, y is negative finite: 3rd quadrant
  *  x is negative finite, y is positive finite: 4th quadrant
  *  <#radian>
- *  x is +-finite, y is +infinite: 0-degree
- *  x is +infinite, y is +infinite: 45-degree
- *  x is +infinite, y is +-finite: 90-degree
- *  x is +infinite, y is -infinite: 135-degree:
- *  x is +finite, y is -infinite: 180-degree:
- *  x is -infinite, y is +infinite: -45-degree:
- *  x is -infinite, y is +-finite: -90-degree:
- *  x is -infinite, y is -infinite: -135-degree:
- *  x is -finite, y is -infinite: -180-degree:
+ *  x is +-finite, y is +infinite: (cartesian: 0-degree -> polar: 90-degree)
+ *  x is +infinite, y is +infinite: (cartesian: 45-degree -> polar: 45-degree)
+ *  x is +infinite, y is +-finite: (cartesian: 90-degree -> polar: 0-degree)
+ *  x is +infinite, y is -infinite: (cartesian: 135-degree -> polar: -45-degree)
+ *  x is +finite, y is -infinite: (cartesian: 180-degree -> polar: -90-degree)
+ *  x is -infinite, y is +infinite: (cartesian: -45-degree -> polar: 135-degree)
+ *  x is -infinite, y is +finite: (cartesian: -90-degree -> polar: 180-degree)
+ *  x is -infinite, y is -finite: (cartesian: -90-degree -> polar: -180-degree)
+ *  x is -infinite, y is -infinite: (cartesian: -135-degree -> polar: -135-degree)
+ *  x is -finite, y is -infinite: (caetesian: -180-degree -> polar: -90-degree)
  *  NOTE:
  *  Solve of 0-degree is undefined in mathematical view, but in gruemath it returns 0.
  */
