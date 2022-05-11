@@ -13,21 +13,21 @@ extern "C" {
 
 #include "class.h"
 
-#include "../internal/ur/quadrantf.h"
+#include "../../internal/ur/quadrantf.h"
 static inline float
 fc_arg(fcomplex z)
 {
 	return quadrantf_core(z.imag, z.real);
 }
 
-#include "../internal/ur/quadrant.h"
+#include "../../internal/ur/quadrant.h"
 static inline double
 dc_arg(dcomplex z)
 {
 	return quadrant_core(z.imag, z.real);
 }
 
-#include "../internal/ur/quadrantl.h"
+#include "../../internal/ur/quadrantl.h"
 static inline long double
 lc_arg(lcomplex z)
 {

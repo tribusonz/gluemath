@@ -13,21 +13,21 @@ extern "C" {
 
 #include "class.h"
 
-#include "../internal/ur/hypotf.h"
+#include "../../internal/ur/hypotf.h"
 static inline float
 fc_abs(fcomplex z)
 {
 	return hypotf_core(z.real, z.imag);
 }
 
-#include "../internal/ur/hypot.h"
+#include "../../internal/ur/hypot.h"
 static inline double
 dc_abs(dcomplex z)
 {
 	return hypot_core(z.real, z.imag);
 }
 
-#include "../internal/ur/hypotl.h"
+#include "../../internal/ur/hypotl.h"
 static inline long double
 lc_abs(lcomplex z)
 {
