@@ -4,9 +4,9 @@
 #include "../sys/float/huge_val_nan.h"
 #if defined(_CMATH_TEST)
 # include "../legacy/legacy.h"
-# define quadrant_r8 atan2
-# define quadrant_re atan2l
-# define quadrant_r4 atan2f
+# define quadrant_r8(x,y) atan2(y,x)
+# define quadrant_re(x,y) atan2l(y,x)
+# define quadrant_r4(x,y) atan2f(y,x)
 #else
 # include "../realmath/realmath.h"
 #endif
