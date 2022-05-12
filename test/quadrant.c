@@ -31,6 +31,8 @@ complex argument switched by zero
   quadrant(-1.0,  0.0) =  3.14159
   quadrant( 0.0,  inf) =  1.57079
   quadrant( 0.0, -inf) = -1.57079
+  quadrant( inf,  0.0) =  0.00000
+  quadrant(-inf,  0.0) =  3.14159
 
 quadrant switched by finite
   quadrant( 1.0,  1.0) =  0.78539
@@ -60,6 +62,8 @@ complex argument switched by zero
   quadrant(-1.0,  0.0) =  3.14159265358979
   quadrant( 0.0,  inf) =  1.57079632679489
   quadrant( 0.0, -inf) = -1.57079632679489
+  quadrant( inf,  0.0) =  0.00000000000000
+  quadrant(-inf,  0.0) =  3.14159265358979
 
 quadrant switched by finite
   quadrant( 1.0,  1.0) =  0.78539816339744
@@ -89,6 +93,8 @@ complex argument switched by zero
   quadrant(-1.0,  0.0) =  3.14159265358979323
   quadrant( 0.0,  inf) =  1.57079632679489661
   quadrant( 0.0, -inf) = -1.57079632679489661
+  quadrant( inf,  0.0) =  0.00000000000000000
+  quadrant(-inf,  0.0) =  3.14159265358979323
 
 quadrant switched by finite
   quadrant( 1.0,  1.0) =  0.78539816339744831
@@ -111,7 +117,7 @@ radian switched by infinite
   -180deg:  quadrant(-1.0, -inf) = -1.57079632679489661
 *******************************************************************************/
 
-#define A_SIZE 6
+#define A_SIZE 8
 #define B_SIZE 4
 #define C_SIZE 12
 
@@ -119,8 +125,8 @@ radian switched by infinite
 static const char at[] = "complex argument switched by zero";
 static const char bt[] = "quadrant switched by finite";
 static const char ct[] = "radian switched by infinite";
-static const double ax[A_SIZE]  = { 0.0, 1.0, 0.0, -1.0, 0.0, 0.0 };
-static const double ay[A_SIZE]  = { 1.0, 0.0, -1.0, 0.0, HUGE_VAL, -HUGE_VAL };
+static const double ax[A_SIZE]  = { 0.0, 1.0, 0.0, -1.0, 0.0, 0.0, HUGE_VAL, -HUGE_VAL };
+static const double ay[A_SIZE]  = { 1.0, 0.0, -1.0, 0.0, HUGE_VAL, -HUGE_VAL, 0.0, 0.0 };
 static const double bx[B_SIZE]  = { 1.0, 1.0, -1.0, -1.0 };
 static const double by[B_SIZE]  = { 1.0, -1.0, -1.0, 1.0 };
 static const double cx[C_SIZE] =
@@ -236,7 +242,7 @@ quadrant_r4_list_print(void)
 		const double quadrant_x = bx[i];
 		const double quadrant_y = by[i];
 		printf("  %20.22s = %*.*s\n", eval_print(quadrant_x, quadrant_y),
-		       FLT_DIG + 2, FLT_DIG + 2, quadrant_r8_print(quadrant_x, quadrant_y));
+		       FLT_DIG + 2, FLT_DIG + 2, quadrant_r4_print(quadrant_x, quadrant_y));
 	}
 	puts("");
 	printf("%s\n", ct);
@@ -249,7 +255,7 @@ quadrant_r4_list_print(void)
 			printf("%c", cs[i][j]);
 		printf(" ");
 		printf("%20.22s = %*.*s\n", eval_print(quadrant_x, quadrant_y),
-		       FLT_DIG + 2, FLT_DIG + 2, quadrant_r8_print(quadrant_x, quadrant_y));
+		       FLT_DIG + 2, FLT_DIG + 2, quadrant_r4_print(quadrant_x, quadrant_y));
 	}
 }
 
