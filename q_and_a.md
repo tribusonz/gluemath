@@ -14,7 +14,7 @@ Error bound. Some functions are machine-dependent because of the suppression of 
 Q:  
 Why are you write native code for glue language and in C?  
 A:  
-There is no post-C language like Python or Ruby, and ABI cannot achieve faster processing than anything written in C.  
+There is nothing so the post-C language as Python and Ruby, and ABI cannot achieve faster processing than anything written in C.  
   
 Q:  
 With IEEE754 extended double precision, some functions pick up errors.  
@@ -27,4 +27,4 @@ A:
 The main reason is that it is difficult to conform to the standard or the compliance conditions are not clear.  
 Also, even in the same glue language, each constructor is different, so there is no need to prepare an ABI.  
 In fact, scalbn() and ilogb() are the categories of architecture instructions.  
-modf() has already been included, but it still needs to be discussed whether it should be stored as an architectural instruction or as an entity for method of the real primitives.  
+modf() has already been included, but it still needs to be discussed whether it should be stored as an architectural instruction or as an entity for method of the real-number primitives.  
