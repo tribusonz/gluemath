@@ -35,5 +35,5 @@ If you want to capture this with your compiler software (e.g. gcc or clang, etc.
 NOTE:  
 The organization has decided to take over the library to Stephen Wolfram (this is not strictly private), and I am prepared to provide the minimum ABI required. POSIX's special functions are also included (corresponding to complex numbers!), and also support parts that are too professional that can not be reached by committers.  
 
-[What's new](whats_new.md)
-[Q and A](q_and_a.md)
+[What's new](whats_new.md)  
+[Q and A](q_and_a.md)  
