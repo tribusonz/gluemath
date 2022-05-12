@@ -20,3 +20,11 @@ Q:
 With IEEE754 extended double precision, some functions pick up errors.  
 A:  
 We do not recommend numerical calculations with extended double precision. This is because the mant number part is cut off in the middle, making it easy to pick up errors.  
+
+Q:  
+Some standard library functions are not included.  
+A:  
+The main reason is that it is difficult to conform to the standard or the compliance conditions are not clear.  
+Also, even in the same glue language, each constructor is different, so there is no need to prepare an ABI.  
+In fact, scalbn() and ilogb() are the categories of architecture instructions.  
+modf() has already been included, but it still needs to be discussed whether it should be stored as an architectural instruction or as an entity for method of the real primitives.  
