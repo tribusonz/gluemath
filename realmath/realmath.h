@@ -580,7 +580,7 @@ extern long double atan_re(long double);
  *    (UserLevel Code)
  *      RMath.atan2(y, x) -> real (r4/r8/reX)
  *    (Native Code)
- *      atan_r4(y, x) -> f32, atan_r8(y, x) -> f64, atan_re(y, x) -> f80|f128
+ *      atan2_r4(y, x) -> f32, atan2_r8(y, x) -> f64, atan2_re(y, x) -> f80|f128
  *  
  *  Computes Arctangent of {y} and {x}.
  *  This function is a two-variable arctan, but it is often used to solve quadrant.
@@ -719,7 +719,7 @@ extern long double acot_re(long double);
  *  x is -infinite, y is -infinite: (cartesian: -135-degree -> polar: -135-degree)
  *  x is -finite, y is -infinite: (caetesian: -180-degree -> polar: -90-degree)
  *  NOTE:
- *  Solve of 0-degree is undefined in mathematical view, but in gluemath it returns 0.
+ *  Solve of no-degree as quadrant(0, 0) is undefined in mathematical view, but in gluemath it returns 0.
  */
 extern float quadrant_r4(float, float);
 extern double quadrant_r8(double, double);
