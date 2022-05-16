@@ -14,8 +14,7 @@
 extern "C" {
 #endif
 
-// Use library: signbit(), fpclassify(), HUGE_VALL, NAN
-#include "../../sys/float/signbit.h"
+// Use library: fpclassify(), HUGE_VALL, NAN
 #include "../../sys/float/huge_val_nan.h"
 #include "../../sys/float/info.h"
 #include "../sys/primitive/float/info.h"
@@ -33,24 +32,25 @@ logl_core(register long double x)
 	static long double m_log2 = 0;
 	if (m_log2 == 0)  m_log2 = m_log2_ld();
 	
-	if (!signbit(x)) {
-		switch (fpclassify(x)) {
-		case FP_NAN:
-			break;
-		case FP_INFINITE:
-			return HUGE_VALL;
-			break;
-		case FP_ZERO:
-		case FP_SUBNORMAL:
-			return -HUGE_VALL;
-			break;
-		case FP_NORMAL:
+	switch (fpclassify(x)) {
+	case FP_NAN:
+		break;
+	case FP_INFINITE:
+		if (x > 0)  return HUGE_VALL;
+		break;
+	case FP_ZERO:
+	case FP_SUBNORMAL:
+		return -HUGE_VALL;
+		break;
+	case FP_NORMAL:
+		if (x > 0)
+		{
 			fra = rcm2l_core(x, &exp_val);
 			return (exp_val + logxtl(fra, 2)) * m_log2;
-			break;
-		default:
-			break;
 		}
+		break;
+	default:
+		break;
 	}
 	return NAN;
 }
