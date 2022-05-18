@@ -20,6 +20,7 @@ extern "C" {
 #include "log.h"
 #include "pow.h"
 #include "log1p.h"
+#include "round.h"
 
 // Declare prototypes of subroutine
 static inline double ur_logbeta_r(double, double, int*);
@@ -68,7 +69,7 @@ ur_logbeta_r(double a, double b, int *signp)
 		break;
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		b -= y;
+		b = round_core(b);
 //		if (b == 0)  return HUGE_VAL; // ComplexInfinity
 		attr |= 0x04; // IntegerPart
 		if (b < 0)  attr |= 0x08;
@@ -89,7 +90,7 @@ ur_logbeta_r(double a, double b, int *signp)
 		break;
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		a -= y;
+		a = round_core(a);
 //		if (a == 0)  return HUGE_VAL; // ComplexInfinity
 		attr |= 0x40; // IntegerPart
 		if (a < 0)  attr |= 0x80;
