@@ -100,7 +100,8 @@ ur_riemann_zeta(double x)
 	return z;
 }
 
-// The functional equation of zeta
+// The functional equation
+// $\zeta(s)=\pi^{s-\frac{1}{2}}\frac{\Gamma((1-s)/2)}{\Gamma(s/2)}\zeta(1-s)$
 static inline double
 ur_riemann_zeta_neg(double s)
 {
