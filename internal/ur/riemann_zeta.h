@@ -22,6 +22,8 @@ extern "C" {
 #include "../sys/primitive/float/fpclassify.h"
 #include "pow.h"
 #include "gamma.h"
+#include "fmod.h"
+#include "round.h"
 
 static inline double ur_riemann_zeta(double);
 static inline double ur_riemann_zeta_neg(double);
@@ -103,6 +105,16 @@ static inline double
 ur_riemann_zeta_neg(double s)
 {
 	static const double PI = 3.14159265358979323846;
+
+	switch (fpclassify(fmod_core(s, 2))) {
+	case FP_ZERO:
+	case FP_SUBNORMAL:
+		return 0.0; // Trivial zeros
+		break;
+	default:
+		break;
+	}
+
 	return pow_core(PI, s - 0.5) * 
 	       gamma_core((1 - s) / 2) / 
 	       gamma_core(s / 2) * 
