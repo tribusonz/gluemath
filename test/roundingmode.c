@@ -1,5 +1,8 @@
 /*******************************************************************************
 	Rounding Mode (Intel CPU main, Windows and Linux)
+	
+	Original Algorithm Author:
+	  Masahide Kashiwagi, Waseda University
 *******************************************************************************/
 
 extern void roundnear(void);
