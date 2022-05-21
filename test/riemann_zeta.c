@@ -13,23 +13,19 @@ GLUE-Math with POSIX standard
 Test Suite:
   Riemann Zeta Function
 
-  It's supported a negative argument.
-  But, the series expansion algorithm
-  gives accurate is until -2 at best.
-
-zeta(-14) =  0.000116704696817
-zeta(-13) = -0.083310848666419
-zeta(-12) = -0.000002328427378
-zeta(-11) =  0.021093272891148
-zeta(-10) =  0.000000018062014
-zeta( -9) = -0.007575763518760
-zeta( -8) =  0.000000001138518
-zeta( -7) =  0.004166666744352
-zeta( -6) =  0.000000000016640
-zeta( -5) = -0.003968253967041
-zeta( -4) = -0.000000000000667
+zeta(-14) = -0.000000000000000
+zeta(-13) = -0.083333333333333
+zeta(-12) =  0.000000000000000
+zeta(-11) =  0.021092796092796
+zeta(-10) = -0.000000000000000
+zeta( -9) = -0.007575757575758
+zeta( -8) =  0.000000000000000
+zeta( -7) =  0.004166666666667
+zeta( -6) = -0.000000000000000
+zeta( -5) = -0.003968253968254
+zeta( -4) =  0.000000000000000
 zeta( -3) =  0.008333333333333
-zeta( -2) =  0.000000000000000
+zeta( -2) = -0.000000000000000
 zeta( -1) = -0.083333333333332
 zeta(  0) = -0.500000000000000
 zeta(  1) =               inf
@@ -62,11 +58,12 @@ main(void)
 	puts("Test Suite:");
 	puts("  Riemann Zeta Function");
 	puts("");
-
+#if 0
 	puts("  It's supported a negative argument.");
 	puts("  But, the series expansion algorithm");
 	puts("  gives accurate is until -2 at best.");
 	puts("");
+#endif
 
 	for (x = -14; x <= 20; x++)
 		printf("zeta(% 3.0f) = % 17.15f\n", x, riemann_zeta_r8(x));
