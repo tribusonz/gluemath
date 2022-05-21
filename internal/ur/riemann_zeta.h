@@ -102,6 +102,7 @@ ur_riemann_zeta(double x)
 static inline double
 ur_riemann_zeta_neg(double s)
 {
+	static const double PI = 3.14159265358979323846;
 	return pow_core(PI, s - 0.5) * 
 	       gamma_core((1 - s) / 2) / 
 	       gamma_core(s / 2) * 
