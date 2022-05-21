@@ -21,9 +21,10 @@ extern "C" {
 #include "../../sys/float/fpclassify.h"
 #include "../sys/primitive/float/fpclassify.h"
 #include "pow.h"
+#include "gamma.h"
 
 static inline double ur_riemann_zeta(double);
-
+static inline double ur_riemann_zeta_neg(double);
 
 static inline double
 riemann_zeta_core(double x)
@@ -40,11 +41,15 @@ riemann_zeta_core(double x)
 		return -0.5;
 		break;
 	default:
-		return ur_riemann_zeta(x);
+		if (x > -2)
+			return ur_riemann_zeta(x);
+		else
+			return ur_riemann_zeta_neg(x);
 		break;
 	}
 }
 
+// $\zeta(s)=\sum_{k=1}^{\infty}\frac{1}{k^{s}}, \mathfrak{Re}(s)\gt 1.$
 static inline double
 ur_riemann_zeta(double x)
 {
@@ -91,6 +96,16 @@ ur_riemann_zeta(double x)
 		z += coef[i] * w;
 	}
 	return z;
+}
+
+// The functional equation of zeta
+static inline double
+ur_riemann_zeta_neg(double s)
+{
+	return pow_core(PI, s - 0.5) * 
+	       gamma_core((1 - s) / 2) / 
+	       gamma_core(s / 2) * 
+	       ur_riemann_zeta(1 - s);
 }
 
 #if defined(__cplusplus)
