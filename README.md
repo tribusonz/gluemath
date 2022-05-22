@@ -9,9 +9,8 @@ It is a library for compilers, but independent. Include it so that the language 
 	* Numerical Verification
 	* Portable (Linux, UNIX-like, Windows)
 	* Refined Math
-	* Complex-number arithmetic (lower compatibility of C++)
+	* Complex-number arithmetic (backward compatibility for C++)
 	* Distribution Function Support
-	* ANSI C Math Support (named as legacy)
 	* Adopts C++ naming convention
 
 **How to use**  
