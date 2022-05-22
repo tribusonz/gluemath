@@ -1473,13 +1473,17 @@ extern double beta_r8(double, double);
 /*
  *  call-seq:
  *    (UserLevel Code)
- *      RMath.riemann_zeta(x) -> real (r8)
+ *      RMath.riemann_zeta(s) -> real (r8)
  *    (Native Code)
- *      riemann_zeta_r8(x) -> real (r8)
+ *      riemann_zeta_r8(s) -> real (r8)
  *  
- *  Computes the Riemann zeta function of {x}.
+ *  Computes the Riemann zeta function of {s}.
+ *  This function is of vital importance in the history of mathematics.
+ *  In the first place, the zeta function refers to a huge number of special functions,
+ *  and among them, the one related to the ring of integers is the Riemann zeta function.
+ *  It was L. Euler who discovered it, but B. Riemann extended it to complex numbers.
  *  
- *  @x .. X-axis
+ *  @s .. complex plane of {s}
  *  @retval .. solve of riemann zeta function
  */
 extern double riemann_zeta_r8(double);
