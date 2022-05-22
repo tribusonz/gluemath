@@ -1,0 +1,96 @@
+GLUE-Math with POSIX standard
+Test Suite:
+  Quadrant / atan2()
+
+for float:
+complex argument switched by zero
+  quadrant( 0.0,  1.0) =  1.57079
+  quadrant( 1.0,  0.0) =  0.00000
+  quadrant( 0.0, -1.0) = -1.57079
+  quadrant(-1.0,  0.0) =  3.14159
+  quadrant( 0.0,  inf) =  1.57079
+  quadrant( 0.0, -inf) = -1.57079
+  quadrant( inf,  0.0) =  0.00000
+  quadrant(-inf,  0.0) =  3.14159
+
+quadrant switched by finite
+  quadrant( 1.0,  1.0) =  0.78539
+  quadrant( 1.0, -1.0) = -0.78539
+  quadrant(-1.0, -1.0) = -2.35619
+  quadrant(-1.0,  1.0) =  2.35619
+
+radian switched by infinite
+     0deg:  quadrant( 1.0,  inf) =  1.57079
+            quadrant(-1.0,  inf) =  1.57079
+    45deg:  quadrant( inf,  inf) =  0.78539
+    90deg:  quadrant( inf,  1.0) =  0.00000
+            quadrant( inf, -1.0) = -0.00000
+   135deg:  quadrant( inf, -inf) = -0.78539
+   180deg:  quadrant( 1.0, -inf) = -1.57079
+   -45deg:  quadrant(-inf,  inf) =  2.35619
+   -90deg:  quadrant(-inf,  1.0) =  3.14159
+            quadrant(-inf, -1.0) = -3.14159
+  -135deg:  quadrant(-inf, -inf) = -2.35619
+  -180deg:  quadrant(-1.0, -inf) = -1.57079
+
+for double:
+complex argument switched by zero
+  quadrant( 0.0,  1.0) =  1.57079632679489
+  quadrant( 1.0,  0.0) =  0.00000000000000
+  quadrant( 0.0, -1.0) = -1.57079632679489
+  quadrant(-1.0,  0.0) =  3.14159265358979
+  quadrant( 0.0,  inf) =  1.57079632679489
+  quadrant( 0.0, -inf) = -1.57079632679489
+  quadrant( inf,  0.0) =  0.00000000000000
+  quadrant(-inf,  0.0) =  3.14159265358979
+
+quadrant switched by finite
+  quadrant( 1.0,  1.0) =  0.78539816339744
+  quadrant( 1.0, -1.0) = -0.78539816339744
+  quadrant(-1.0, -1.0) = -2.35619449019234
+  quadrant(-1.0,  1.0) =  2.35619449019234
+
+radian switched by infinite
+     0deg:  quadrant( 1.0,  inf) =  1.57079632679489
+            quadrant(-1.0,  inf) =  1.57079632679489
+    45deg:  quadrant( inf,  inf) =  0.78539816339744
+    90deg:  quadrant( inf,  1.0) =  0.00000000000000
+            quadrant( inf, -1.0) = -0.00000000000000
+   135deg:  quadrant( inf, -inf) = -0.78539816339744
+   180deg:  quadrant( 1.0, -inf) = -1.57079632679489
+   -45deg:  quadrant(-inf,  inf) =  2.35619449019234
+   -90deg:  quadrant(-inf,  1.0) =  3.14159265358979
+            quadrant(-inf, -1.0) = -3.14159265358979
+  -135deg:  quadrant(-inf, -inf) = -2.35619449019234
+  -180deg:  quadrant(-1.0, -inf) = -1.57079632679489
+
+for long double:
+complex argument switched by zero
+  quadrant( 0.0,  1.0) =  1.57079632679489661
+  quadrant( 1.0,  0.0) =  0.00000000000000000
+  quadrant( 0.0, -1.0) = -1.57079632679489661
+  quadrant(-1.0,  0.0) =  3.14159265358979323
+  quadrant( 0.0,  inf) =  1.57079632679489661
+  quadrant( 0.0, -inf) = -1.57079632679489661
+  quadrant( inf,  0.0) =  0.00000000000000000
+  quadrant(-inf,  0.0) =  3.14159265358979323
+
+quadrant switched by finite
+  quadrant( 1.0,  1.0) =  0.78539816339744831
+  quadrant( 1.0, -1.0) = -0.78539816339744831
+  quadrant(-1.0, -1.0) = -2.35619449019234492
+  quadrant(-1.0,  1.0) =  2.35619449019234492
+
+radian switched by infinite
+     0deg:  quadrant( 1.0,  inf) =  1.57079632679489661
+            quadrant(-1.0,  inf) =  1.57079632679489661
+    45deg:  quadrant( inf,  inf) =  0.78539816339744831
+    90deg:  quadrant( inf,  1.0) =  0.00000000000000000
+            quadrant( inf, -1.0) = -0.00000000000000000
+   135deg:  quadrant( inf, -inf) = -0.78539816339744831
+   180deg:  quadrant( 1.0, -inf) = -1.57079632679489661
+   -45deg:  quadrant(-inf,  inf) =  2.35619449019234492
+   -90deg:  quadrant(-inf,  1.0) =  3.14159265358979323
+            quadrant(-inf, -1.0) = -3.14159265358979323
+  -135deg:  quadrant(-inf, -inf) = -2.35619449019234492
+  -180deg:  quadrant(-1.0, -inf) = -1.57079632679489661
