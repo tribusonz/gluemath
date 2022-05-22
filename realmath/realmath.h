@@ -689,6 +689,9 @@ extern long double acot_re(long double);
  *  Computes Quadrant-XY of two arguments {x} and {y}. Solve of unit is a radian.
  *  Note that the purpose is the same as atan2(), but the order of arguments is different.
  *  
+ *  Formal method:
+ *  $\theta=\tan^{-1}\frac{y}{x}$
+ *
  *  @x: quadrant-XY of x
  *  @y: quadrant-XY of y
  *  @retval: solve of quadrant-XY
@@ -737,7 +740,7 @@ extern long double quadrant_re(long double, long double);
  *  It's more subdividing, but generally 0 or +Infinity is sent out.
  *  
  *  Formal method:
- *  $a^2+b^2=c^2 \rightarrow c=\sqrt{a^2+b^2}$
+ *  $\left\|\left\{x,y\right\}\right\|=\sqrt{x^2+y^2}$
  *  
  *  @a: triangles base
  *  @b: triangles height
@@ -1179,6 +1182,71 @@ extern long double acsch_re(long double);
 extern float acoth_r4(float);
 extern double acoth_r8(double);
 extern long double acoth_re(long double);
+
+/***** FP Manipulation Function ****/
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.frexp(x) -> [real (r4/r8/reX), int] *associated array
+ *    (Native Code)
+ *      frexp_r4(x, *exp) -> f32, frexp_r8(x, *exp) -> f64, frexp_re(x, *exp) -> f80 | f128
+ *  
+ *  Decomposes the exponent and fraction of {x}, then return array of each element.
+ *  On the native code, writes the exponent as the second argument, and returns the fraction.
+ *  From the idea of the exponential decomposition formula, the exponent is incremented and
+ *  fraction is normalized by 1/2.
+ *  This is an implementation for compatible and is actually simulated in RCM.
+ *  We recommend the use of RCM, which is included in the compatibility for language standards.
+ *  
+ *  @x: original value
+ *  @exp: scalar (int), written the exponent
+ *  @retval: fraction of {x}
+ *  
+ *  Special behaviors:
+ *  The decomposition formula is original.
+ *   e.g. 15.0:
+ *   -> exponential decompisition: exp=3, frac=1.875
+ *   -> fraction and exponent:     exp=4, frac=0.9375
+ *  {x} is zero: exp=0 frac=0.0  (unspecified behavior)
+ *  {x} is +-Infinity: exp=0 frac=+-Infinity  (unspecified behavior)
+ *  {x} is NaN: exp=0 frac=NaN  (unspecified behavior)
+ *  {x} is negative: frac has sign  (unspecified behavior)
+ */
+extern float frexp_r4(float, int*);
+extern double frexp_r8(double, int*);
+extern long double frexp_re(long double, int*);
+
+/*
+ *  call-seq:
+ *    (UserLevel Code)
+ *      RMath.ldexp(x, exp) -> real (r4/r8/reX)
+ *    (Native Code)
+ *      ldexp_r4(x, exp) -> f32, ldexp_r8(x, exp) -> f64, ldexp_re(x, exp) -> f80 | f128
+ *  
+ *  Computes load exponent i.e. the {exp}-power of {x} by 2.
+ *  The calculation is expressed by the following formula:
+ *  $x\,2^{\mathrm{exp}}$
+ *  Like frexp(), it is a floating-point operation function, but it is also useful as
+ *  a function that returns the integer power of 2.
+ *  
+ *  @x: number to multiply (real)
+ *  @exp: integer power number
+ *  @retval: solve of load exponent
+ *  
+ *  Special behaviors:
+ *  Implemented Algorithm type: Fully converged convolution
+ *  {x} is +-Infinity:  (machine-dependent)
+ *  {x} is NaN: (machine-dependent)
+ */
+extern float ldexp_r4(float, int);
+extern double ldexp_r8(double, int);
+extern long double ldexp_re(long double, int);
+
+
+extern float modf_r4(float, float*);
+extern double modf_r8(double, double*);
+extern long double modf_re(long double, long double*);
+
 
 /***** Special Function *****/
 /*
