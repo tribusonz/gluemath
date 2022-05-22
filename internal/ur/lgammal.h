@@ -66,7 +66,7 @@ lgammal_core(long double x)
 	default:
 		break;
 	}
-	return ur_loggammal(x, &signp);
+	return ur_loggammal_r(x, &signp);
 }
 
 #if defined(__cplusplus)
