@@ -2,7 +2,10 @@ GLUE-Math with POSIX standard
 Test Suite:
   Common Logarithm
 
+Polymorphism Pattern: Real variable -> Real solution
+>>> RMath.log10(x)
   (x)   float     double             long double         
+  0.0  -Infinity -Infinity          -Infinity            
   0.2  -0.698970 -0.698970004336019 -0.698970004336018781
   0.4  -0.397940 -0.397940008672038 -0.397940008672037585
   0.6  -0.221849 -0.221848749616356 -0.221848749616356384
