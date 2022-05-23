@@ -15,6 +15,8 @@ main(void)
 {
 	rmath_title_print("Logarithm of Euler Beta Function");
 
+	puts("Polymorphism Pattern: Real 2 variables -> Real solution");
+	rmath_methname_print("lbeta(a, b)");
 	puts(" (b)    logbeta(1, b)    logbeta(3, b)    logbeta(5, b)    logbeta(8, b)");
 	for (volatile int i = -50; i <= 50; i += 2)
 	{
@@ -35,7 +37,7 @@ lbeta_print_dbl(double a, double b)
 {
 	static char s[0x200];
 	
-	snprintf(s, 0x200, "% *.*g", DBL_DIG, DBL_DIG, lbeta_r8(a, b));
+	snprintf(s, 0x200, "% *.*s", DBL_DIG, DBL_DIG, print_dbl_g(lbeta_r8(a, b), UNARY_AUTO));
 
 	return s;
 }

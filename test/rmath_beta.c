@@ -15,6 +15,8 @@ main(void)
 {
 	rmath_title_print("Euler Beta Function");
 
+	puts("Polymorphism Pattern: Real 2 variables -> Real solution");
+	rmath_methname_print("beta(a, b)");
 	puts(" (b)       beta(1, b)       beta(3, b)       beta(5, b)       beta(8, b)");
 	for (volatile int i = -50; i <= 50; i += 2)
 	{
@@ -35,7 +37,7 @@ beta_print_dbl(double a, double b)
 {
 	static char s[0x200];
 	
-	snprintf(s, 0x200, "% *.*g", DBL_DIG, DBL_DIG, beta_r8(a, b));
+	snprintf(s, 0x200, "% *.*s", DBL_DIG, DBL_DIG, print_dbl_g(beta_r8(a, b), UNARY_AUTO));
 
 	return s;
 }
