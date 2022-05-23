@@ -1485,6 +1485,11 @@ extern double beta_r8(double, double);
  *  
  *  @s .. complex plane of {s}
  *  @retval .. solve of riemann zeta function
+ *  
+ *  Special behaviors:
+ *  {s} is of the even negative integers: 0.0 (so called the trivial zeros)
+ *    Although it can be derived by functional equation, the sign value is inverted.
+ *    Therefore, it is corrected with a context switch.
  */
 extern double riemann_zeta_r8(double);
 
