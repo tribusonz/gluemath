@@ -94,10 +94,10 @@ listiter_tabitem_print(
 		check = 1;
 	}
 
-	printf("% *.*f  %-*s %-*s %-*s\n", x_int_size, x_dec_size, x,
-	        flt_info.dig + 3, flt_inspect_f(flt, UNARY_PADDING),
-	        dbl_info.dig + 3, dbl_inspect_f(dbl, UNARY_PADDING),
-	        ldbl_info.dig + 3, ldbl_inspect_f(ldbl, UNARY_PADDING));
+	printf("% *.*f  %-*.*s %-*.*s %-*.*s\n", x_int_size, x_dec_size, x,
+	        flt_info.dig + 3,  flt_info.dig + 3, flt_inspect_f(flt, UNARY_PADDING),
+	        dbl_info.dig + 3,  dbl_info.dig + 3, dbl_inspect_f(dbl, UNARY_PADDING),
+	        ldbl_info.dig + 3, ldbl_info.dig + 3, ldbl_inspect_f(ldbl, UNARY_PADDING));
 	fflush(stdout);
 }
 
