@@ -10,6 +10,7 @@ extern "C" {
 
 #include <stdio.h>
 #include <string.h>
+#include "../sys/float/signbit.h"
 #include "../sys/float/huge_val_nan.h"
 #include "../sys/float/info.h"
 #include "../internal/sys/primitive/float/info.h"
@@ -26,15 +27,17 @@ extern "C" {
 
 static inline void rmath_title_print(const char*);
 static inline void rmath_methname_print(const char*);
+static inline void rmath_pole_title_print(void);
 static inline void listiter_tabname_print(const char*);
 static inline void listiter_tabitem_print(double, int, int, float, double, long double);
 
-static inline char *print_flt_f(float, int);
-static inline char *print_dbl_f(double, int);
-static inline char *print_ldbl_f(long double, int);
+static inline char *flt_inspect_f(float, int);
+static inline char *dbl_inspect_f(double, int);
+static inline char *ldbl_inspect_f(long double, int);
 
-static inline char *print_dbl_g(double, int);
-
+static inline char *flt_inspect_g(float, int);
+static inline char *dbl_inspect_g(double, int);
+static inline char *ldbl_inspect_g(long double, int);
 
 static inline void
 rmath_title_print(const char *title)
@@ -50,6 +53,13 @@ static inline void
 rmath_methname_print(const char *meth)
 {
 	printf(">>> RMath.%*s\n", (int)strlen(meth), meth);
+	fflush(stdout);
+}
+
+static inline void
+rmath_pole_title_print(void)
+{
+	puts("Property of Pole");
 	fflush(stdout);
 }
 
@@ -84,10 +94,10 @@ listiter_tabitem_print(
 		check = 1;
 	}
 
-	printf("%*.*f  %-*s %-*s %-*s\n", x_int_size, x_dec_size, x,
-	        flt_info.dig + 3, print_flt_f(flt, UNARY_PADDING),
-	        dbl_info.dig + 3, print_dbl_f(dbl, UNARY_PADDING),
-	        ldbl_info.dig + 3, print_ldbl_f(ldbl, UNARY_PADDING));
+	printf("% *.*f  %-*s %-*s %-*s\n", x_int_size, x_dec_size, x,
+	        flt_info.dig + 3, flt_inspect_f(flt, UNARY_PADDING),
+	        dbl_info.dig + 3, dbl_inspect_f(dbl, UNARY_PADDING),
+	        ldbl_info.dig + 3, ldbl_inspect_f(ldbl, UNARY_PADDING));
 	fflush(stdout);
 }
 
@@ -99,7 +109,7 @@ __print_nan(int unary)
 	char *ptr = s;
 
 	if (unary == UNARY_PADDING)
-		*ptr == ' ';
+		*ptr++ = ' ';
 	*ptr++ = 'N'; *ptr++ = 'a'; *ptr++ = 'N';
 	*ptr++ = '\0';
 	return s;
@@ -123,10 +133,12 @@ __print_inf(int sign, int unary)
 	return s;
 }
 
-/**** Type f ****/
+/**** Exponent form ****/
+
+/**** (Decimal) FP form ****/
 
 static inline char *
-print_flt_f(float x, int unary)
+flt_inspect_f(float x, int unary)
 {
 	static char s[0x200];
 	char *ptr = s;
@@ -143,9 +155,9 @@ print_flt_f(float x, int unary)
 			return __print_inf( 1, unary);
 		break;
 	case FP_ZERO:
-		if (x > 0 && unary == UNARY_ENABLE)
+		if (!signbit(x) && unary == UNARY_ENABLE)
 			*ptr++ = '+';
-		else if (x < 0 && unary != UNARY_DISABLE)
+		else if (signbit(x) && unary != UNARY_DISABLE)
 			*ptr++ = '-';
 		else if (unary == UNARY_PADDING)
 			*ptr++ = ' ';
@@ -176,7 +188,7 @@ print_flt_f(float x, int unary)
 			if (unary == UNARY_DISABLE)
 				{
 					*ptr = '\0';
-					*s = (*s)++;
+					*s += 1;
 					ptr = &s[size+2];
 				}
 			else
@@ -189,7 +201,7 @@ print_flt_f(float x, int unary)
 }
 
 static inline char *
-print_dbl_f(double x, int unary)
+dbl_inspect_f(double x, int unary)
 {
 	static char s[0x200];
 	char *ptr = s;
@@ -206,9 +218,9 @@ print_dbl_f(double x, int unary)
 			return __print_inf( 1, unary);
 		break;
 	case FP_ZERO:
-		if (x > 0 && unary == UNARY_ENABLE)
+		if (!signbit(x) && unary == UNARY_ENABLE)
 			*ptr++ = '+';
-		else if (x < 0 && unary != UNARY_DISABLE)
+		else if (signbit(x) && unary != UNARY_DISABLE)
 			*ptr++ = '-';
 		else if (unary == UNARY_PADDING)
 			*ptr++ = ' ';
@@ -239,7 +251,7 @@ print_dbl_f(double x, int unary)
 			if (unary == UNARY_DISABLE)
 				{
 					*ptr = '\0';
-					*s = (*s)++;
+					*s += 1;
 					ptr = &s[size+2];
 				}
 			else
@@ -252,7 +264,7 @@ print_dbl_f(double x, int unary)
 }
 
 static inline char *
-print_ldbl_f(long double x, int unary)
+ldbl_inspect_f(long double x, int unary)
 {
 	static char s[0x200];
 	char *ptr = s;
@@ -269,9 +281,9 @@ print_ldbl_f(long double x, int unary)
 			return __print_inf( 1, unary);
 		break;
 	case FP_ZERO:
-		if (x > 0 && unary == UNARY_ENABLE)
+		if (!signbit(x) && unary == UNARY_ENABLE)
 			*ptr++ = '+';
-		else if (x < 0 && unary != UNARY_DISABLE)
+		else if (signbit(x) && unary != UNARY_DISABLE)
 			*ptr++ = '-';
 		else if (unary == UNARY_PADDING)
 			*ptr++ = ' ';
@@ -302,7 +314,7 @@ print_ldbl_f(long double x, int unary)
 			if (unary == UNARY_DISABLE)
 				{
 					*ptr = '\0';
-					*s = (*s)++;
+					*s += 1;
 					ptr = &s[size+2];
 				}
 			else
@@ -314,10 +326,10 @@ print_ldbl_f(long double x, int unary)
 	return s;
 }
 
-/**** Type g ****/
+/**** Generic Form ****/
 
 static inline char *
-print_dbl_g(double x, int unary)
+flt_inspect_g(float x, int unary)
 {
 	static char s[0x200];
 	char *ptr = s;
@@ -334,9 +346,59 @@ print_dbl_g(double x, int unary)
 			return __print_inf( 1, unary);
 		break;
 	case FP_ZERO:
-		if (x > 0 && unary == UNARY_ENABLE)
+		if (!signbit(x) && unary == UNARY_ENABLE)
 			*ptr++ = '+';
-		else if (x < 0 && unary != UNARY_DISABLE)
+		else if (signbit(x) && unary != UNARY_DISABLE)
+			*ptr++ = '-';
+		else
+			*ptr++ = ' ';
+		*ptr++ = '0'; *ptr++ = '.'; *ptr++ = '0';
+		break;
+	case FP_SUBNORMAL:
+	case FP_NORMAL:
+	default:
+		if (x > 0)
+		{
+			if (unary == UNARY_ENABLE)
+				size = (int)snprintf(s+1, 0x200, "%+.*g", flt_info.dig, x);
+			else
+				size = (int)snprintf(s, 0x200, "% .*g", flt_info.dig, x);
+			ptr = &s[size];
+		}
+		else /* if (x < 0) */
+		{
+			size = (int)snprintf(s, 0x200, "%.*g", flt_info.dig, x);
+			if (unary == UNARY_DISABLE)
+				*ptr = ' ';
+			ptr = &s[size+1];
+		}
+		break;
+	}
+	*ptr++ = '\0';
+	return s;
+}
+
+static inline char *
+dbl_inspect_g(double x, int unary)
+{
+	static char s[0x200];
+	char *ptr = s;
+	int size = 0;
+
+	switch (fpclassify(x)) {
+	case FP_NAN:
+		return __print_nan(unary);
+		break;
+	case FP_INFINITE:
+		if (x < 0)
+			return __print_inf(-1, unary);
+		else
+			return __print_inf( 1, unary);
+		break;
+	case FP_ZERO:
+		if (!signbit(x) && unary == UNARY_ENABLE)
+			*ptr++ = '+';
+		else if (signbit(x) && unary != UNARY_DISABLE)
 			*ptr++ = '-';
 		else
 			*ptr++ = ' ';
@@ -366,6 +428,55 @@ print_dbl_g(double x, int unary)
 	return s;
 }
 
+static inline char *
+ldbl_inspect_g(long double x, int unary)
+{
+	static char s[0x200];
+	char *ptr = s;
+	int size = 0;
+
+	switch (fpclassify(x)) {
+	case FP_NAN:
+		return __print_nan(unary);
+		break;
+	case FP_INFINITE:
+		if (x < 0)
+			return __print_inf(-1, unary);
+		else
+			return __print_inf( 1, unary);
+		break;
+	case FP_ZERO:
+		if (!signbit(x) && unary == UNARY_ENABLE)
+			*ptr++ = '+';
+		else if (signbit(x) && unary != UNARY_DISABLE)
+			*ptr++ = '-';
+		else
+			*ptr++ = ' ';
+		*ptr++ = '0'; *ptr++ = '.'; *ptr++ = '0';
+		break;
+	case FP_SUBNORMAL:
+	case FP_NORMAL:
+	default:
+		if (x > 0)
+		{
+			if (unary == UNARY_ENABLE)
+				size = (int)snprintf(s+1, 0x200, "%+.*Lg", ldbl_info.dig, x);
+			else
+				size = (int)snprintf(s, 0x200, "% .*Lg", ldbl_info.dig, x);
+			ptr = &s[size];
+		}
+		else /* if (x < 0) */
+		{
+			size = (int)snprintf(s, 0x200, "%.*Lg", ldbl_info.dig, x);
+			if (unary == UNARY_DISABLE)
+				*ptr = ' ';
+			ptr = &s[size+1];
+		}
+		break;
+	}
+	*ptr++ = '\0';
+	return s;
+}
 
 #if defined(__cplusplus)
 }

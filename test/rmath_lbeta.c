@@ -17,15 +17,19 @@ main(void)
 
 	puts("Polymorphism Pattern: Real 2 variables -> Real solution");
 	rmath_methname_print("lbeta(a, b)");
-	puts(" (b)    logbeta(1, b)    logbeta(3, b)    logbeta(5, b)    logbeta(8, b)");
+	printf(" %3.3s  % *.*s  % *.*s  % *.*s  % *.*s\n", "(b)",
+	       DBL_DIG + 2, DBL_DIG + 2, "logbeta(1, b)",
+	       DBL_DIG + 2, DBL_DIG + 2, "logbeta(3, b)",
+	       DBL_DIG + 2, DBL_DIG + 2, "logbeta(5, b)",
+	       DBL_DIG + 2, DBL_DIG + 2, "logbeta(8, b)");
 	for (volatile int i = -50; i <= 50; i += 2)
 	{
 		const double b = i / 10.0;
 		printf("% 1.1f  ", b);
-		printf("%*.*s  ", DBL_DIG, DBL_DIG, lbeta_print_dbl(1, b));
-		printf("%*.*s  ", DBL_DIG, DBL_DIG, lbeta_print_dbl(3, b));
-		printf("%*.*s  ", DBL_DIG, DBL_DIG, lbeta_print_dbl(5, b));
-		printf("%*.*s  ", DBL_DIG, DBL_DIG, lbeta_print_dbl(8, b));
+		printf("%s  ", lbeta_print_dbl(1, b));
+		printf("%s  ", lbeta_print_dbl(3, b));
+		printf("%s  ", lbeta_print_dbl(5, b));
+		printf("%s  ", lbeta_print_dbl(8, b));
 		puts("");
 	}
 	
@@ -37,7 +41,7 @@ lbeta_print_dbl(double a, double b)
 {
 	static char s[0x200];
 	
-	snprintf(s, 0x200, "% *.*s", DBL_DIG, DBL_DIG, print_dbl_g(lbeta_r8(a, b), UNARY_AUTO));
+	snprintf(s, 0x200, "% *.*s", DBL_DIG + 2, DBL_DIG + 2, dbl_inspect_g(lbeta_r8(a, b), UNARY_AUTO));
 
 	return s;
 }
