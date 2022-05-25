@@ -1,20 +1,20 @@
 /***********************************************************
-	GLUE-Math test suite: Exponential Function
+	GLUE-Math test suite: Natural Exponent
 ***********************************************************/
 #include "../realmath/realmath.h"
 #include "testsuite.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <float.h>
 
 int
 main(void)
 {
 	int i;
 	
-	rmath_title_print("Exponential Function");
+	rmath_title_print("Natural Exponent");
 
-	puts("Polymorphism Pattern: Real variable -> Real solution");
+	rmath_calctest_title_print();
+
+	rmath_polympatt_print("Real variable", "Real solution");
 	rmath_methname_print("exp(x)");
 	listiter_tabname_print("(x)");
 	for (int i = -10; i <= 10; i++)

@@ -26,10 +26,14 @@ extern "C" {
 #define NOTATION_G 2
 
 static inline void rmath_title_print(const char*);
+static inline void rmath_calctest_title_print(void);
+static inline void rmath_polympatt_print(const char*, const char*);
 static inline void rmath_methname_print(const char*);
 static inline void rmath_pole_title_print(void);
 static inline void
 rmath_check_exp(float ef(float), double ed(double), long double eld(long double));
+static inline void
+rmath_check_pole1(float ef(float), double ed(double), long double eld(long double));
 static inline void listiter_tabname_print(const char*);
 static inline void listiter_tabitem_print(double, int, int, float, double, long double);
 
@@ -48,6 +52,21 @@ rmath_title_print(const char *title)
 	puts("Test Suite:");
 	printf("  %*s\n", (int)strlen(title), title);
 	puts("");
+	fflush(stdout);
+}
+
+static inline void
+rmath_calctest_title_print(void)
+{
+	puts("[Calculation Test]");
+	fflush(stdout);
+}
+
+static inline void
+rmath_polympatt_print(const char *valuetype, const char *solvetype)
+{
+	puts("Polymorphism Pattern:");
+	printf("  %s -> %s\n", valuetype, solvetype);
 	fflush(stdout);
 }
 
@@ -111,6 +130,41 @@ rmath_check_exp(float ef(float), double ed(double), long double eld(long double)
 	printf("  %8.8s", ldbl_inspect_g(eld( HUGE_VALL), UNARY_AUTO));
 	printf("  %8.8s", ldbl_inspect_g(eld(-HUGE_VALL), UNARY_AUTO));
 	printf("  %8.8s", ldbl_inspect_g(eld(NAN), UNARY_AUTO));
+	puts("");
+
+	fflush(stdout);
+}
+
+static inline void
+rmath_check_pole1(float ff(float), double fd(double), long double fld(long double))
+{
+	puts("  - CHECK THE POLE IN THE ARGUMENT -");
+	puts("");
+	puts("  List Table Details:");
+	puts("  arg+inf  := Solution the argument is +Infinity");
+	puts("  arg-inf  := Solution the argument is -Infinity");
+	puts("  arg_nan  := Solution the argument is NaN");
+	puts("");
+
+	printf("  %4.4s  %8.8s  %8.8s  %8.8s\n",
+	"type", "arg+inf", "arg-inf", "arg_nan");
+
+	printf("  %4.4s", "flt");
+	printf("  %8.8s", flt_inspect_g(ff( HUGE_VALF), UNARY_AUTO));
+	printf("  %8.8s", flt_inspect_g(ff(-HUGE_VALF), UNARY_AUTO));
+	printf("  %8.8s", flt_inspect_g(ff(NAN), UNARY_AUTO));
+	puts("");
+
+	printf("  %4.4s", "dbl");
+	printf("  %8.8s", dbl_inspect_g(fd( HUGE_VAL), UNARY_AUTO));
+	printf("  %8.8s", dbl_inspect_g(fd(-HUGE_VAL), UNARY_AUTO));
+	printf("  %8.8s", dbl_inspect_g(fd(NAN), UNARY_AUTO));
+	puts("");
+
+	printf("  %4.4s", "ldbl");
+	printf("  %8.8s", ldbl_inspect_g(fld( HUGE_VALL), UNARY_AUTO));
+	printf("  %8.8s", ldbl_inspect_g(fld(-HUGE_VALL), UNARY_AUTO));
+	printf("  %8.8s", ldbl_inspect_g(fld(NAN), UNARY_AUTO));
 	puts("");
 
 	fflush(stdout);

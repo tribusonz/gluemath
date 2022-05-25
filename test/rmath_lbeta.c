@@ -15,7 +15,10 @@ main(void)
 {
 	rmath_title_print("Logarithm of Euler Beta Function");
 
-	puts("Polymorphism Pattern: Real 2 variables -> Real solution");
+	rmath_calctest_title_print();
+
+	rmath_polympatt_print("Real 2 variables", "Complex solution");
+	puts("  (Without Imaginary number)");
 	rmath_methname_print("lbeta(a, b)");
 	printf(" %3.3s  % *.*s  % *.*s  % *.*s  % *.*s\n", "(b)",
 	       DBL_DIG + 2, DBL_DIG + 2, "logbeta(1, b)",

@@ -12,7 +12,9 @@ main(void)
 {
 	rmath_title_print("Binary Exponent");
 
-	puts("Polymorphism Pattern: Real variable -> Real solution");
+	rmath_calctest_title_print();
+
+	rmath_polympatt_print("Real variable", "Real solution");
 	rmath_methname_print("exp2(x)");
 	listiter_tabname_print("(x)");
 	for (int i = -10; i <= 10; i++)

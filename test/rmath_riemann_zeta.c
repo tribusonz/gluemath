@@ -5,15 +5,25 @@
 #include "testsuite.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <float.h>
 
 int
 main(void)
 {
-	double x;
-
 	rmath_title_print("Riemann Zeta Function");
 
-	for (x = -14; x <= 20; x++)
-		printf("zeta(% 3.0f) = % 17.15f\n", x, riemann_zeta_r8(x));
+	rmath_calctest_title_print();
+
+	rmath_polympatt_print("Real variable", "Real solution");
+	rmath_methname_print("riemann_zeta(s)");
+	for (volatile int i = -14; i <= 20; i++)
+	{
+		const double s = i;
+		printf("zeta(% 3.0f) = %-*.*s\n", s, 
+		       DBL_DIG + 2, DBL_DIG + 2,
+		       dbl_inspect_f(riemann_zeta_r8(s), UNARY_PADDING));
+	}
+	
+	
 	return 0;
 }
