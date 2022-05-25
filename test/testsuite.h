@@ -28,6 +28,8 @@ extern "C" {
 static inline void rmath_title_print(const char*);
 static inline void rmath_methname_print(const char*);
 static inline void rmath_pole_title_print(void);
+static inline void
+rmath_check_exp(float ef(float), double ed(double), long double eld(long double));
 static inline void listiter_tabname_print(const char*);
 static inline void listiter_tabitem_print(double, int, int, float, double, long double);
 
@@ -59,9 +61,61 @@ rmath_methname_print(const char *meth)
 static inline void
 rmath_pole_title_print(void)
 {
-	puts("Property of Pole");
+	puts("[Property of Pole]");
 	fflush(stdout);
 }
+
+static inline void
+rmath_check_exp(float ef(float), double ed(double), long double eld(long double))
+{
+	int i;
+
+	puts("  - CHECK THE MACHINE CONSTANT IN THE ARGUMENT -");
+	puts("");
+	puts("  List Table Details:");
+	puts("  mac_emax := Maximum exponent of the calculation bound");
+	puts("  mac_emin := Minimum exponent of the calculation bound");
+	puts("  arg+inf  := Solution the argument is +Infinity");
+	puts("  arg-inf  := Solution the argument is -Infinity");
+	puts("  arg_nan  := Solution the argument is NaN");
+	puts("");
+
+	printf("  %4.4s  %8.8s  %8.8s  %8.8s  %8.8s  %8.8s\n",
+	"type", "mac_emax", "mac_emin", "arg+inf", "arg-inf", "arg_nan");
+
+	printf("  %4.4s", "flt");
+	for (i = 0; !isinf(ef(i)); i++);
+	printf("  %8d", i);
+	for (i = 0; 0.0 != ef(i); i--);
+	printf("  %8d", i);
+	printf("  %8.8s", flt_inspect_g(ef( HUGE_VALF), UNARY_AUTO));
+	printf("  %8.8s", flt_inspect_g(ef(-HUGE_VALF), UNARY_AUTO));
+	printf("  %8.8s", flt_inspect_g(ef(NAN), UNARY_AUTO));
+	puts("");
+
+	printf("  %4.4s", "dbl");
+	for (i = 0; !isinf(ed(i)); i++);
+	printf("  %8d", i);
+	for (i = 0; 0.0 != ed(i); i--);
+	printf("  %8d", i);
+	printf("  %8.8s", dbl_inspect_g(ed( HUGE_VAL), UNARY_AUTO));
+	printf("  %8.8s", dbl_inspect_g(ed(-HUGE_VAL), UNARY_AUTO));
+	printf("  %8.8s", dbl_inspect_g(ed(NAN), UNARY_AUTO));
+	puts("");
+
+	printf("  %4.4s", "ldbl");
+	for (i = 0; !isinf(eld(i)); i++);
+	printf("  %8d", i);
+	for (i = 0; 0.0 != eld(i); i--);
+	printf("  %8d", i);
+	printf("  %8.8s", ldbl_inspect_g(eld( HUGE_VALL), UNARY_AUTO));
+	printf("  %8.8s", ldbl_inspect_g(eld(-HUGE_VALL), UNARY_AUTO));
+	printf("  %8.8s", ldbl_inspect_g(eld(NAN), UNARY_AUTO));
+	puts("");
+
+	fflush(stdout);
+}
+
 
 static inline void
 listiter_tabname_print(const char *arg)
