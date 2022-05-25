@@ -2,8 +2,9 @@ GLUE-Math with POSIX standard
 Test Suite:
   Binary Exponent
 
-++++ Calculation test ++++
-(x), exp2(x), float/double/long-double
+Polymorphism Pattern: Real variable -> Real solution
+>>> RMath.exp2(x)
+  (x)   float     double             long double         
 -2.50   0.176777  0.176776695296637  0.176776695296636881
 -2.25   0.210224  0.210224103813429  0.210224103813428636
 -2.00   0.250000  0.250000000000000  0.250000000000000000
@@ -26,27 +27,17 @@ Test Suite:
  2.25   4.756828  4.756828460010885  4.756828460010884268
  2.50   5.656854  5.656854249492381  5.656854249492380195
 
-++++ Check handling of Infinity & NaN ++++
-for float
-exp2(FLT_MAX_EXP) = inf
-exp2(FLT_MIN_EXP) = 0.000000
-exp2(Infinity) = inf
-exp2(-Infinity) = 0.000000
-exp2(NaN) = nan
-Available Calculation Range: -123..127
+[Property of Pole]
+  - CHECK THE MACHINE CONSTANT IN THE ARGUMENT -
 
-for double
-exp2(DBL_MAX_EXP) = inf
-exp2(DBL_MIN_EXP) = 0.000000
-exp2(Infinity) = inf
-exp2(-Infinity) = 0.000000
-exp2(NaN) = nan
-Available Calculation Range: -1020..1024
+  List Table Details:
+  mac_emax := Maximum exponent of the calculation bound
+  mac_emin := Minimum exponent of the calculation bound
+  arg+inf  := Solution the argument is +Infinity
+  arg-inf  := Solution the argument is -Infinity
+  arg_nan  := Solution the argument is NaN
 
-for long double:
-exp2(LDBL_MAX_EXP) = inf
-exp2(LDBL_MIN_EXP) = 0.000000
-exp2(Infinity) = inf
-exp2(-Infinity) = 0.000000
-exp2(NaN) = nan
-Available Calculation Range: -16381..16384
+  type  mac_emax  mac_emin   arg+inf   arg-inf   arg_nan
+   flt       127      -123  Infinity       0.0       NaN
+   dbl      1024     -1020  Infinity       0.0       NaN
+  ldbl     16384    -16381  Infinity       0.0       NaN
