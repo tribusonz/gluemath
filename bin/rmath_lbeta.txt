@@ -2,7 +2,10 @@ GLUE-Math with POSIX standard
 Test Suite:
   Logarithm of Euler Beta Function
 
-Polymorphism Pattern: Real 2 variables -> Real solution
+[Calculation Test]
+Polymorphism Pattern:
+  Real 2 variables -> Complex solution
+  (Without Imaginary number)
 >>> RMath.lbeta(a, b)
  (b)      logbeta(1, b)      logbeta(3, b)      logbeta(5, b)      logbeta(8, b)
 -5.0   -1.6094379124341  -3.40119738166216   -1.6094379124341           Infinity  

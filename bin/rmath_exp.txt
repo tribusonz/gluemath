@@ -1,8 +1,10 @@
 GLUE-Math with POSIX standard
 Test Suite:
-  Exponential Function
+  Natural Exponent
 
-Polymorphism Pattern: Real variable -> Real solution
+[Calculation Test]
+Polymorphism Pattern:
+  Real variable -> Real solution
 >>> RMath.exp(x)
   (x)   float     double             long double         
 -2.50   0.082085  0.082084998623899  0.082084998623898795

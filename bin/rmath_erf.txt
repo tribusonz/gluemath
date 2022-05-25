@@ -2,7 +2,9 @@ GLUE-Math with POSIX standard
 Test Suite:
   Gaussian Error Function
 
-Polymorphism Pattern: Real variable -> Real solution
+[Calculation Test]
+Polymorphism Pattern:
+  Real variable -> Real solution
 >>> RMath.erf(x)
   (x)   float     double             long double         
  -6.0  -1.000000 -1.000000000000000 -0.999999999999999978
@@ -31,16 +33,15 @@ Polymorphism Pattern: Real variable -> Real solution
   5.5   1.000000  0.999999999999993  0.999999999999992642
   6.0   1.000000  1.000000000000000  0.999999999999999978
 
-Property of Pole
-float:
-erf(Infinity) =  1
-erf(-Infinity) = -1
-erf(NaN) = NaN
-double:
-erf(Infinity) =  1
-erf(-Infinity) = -1
-erf(NaN) = NaN
-long double:
-erf(Infinity) =  1
-erf(-Infinity) = -1
-erf(NaN) = NaN
+[Property of Pole]
+  - CHECK THE POLE IN THE ARGUMENT -
+
+  List Table Details:
+  arg+inf  := Solution the argument is +Infinity
+  arg-inf  := Solution the argument is -Infinity
+  arg_nan  := Solution the argument is NaN
+
+  type   arg+inf   arg-inf   arg_nan
+   flt         1        -1       NaN
+   dbl         1        -1       NaN
+  ldbl         1        -1       NaN

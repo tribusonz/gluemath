@@ -2,7 +2,9 @@ GLUE-Math with POSIX standard
 Test Suite:
   Euler Beta Function
 
-Polymorphism Pattern: Real 2 variables -> Real solution
+[Calculation Test]
+Polymorphism Pattern:
+  Real 2 variables -> Real solution
 >>> RMath.beta(a, b)
  (b)         beta(1, b)         beta(3, b)         beta(5, b)         beta(8, b)
 -5.0               -0.2  -0.03333333333333               -0.2          -Infinity  

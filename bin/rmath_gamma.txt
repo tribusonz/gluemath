@@ -2,7 +2,9 @@ GLUE-Math with POSIX standard
 Test Suite:
   Euler Gamma Function
 
-Polymorphism Pattern: Real variable -> Real solution
+[Calculation Test]
+Polymorphism Pattern:
+  Real variable -> Real solution
 >>> RMath.gamma(x)
   (x)   float     double             long double         
  -5.0  -Infinity -Infinity          -Infinity            
@@ -56,3 +58,16 @@ Polymorphism Pattern: Real variable -> Real solution
   4.6   13.38128  13.38128587093241  13.38128587093244235
   4.8   17.83786  17.83786198181354  17.83786198181360326
   5.0   24.00000  24.00000000000000  24.00000000000000000
+
+[Property of Pole]
+  - CHECK THE POLE IN THE ARGUMENT -
+
+  List Table Details:
+  arg+inf  := Solution the argument is +Infinity
+  arg-inf  := Solution the argument is -Infinity
+  arg_nan  := Solution the argument is NaN
+
+  type   arg+inf   arg-inf   arg_nan
+   flt  Infinity       NaN       NaN
+   dbl  Infinity       NaN       NaN
+  ldbl  Infinity       NaN       NaN

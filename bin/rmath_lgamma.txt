@@ -2,7 +2,10 @@ GLUE-Math with POSIX standard
 Test Suite:
   Logarithm of Euler Gamma Function
 
-Polymorphism Pattern: Real variable -> Complex solution (without Imaginary number)
+[Calculation Test]
+Polymorphism Pattern:
+  Real variable -> Complex solution
+  (Without Imaginary number)
 >>> RMath.lgamma(x)
   (x)   float     double             long double         
  -5.0   Infinity  Infinity           Infinity            
@@ -56,3 +59,16 @@ Polymorphism Pattern: Real variable -> Complex solution (without Imaginary numbe
   4.6   2.593857  2.593857154038478  2.593857154038479926
   4.8   2.881324  2.881323275901241  2.881323275901244892
   5.0   3.178054  3.178053830347946  3.178053830347945752
+
+[Property of Pole]
+  - CHECK THE POLE IN THE ARGUMENT -
+
+  List Table Details:
+  arg+inf  := Solution the argument is +Infinity
+  arg-inf  := Solution the argument is -Infinity
+  arg_nan  := Solution the argument is NaN
+
+  type   arg+inf   arg-inf   arg_nan
+   flt  Infinity       NaN       NaN
+   dbl  Infinity       NaN       NaN
+  ldbl  Infinity       NaN       NaN

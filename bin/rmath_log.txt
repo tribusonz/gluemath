@@ -2,7 +2,9 @@ GLUE-Math with POSIX standard
 Test Suite:
   Natural Logarithm
 
-Polymorphism Pattern: Real variable -> Real solution
+[Calculation Test]
+Polymorphism Pattern:
+  Real variable -> Complex solution
 >>> RMath.log(x)
   (x)   float     double             long double         
   0.0  -Infinity -Infinity          -Infinity            
@@ -26,3 +28,16 @@ Polymorphism Pattern: Real variable -> Real solution
   3.6   1.280934  1.280933845462064  1.280933845462064342
   3.8   1.335001  1.335001066732340  1.335001066732340039
   4.0   1.386294  1.386294361119891  1.386294361119890619
+
+[Property of Pole]
+  - CHECK THE POLE IN THE ARGUMENT -
+
+  List Table Details:
+  arg+inf  := Solution the argument is +Infinity
+  arg-inf  := Solution the argument is -Infinity
+  arg_nan  := Solution the argument is NaN
+
+  type   arg+inf   arg-inf   arg_nan
+   flt  Infinity       NaN       NaN
+   dbl  Infinity       NaN       NaN
+  ldbl  Infinity       NaN       NaN
