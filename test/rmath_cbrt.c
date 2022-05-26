@@ -12,15 +12,26 @@ main(void)
 {
 	rmath_title_print("Cubic Root");
 
-	printf("  %3.3s   %-*.*s  %-*.*s  %-*.*s\n", "(x)",
-	       FLT_DIG + 2, FLT_DIG + 2, "float",
-	       DBL_DIG + 2, DBL_DIG + 2, "double",
-	       LDBL_DIG + 2, LDBL_DIG + 2, "long double");
-	for (volatile int i = -20; i <= 20; i++)
-		printf("  % 3d  % *.*f % *.*f % *.*Lf\n", i,
-		    FLT_DIG, FLT_DIG, cbrt_r4(i),
-		    DBL_DIG, DBL_DIG, cbrt_r8(i),
-		    LDBL_DIG, LDBL_DIG, cbrt_re(i));
+	puts("  This function is not as the cube root sqrt3(x),");
+	puts("  returns the solution in the form of x^1/3.");
+	puts("");
+
+	rmath_calctest_title_print();
+
+	rmath_polympatt_print("Real variable", "Real solution");
+	rmath_methname_print("cbrt(x)");
+	listiter_tabname_print("(x)");
+	for (int i = -20; i <= 20; i++)
+	{
+		const double x = i / 5.0;  // Iterator Constant
+		listiter_tabitem_print(x, 5, 1, cbrt_r4(x), cbrt_r8(x), cbrt_re(x));
+	}
+
+	puts("");
+
+	rmath_pole_title_print();
+
+	rmath_check_pole1(cbrt_r4, cbrt_r8, cbrt_re);
 
 	return 0;
 }
