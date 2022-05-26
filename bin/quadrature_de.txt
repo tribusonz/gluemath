@@ -34,17 +34,17 @@ I_6=int_0^infty cos(x)/sqrt(x) dx
 Ruby-like coding
 ```
 def fresnel_cos(x)
-  quadrand = proc do |nu|
+  integrand = proc do |nu|
     RMath.cos(PI * nu * nu / 2)
   end
-  y = Quadrature.de(quadrand, 0, x)
+  y = Quadrature.de(integrand, 0, x)
   y[0]
 end
 def fresnel_sin(x)
-  quadrand = proc do |nu|
+  integrand = proc do |nu|
     RMath.sin(PI * nu * nu / 2)
   end
-  y = Quadrature.de(quadrand, 0, x)
+  y = Quadrature.de(integrand, 0, x)
   y[0]
 end
 ```
