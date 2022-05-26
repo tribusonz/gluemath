@@ -2,21 +2,37 @@ GLUE-Math with POSIX standard
 Test Suite:
   Double Exponential Formula
 
-I_1=int_0^1 1/sqrt(x) dx
- I_1= 2	, err= 8.88172e-16	, N= 67
-I_2=int_0^2 sqrt(4-x*x) dx
- I_2= 3.14159265358979	, err= 1.39515e-15	, N= 57
-I_3=int_0^infty 1/(1+x*x) dx
- I_3= 1.5707963267949	, err= 6.97574e-16	, N= 57
-I_4=int_0^infty exp(-x)/sqrt(x) dx
- I_4= 1.77245385090552	, err= 1.57426e-15	, N= 115
-I_5=int_0^infty sin(x)/x dx
- I_5= 1.5707963267949	, err= 1.4696e-15	, N= 126
-I_6=int_0^infty cos(x)/sqrt(x) dx
- I_6= 1.2533141373155	, err= 6.71041e-15	, N= 135
+--------------------------------------------------------------------------------
 
-Sample for Fresnel Integral Implementation
+  - OOURA'S TEST SUITES -
+
+  Use the DE formula to find the integral.
+
+I_1=int_0^1 1/sqrt(x) dx
+ I_1=  2.000000000000000, err= 8.88172303753674e-16, N= 67
+I_2=int_0^2 sqrt(4-x*x) dx
+ I_2=  3.141592653589793, err= 1.39514739914969e-15, N= 57
+I_3=int_0^infty 1/(1+x*x) dx
+ I_3=  1.570796326794896, err= 6.97573699600816e-16, N= 57
+I_4=int_0^infty exp(-x)/sqrt(x) dx
+ I_4=  1.772453850905515, err= 1.57426221228146e-15, N= 115
+I_5=int_0^infty sin(x)/x dx
+ I_5=  1.570796326794899, err= 1.46959600542486e-15, N= 126
+I_6=int_0^infty cos(x)/sqrt(x) dx
+ I_6=  1.253314137315495, err= 6.71041377441026e-15, N= 135
+
+--------------------------------------------------------------------------------
+
+  - SAMPLE FOR FRESNEL INTEGRAL IMPLEMENTATION -
+
+  Find the Fresnel integral in the DE formula.
+
+  Reference: Abramowitz and Stegun
+    $C(z) = \int_0^z \cos(\frac{1}{2}\pi t^2) dt,$
+    $S(z) = \int_0^z \sin(\frac{1}{2}\pi t^2) dt,$
+
 Ruby-like coding
+```
 def fresnel_cos(x)
   quadrand = proc do |nu|
     RMath.cos(PI * nu * nu / 2)
@@ -31,6 +47,7 @@ def fresnel_sin(x)
   y = Quadrature.de(quadrand, 0, x)
   y[0]
 end
+```
 
   (x)     fresnel_cos(x)     fresnel_sin(x)
  -5.0  -0.563631188704012  -0.499191381917119
