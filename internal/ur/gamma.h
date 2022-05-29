@@ -66,7 +66,8 @@ gamma_core(register double x)
 		break;
 	}
 	y = ur_loggamma_r(x, &signp);
-	return signp * exp_core(y);
+	y = exp_core(y);
+	return signp == 1 ? y : -y;
 }
 
 #if defined(__cplusplus)

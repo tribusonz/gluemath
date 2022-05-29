@@ -66,7 +66,8 @@ gammal_core(register long double x)
 		break;
 	}
 	y = ur_loggammal_r(x, &signp);
-	return signp * expl_core(y);
+	y = expl_core(y);
+	return signp == 1 ? y : -y;
 }
 
 #if defined(__cplusplus)

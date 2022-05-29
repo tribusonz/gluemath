@@ -66,7 +66,8 @@ gammaf_core(register float x)
 		break;
 	}
 	y = ur_loggammaf_r(x, &signp);
-	return signp * expf_core(y);
+	y = expf_core(y);
+	return signp == 1 ? y : -y;
 }
 
 #if defined(__cplusplus)

@@ -21,7 +21,8 @@ beta_core(double a, double b)
 	int signp;
 	
 	y = ur_logbeta_r(a, b, &signp);
-	return signp * exp_core(y);
+	y = exp_core(y)
+	return signp == 1 ? y : -y;
 }
 
 
