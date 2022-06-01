@@ -49,15 +49,17 @@ gammastar_pos(double a, double x)
 	gammainc_a = a; gammainc_x = x;
 	intde_core(gammaincterm, 0, 1, &i, &err);
 
-	printf("i = %.15g, err = %.15g\n", i, err);
+	puts("I = int_0^1 e^{-t} t^{a-1} dt,");
+	printf("  I = %.15g, err = %.15g\n", i, err);
 
 	ans = 1 / gamma_core(a);
 
-	printf("invgamma(%.15g) = %.15g\n", a, ans);
+	puts("PrimitiveFunction: 1/Gamma(a)");
+	printf("  recipgamma(%.15g) = %.15g\n", a, ans);
 
 	ans = ans * i;
-
-	printf("gammastar(%.15g, %.15g) = %.15g\n", a, x, ans);
+	puts("Gamma^ast(a, x) = 1/Gamma(a) int_0^1 e^{-t} t^{a-1} dt,");
+	printf("  gammastar(%.15g, %.15g) = %.15g\n", a, x, ans);
 
 	return ans;
 }
@@ -68,10 +70,12 @@ gammastar_neg(double a, double x)
 	double ans;
 	if ((int)a == a)
 	{
-		puts("negative a on integer-part");
+		puts("negative {a} on integer-part");
 		ans = pow_core(x, a);
 		printf("gammastar(%.15g, %.15g) = %.15g\n", a, x, ans);
 		return ans;
 	}
+	else
+		puts("Underconstruction");
 	return 0;
 }
