@@ -13,7 +13,7 @@
 #include <math.h>
 
 long double _Complex
-cqerfl(long double _Complex x)
+cerfl(long double _Complex x)
 {
 	static const long double
 	p0  =  1.1283791670955125738961589031215451717e+00,
