@@ -12,81 +12,52 @@
 #define GML_KERNEL_INTRINSIC_H
 
 // Operator '+'. Adopt to all C99 standard
-extern float complex
-	__add_c32__(float complex, float complex);
-extern double complex
-	__add_c64__(double complex, double complex);
-extern long double complex
-	__add_c128__(long double complex, long double complex);
+__inline__ __C32 __add_c32__(__C32, __C32);
+__inline__ __C64 __add_c64__(__C64, __C64);
+__inline__ __C128 __add_c128__(__C128, __C128);
 
 // Operator '-'. Adopt to all C99 standard
-extern float complex
-	__sub_c32__(float complex, float complex);
-extern double complex
-	__sub_c64__(double complex, double complex);
-extern long double complex
-	__sub_c128__(long double complex, long double complex);
+__inline__ __C32 __sub_c32__(__C32, __C32);
+__inline__ __C64 __sub_c64__(__C64, __C64);
+__inline__ __C128 __sub_c128__(__C128, __C128);
 
 // Operator '*'. Adopt to all C99 standard
-extern float complex
-	__mul_c32__(float complex, float complex);
-extern double complex
-	__mul_c64__(double complex, double complex);
-extern long double complex
-	__mul_c128__(long double complex, long double complex);
+__inline__ __C32 __mul_c32__(__C32, __C32);
+__inline__ __C64 __mul_c64__(__C64, __C64);
+__inline__ __C128 __mul_c128__(__C128, __C128);
 
 // Operator '/'. Adopt to all C99 standard
-extern float complex
-	__div_c32__(float complex, float complex);
-extern double complex
-	__div_c64__(double complex, double complex);
-extern long double complex
-	__div_c128__(long double complex, long double complex);
+__inline__ __C32 __div_c32__(__C32, __C32);
+__inline__ __C64 __div_c64__(__C64, __C64);
+__inline__ __C128 __div_c128__(__C128, __C128);
 
 // -std=glue99: Operator '**'.
-extern float
-	__pow_f32__(float, float);
-extern double
-	__pow_f64__(double, double);
-extern long double
-	__pow_f128__(long double, long double);
+__inline__ __F32 __pow_f32__(__F32, __F32);
+__inline__ __F64 __pow_f64__(__F64, __F64);
+__inline__ __F128 __pow_f128__(__F128, __F128);
 
-extern float complex
-	__pow_c32__(float complex, float complex);
-extern double complex
-	__pow_c64__(double complex, double complex);
-extern long double complex
-	__pow_c128__(long double complex, long double complex);
+__inline__ __C32 __pow_c32__(__C32, __C32);
+__inline__ __C64 __pow_c64__(__C64, __C64);
+__inline__ __C128 __pow_c128__(__C128, __C128);
 
 // -std=glue99: Operator '%'. (Operator Overload)
-extern float
-	__mod_f32__(float, float);
-extern double
-	__mod_f64__(double, double);
-extern long double
-	__mod_f128__(long double, long double);
+__inline__ __F32 __mod_f32__(__F32, __F32);
+__inline__ __F64 __mod_f64__(__F64, __F64);
+__inline__ __F128 __mod_f128__(__F128, __F128);
 
-extern float complex
-	__mod_c32__(float complex, float complex);
-extern double complex
-	__mod_c64__(double complex, double complex);
-extern long double complex
-	__mod_c128__(long double complex, long double complex);
+__inline__ __C32 __mod_c32__(__C32, __C32);
+__inline__ __C64 __mod_c64__(__C64, __C64);
+__inline__ __C128 __mod_c128__(__C128, __C128);
 
 // -std=glue99: Builtin Function 'abs()'
-extern float
-	__abs_f32__(float, float);
-extern double
-	__abs_f64__(double, double);
-extern long double
-	__abs_f128__(long double, long double);
 
-extern float complex
-	__abs_c32__(float complex, float complex);
-extern double complex
-	__abs_c64__(double complex, double complex);
-extern long double complex
-	__abs_c128__(long double complex, long double complex);
+__inline__ __F32 __abs_f32__(__F32, __F32);
+__inline__ __F64 __abs_f64__(__F64, __F64);
+__inline__ __F128 __abs_f128__(__F128, __F128);
+
+__inline__ __C32 __abs_c32__(__C32, __C32);
+__inline__ __C64 __abs_c64__(__C64, __C64);
+__inline__ __C128 __abs_c128__(__C128, __C128);
 
 
 #endif /* GML_KERNEL_INTRINSIC_H */
