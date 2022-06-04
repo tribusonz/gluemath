@@ -1,63 +1,144 @@
 /*******************************************************************************
-	GLUE-Math Library: Intrinsic
-
+	GLUE-Math ABI: Intrinsic
+	
 	Author: Hironobu Inatsuka aka tribusonz
 	License: GPL + X11(MIT)
 *******************************************************************************/
-/*
- *  This is fork on Compiler's toolchain.
- *  When switched by compiler option, the parser refers to and uses it.
- */
-#ifndef GML_KERNEL_INTRINSIC_H
-#define GML_KERNEL_INTRINSIC_H
+#ifndef GML_INTRINSIC_H
+#define GML_INTRINSIC_H
 
-// Operator '+'. Adopt to all C99 standard
-__inline__ __C32 __add_c32__(__C32, __C32);
-__inline__ __C64 __add_c64__(__C64, __C64);
-__inline__ __C128 __add_c128__(__C128, __C128);
-
-// Operator '-'. Adopt to all C99 standard
-__inline__ __C32 __sub_c32__(__C32, __C32);
-__inline__ __C64 __sub_c64__(__C64, __C64);
-__inline__ __C128 __sub_c128__(__C128, __C128);
-
-// Operator '*'. Adopt to all C99 standard
-__inline__ __C32 __mul_c32__(__C32, __C32);
-__inline__ __C64 __mul_c64__(__C64, __C64);
-__inline__ __C128 __mul_c128__(__C128, __C128);
-
-// Operator '/'. Adopt to all C99 standard
-__inline__ __C32 __div_c32__(__C32, __C32);
-__inline__ __C64 __div_c64__(__C64, __C64);
-__inline__ __C128 __div_c128__(__C128, __C128);
-
-// -std=glue99: Operator '**'.
-__inline__ __F32 __pow_f32__(__F32, __F32);
-__inline__ __F64 __pow_f64__(__F64, __F64);
-__inline__ __F128 __pow_f128__(__F128, __F128);
-
-__inline__ __C32 __pow_c32__(__C32, __C32);
-__inline__ __C64 __pow_c64__(__C64, __C64);
-__inline__ __C128 __pow_c128__(__C128, __C128);
-
-// -std=glue99: Operator '%'. (Operator Overload)
-__inline__ __F32 __mod_f32__(__F32, __F32);
-__inline__ __F64 __mod_f64__(__F64, __F64);
-__inline__ __F128 __mod_f128__(__F128, __F128);
-
-__inline__ __C32 __mod_c32__(__C32, __C32);
-__inline__ __C64 __mod_c64__(__C64, __C64);
-__inline__ __C128 __mod_c128__(__C128, __C128);
-
-// -std=glue99: Builtin Function 'abs()'
-
-__inline__ __F32 __abs_f32__(__F32, __F32);
-__inline__ __F64 __abs_f64__(__F64, __F64);
-__inline__ __F128 __abs_f128__(__F128, __F128);
-
-__inline__ __C32 __abs_c32__(__C32, __C32);
-__inline__ __C64 __abs_c64__(__C64, __C64);
-__inline__ __C128 __abs_c128__(__C128, __C128);
+#if defined(__cplusplus)
+extern "C" {
+#endif
 
 
-#endif /* GML_KERNEL_INTRINSIC_H */
+
+typedef union {
+	char               schar;
+	unsigned char      uchar;
+	short              sshort;
+	unsigned short     ushort;
+	int                sint;
+	unsigned int       uint;
+	long               slong;
+	unsigned long      ulong;
+	long long          slonglong;
+	unsigned long long ulonglong;
+	float              float32;
+	double             float64;
+	long double        float128;
+	struct { float real, imag; }
+	                   complex32;
+	struct { double real, imag; }
+	                   complex64;
+	struct { long double real, imag; }
+	                   complex128;
+} c_primitive_value_t ;
+
+typedef enum {
+	T_SCHAR,
+	T_UCHAR,
+	T_SSHORT,
+	T_USHORT,
+	T_SINT,
+	T_UINT,
+	T_SLONG,
+	T_ULONG,
+	T_SLONGLONG,
+	T_ULONGLONG,
+	T_FLOAT32,
+	T_FLOAT64,
+	T_FLOAT128,
+	T_COMPLEX32,
+	T_COMPLEX64,
+	T_COMPLEX128
+} c_primitive_types_t ;
+
+// Library Call: Addition
+extern c_primitive_value_t
+ gluemath_libcall_add(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Subtraction
+extern c_primitive_value_t
+ gluemath_libcall_sub(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Multiply
+extern c_primitive_value_t
+ gluemath_libcall_mul(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Division
+extern c_primitive_value_t
+ gluemath_libcall_div(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Modulo
+extern c_primitive_value_t
+ gluemath_libcall_mod(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Powers
+extern c_primitive_value_t
+ gluemath_libcall_pow(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Absolute Value
+extern c_primitive_value_t
+ gluemath_libcall_abs(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Complex Argument
+extern c_primitive_value_t
+ gluemath_libcall_arg(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Complex Conjugate
+extern c_primitive_value_t
+ gluemath_libcall_conj(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Complex Real-part
+extern c_primitive_value_t
+ gluemath_libcall_creal(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_types_t retval_type
+ );
+
+// Library Call: Complex Imaginary-part
+extern c_primitive_value_t
+ gluemath_libcall_cimag(
+  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
+  c_primitive_types_t retval_type
+ );
+
+#if defined(__cplusplus)
+}
+#endif
+
+#endif /* GML_INTRINSIC_H */
