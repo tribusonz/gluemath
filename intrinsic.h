@@ -11,8 +11,7 @@
 extern "C" {
 #endif
 
-
-
+// Structures used in fork
 typedef union {
 	char               schar;
 	unsigned char      uchar;
@@ -54,87 +53,81 @@ typedef enum {
 	T_COMPLEX128
 } c_primitive_types_t ;
 
+typedef struct {
+	c_primitive_types_t type;
+	c_primitive_value_t value;
+} c_operand_t ;
+
 // Library Call: Addition
-extern c_primitive_value_t
+extern void
  gluemath_libcall_add(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *op2, c_operand_t *retval, int autocast
  );
 
 // Library Call: Subtraction
-extern c_primitive_value_t
+extern void
  gluemath_libcall_sub(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *op2, c_operand_t *retval, int autocast
  );
 
 // Library Call: Multiply
-extern c_primitive_value_t
+extern void
  gluemath_libcall_mul(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *op2, c_operand_t *retval, int autocast
  );
 
 // Library Call: Division
-extern c_primitive_value_t
+extern void
  gluemath_libcall_div(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *op2, c_operand_t *retval, int autocast
  );
 
 // Library Call: Modulo
-extern c_primitive_value_t
+extern void
  gluemath_libcall_mod(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *op2, c_operand_t *retval, int autocast
  );
 
 // Library Call: Powers
-extern c_primitive_value_t
+extern void
  gluemath_libcall_pow(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_value_t arg2, c_primitive_types_t arg2_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *op2, c_operand_t *retval, int autocast
  );
 
 // Library Call: Absolute Value
-extern c_primitive_value_t
+extern void
  gluemath_libcall_abs(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *retval, int autocast
  );
 
 // Library Call: Complex Argument
-extern c_primitive_value_t
+extern void
  gluemath_libcall_arg(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *retval, int autocast
  );
 
 // Library Call: Complex Conjugate
-extern c_primitive_value_t
+extern void
  gluemath_libcall_conj(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *retval, int autocast
  );
 
 // Library Call: Complex Real-part
-extern c_primitive_value_t
+extern void
  gluemath_libcall_creal(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *retval, int autocast
  );
 
 // Library Call: Complex Imaginary-part
-extern c_primitive_value_t
+extern void
  gluemath_libcall_cimag(
-  c_primitive_value_t arg1, c_primitive_types_t arg1_type,
-  c_primitive_types_t retval_type
+  c_operand_t *op1, c_operand_t *retval, int autocast
+ );
+
+// Library Call: Unary Minus
+extern void
+ gluemath_libcall_uminus(
+  c_operand_t *op1, c_operand_t *retval, int autocast
  );
 
 #if defined(__cplusplus)
