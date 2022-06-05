@@ -14,7 +14,7 @@ extern "C" {
 #include "class.h"
 #include "../float/huge_val_nan.h"
 #include "../float/fpclassify.h"
-#include "../internal/sys/primitive/float/fpclassify.h"
+#include "../../internal/sys/primitive/float/fpclassify.h"
 
 /***** For complex number classes *****/
 // float complex to complex
