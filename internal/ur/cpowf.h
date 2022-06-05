@@ -24,7 +24,7 @@ static inline fcomplex
 cpowf_core(fcomplex c1, fcomplex c2)
 {
 	int attr = 0;
-	dcomplex c3 = { 0.0, 0.0 };
+	fcomplex c3 = { 0.0, 0.0 };
 
 	switch (fpclassify(c2.imag)) {
 	case FP_NAN:
