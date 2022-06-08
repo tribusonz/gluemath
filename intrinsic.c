@@ -1328,6 +1328,7 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 }
 
 
+// Arithmetic Directly Cast
 void
 adcast(c_operand_t *orgv, c_operand_t *retv)
 {

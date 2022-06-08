@@ -58,6 +58,9 @@ typedef struct {
 	c_primitive_value_t value;
 } c_operand_t ;
 
+// ADCAST ABI function
+extern void adcast(c_operand_t *orgv, c_operand_t *retv);
+
 // Library Call: Addition
 extern void
  gluemath_libcall_add(
