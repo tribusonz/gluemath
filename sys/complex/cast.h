@@ -1,5 +1,5 @@
 /*******************************************************************************
-	BLUE-Math Complex Primitive Setting: Cast (Type Convertion)
+	GLUE-Math Complex Primitive Setting: Cast (Type Convertion)
 
 	Author: Hironobu Inatsuka aka tribusonz
 	License: GPL + X11(MIT)
@@ -13,6 +13,7 @@ extern "C" {
 
 #include "class.h"
 #include "../float/huge_val_nan.h"
+#include "../float/cast.h"
 #include "../float/fpclassify.h"
 #include "../../internal/sys/primitive/float/fpclassify.h"
 
@@ -160,7 +161,7 @@ fctofc(fcomplex z)
 static inline dcomplex
 fctodc(fcomplex z)
 {
-	dcomplex dz = { (double)z.real, (double)z.imag };
+	dcomplex dz = { ftod(z.real), ftod(z.imag) };
 	return dz;
 }
 
@@ -168,7 +169,7 @@ fctodc(fcomplex z)
 static inline lcomplex
 fctolc(fcomplex z)
 {
-	lcomplex ldz = { (long double)z.real, (long double)z.imag };
+	lcomplex ldz = { ftold(z.real), ftold(z.imag) };
 	return ldz;
 }
 
@@ -177,7 +178,7 @@ fctolc(fcomplex z)
 static inline fcomplex
 dctofc(dcomplex z)
 {
-	fcomplex fz = { (float)z.real, (float)z.imag };
+	fcomplex fz = { dtof(z.real), dtof(z.imag) };
 	return fz;
 }
 
@@ -192,7 +193,7 @@ dctodc(dcomplex z)
 static inline lcomplex
 dctolc(dcomplex z)
 {
-	lcomplex ldz = { (long double)z.real, (long double)z.imag };
+	lcomplex ldz = { dtold(z.real), dtold(z.imag) };
 	return ldz;
 }
 
@@ -201,7 +202,7 @@ dctolc(dcomplex z)
 static inline fcomplex
 lctofc(lcomplex z)
 {
-	fcomplex fz = { (float)z.real, (float)z.imag };
+	fcomplex fz = { ldtof(z.real), ldtof(z.imag) };
 	return fz;
 }
 
@@ -209,7 +210,7 @@ lctofc(lcomplex z)
 static inline dcomplex
 lctodc(lcomplex z)
 {
-	dcomplex dz = { (double)z.real, (double)z.imag };
+	dcomplex dz = { ldtod(z.real), ldtod(z.imag) };
 	return dz;
 }
 
@@ -242,7 +243,7 @@ fctod(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (double)z.real;
+		return ftod(z.real);
 		break;
 	default:
 		return NAN;
@@ -256,7 +257,7 @@ fctold(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long double)z.real;
+		return ftold(z.real);
 		break;
 	default:
 		return NAN;
@@ -271,7 +272,7 @@ dctof(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (float)z.real;
+		return dtof(z.real);
 		break;
 	default:
 		return NAN;
@@ -299,7 +300,7 @@ dctold(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long double)z.real;
+		return dtold(z.real);
 		break;
 	default:
 		return NAN;
@@ -314,7 +315,7 @@ lctof(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (float)z.real;
+		return ldtof(z.real);
 		break;
 	default:
 		return NAN;
@@ -328,7 +329,7 @@ lctod(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (double)z.real;
+		return ldtod(z.real);
 		break;
 	default:
 		return NAN;
@@ -362,7 +363,7 @@ ftofc(float x)
 static inline fcomplex
 dtofc(double x)
 {
-	fcomplex z = { (float)x, 0 };
+	fcomplex z = { dtof(x), 0 };
 	return z;
 }
 
@@ -370,7 +371,7 @@ dtofc(double x)
 static inline fcomplex
 ldtofc(long double x)
 {
-	fcomplex z = { (float)x, 0 };
+	fcomplex z = { ldtof(x), 0 };
 	return z;
 }
 
@@ -379,7 +380,7 @@ ldtofc(long double x)
 static inline dcomplex
 ftodc(float x)
 {
-	dcomplex z = { (double)x, 0 };
+	dcomplex z = { ftod(x), 0 };
 	return z;
 }
 
@@ -395,7 +396,7 @@ dtodc(double x)
 static inline dcomplex
 ldtodc(long double x)
 {
-	dcomplex z = { (double)x, 0 };
+	dcomplex z = { ldtod(x), 0 };
 	return z;
 }
 
@@ -404,7 +405,7 @@ ldtodc(long double x)
 static inline lcomplex
 ftolc(float x)
 {
-	lcomplex z = { (long double)x, 0 };
+	lcomplex z = { ftold(x), 0 };
 	return z;
 }
 
@@ -412,7 +413,7 @@ ftolc(float x)
 static inline lcomplex
 dtolc(double x)
 {
-	lcomplex z = { (long double)x, 0 };
+	lcomplex z = { dtold(x), 0 };
 	return z;
 }
 
@@ -432,7 +433,7 @@ fctoc(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (char)z.real;
+		return ftoc(z.real);
 		break;
 	default:
 		return 0;
@@ -446,7 +447,7 @@ fctosht(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (short)z.real;
+		return ftosht(z.real);
 		break;
 	default:
 		return 0;
@@ -460,7 +461,7 @@ fctoi(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (int)z.real;
+		return ftoi(z.real);
 		break;
 	default:
 		return 0;
@@ -474,7 +475,7 @@ fctol(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long)z.real;
+		return ftol(z.real);
 		break;
 	default:
 		return 0;
@@ -488,7 +489,7 @@ fctoll(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long long)z.real;
+		return ftoll(z.real);
 		break;
 	default:
 		return 0;
@@ -503,7 +504,7 @@ fctouc(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned char)z.real;
+		return ftouc(z.real);
 		break;
 	default:
 		return 0;
@@ -517,7 +518,7 @@ fctousht(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned short)z.real;
+		return ftousht(z.real);
 		break;
 	default:
 		return 0;
@@ -531,7 +532,7 @@ fctoui(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned)z.real;
+		return ftoui(z.real);
 		break;
 	default:
 		return 0;
@@ -545,7 +546,7 @@ fctoul(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned long)z.real;
+		return ftoul(z.real);
 		break;
 	default:
 		return 0;
@@ -559,7 +560,7 @@ fctoull(fcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned long long)z.real;
+		return ftoull(z.real);
 		break;
 	default:
 		return 0;
@@ -571,7 +572,7 @@ fctoull(fcomplex z)
 static inline fcomplex
 ctofc(char x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { ctof(x), 0 };
 	return z;
 }
 
@@ -579,7 +580,7 @@ ctofc(char x)
 static inline fcomplex
 shttofc(short x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { shttof(x), 0 };
 	return z;
 }
 
@@ -587,7 +588,7 @@ shttofc(short x)
 static inline fcomplex
 itofc(int x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { itof(x), 0 };
 	return z;
 }
 
@@ -595,7 +596,7 @@ itofc(int x)
 static inline fcomplex
 ltofc(long x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { ltof(x), 0 };
 	return z;
 }
 
@@ -603,7 +604,7 @@ ltofc(long x)
 static inline fcomplex
 lltofc(long long x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { lltof(x), 0 };
 	return z;
 }
 
@@ -612,7 +613,7 @@ lltofc(long long x)
 static inline fcomplex
 uctofc(unsigned char x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { uctof(x), 0 };
 	return z;
 }
 
@@ -620,7 +621,7 @@ uctofc(unsigned char x)
 static inline fcomplex
 ushttofc(unsigned short x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { ushttof(x), 0 };
 	return z;
 }
 
@@ -628,7 +629,7 @@ ushttofc(unsigned short x)
 static inline fcomplex
 uitofc(unsigned x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { uitof(x), 0 };
 	return z;
 }
 
@@ -636,7 +637,7 @@ uitofc(unsigned x)
 static inline fcomplex
 ultofc(unsigned long x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { ultof(x), 0 };
 	return z;
 }
 
@@ -644,75 +645,75 @@ ultofc(unsigned long x)
 static inline fcomplex
 ulltofc(unsigned long long x)
 {
-	fcomplex z = { x, 0 };
+	fcomplex z = { ulltof(x), 0 };
 	return z;
 }
 
 /******************************************************************************/
-// signed char to double complex
+// double complex to signed char
 static inline char
 dctoc(dcomplex z)
 {
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (char)z.real;
+		return dtoc(z.real);
 		break;
 	default:
 		return 0;
 	}
 }
 
-// signed short to double complex
+// double complex to signed short
 static inline short
 dctosht(dcomplex z)
 {
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (short)z.real;
+		return dtosht(z.real);
 		break;
 	default:
 		return 0;
 	}
 }
 
-// signed int to double complex
+// double complex to signed int
 static inline int
 dctoi(dcomplex z)
 {
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (int)z.real;
+		return dtoi(z.real);
 		break;
 	default:
 		return 0;
 	}
 }
 
-// signed long int to double complex
+// double complex to signed long int
 static inline long
 dctol(dcomplex z)
 {
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long)z.real;
+		return dtol(z.real);
 		break;
 	default:
 		return 0;
 	}
 }
 
-// signed long long int to double complex
+// double complex to signed long long int
 static inline long long
 dctoll(dcomplex z)
 {
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long long)z.real;
+		return dtoll(z.real);
 		break;
 	default:
 		return 0;
@@ -727,7 +728,7 @@ dctouc(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned char)z.real;
+		return dtouc(z.real);
 		break;
 	default:
 		return 0;
@@ -741,7 +742,7 @@ dctousht(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned short)z.real;
+		return dtousht(z.real);
 		break;
 	default:
 		return 0;
@@ -755,7 +756,7 @@ dctoui(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned)z.real;
+		return dtoui(z.real);
 		break;
 	default:
 		return 0;
@@ -769,7 +770,7 @@ dctoul(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned long)z.real;
+		return dtoul(z.real);
 		break;
 	default:
 		return 0;
@@ -783,7 +784,7 @@ dctoull(dcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned long long)z.real;
+		return dtoull(z.real);
 		break;
 	default:
 		return 0;
@@ -796,7 +797,7 @@ dctoull(dcomplex z)
 static inline dcomplex
 ctodc(char x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { ctod(x), 0 };
 	return z;
 }
 
@@ -804,7 +805,7 @@ ctodc(char x)
 static inline dcomplex
 shttodc(short x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { shttod(x), 0 };
 	return z;
 }
 
@@ -812,7 +813,7 @@ shttodc(short x)
 static inline dcomplex
 itodc(int x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { itod(x), 0 };
 	return z;
 }
 
@@ -820,7 +821,7 @@ itodc(int x)
 static inline dcomplex
 ltodc(long x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { ltod(x), 0 };
 	return z;
 }
 
@@ -828,7 +829,7 @@ ltodc(long x)
 static inline dcomplex
 lltodc(long long x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { lltod(x), 0 };
 	return z;
 }
 
@@ -838,7 +839,7 @@ lltodc(long long x)
 static inline dcomplex
 uctodc(unsigned char x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { uctod(x), 0 };
 	return z;
 }
 
@@ -846,7 +847,7 @@ uctodc(unsigned char x)
 static inline dcomplex
 ushttodc(unsigned short x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { ushttod(x), 0 };
 	return z;
 }
 
@@ -854,7 +855,7 @@ ushttodc(unsigned short x)
 static inline dcomplex
 uitodc(unsigned x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { uitod(x), 0 };
 	return z;
 }
 
@@ -862,7 +863,7 @@ uitodc(unsigned x)
 static inline dcomplex
 ultodc(unsigned long x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { ultod(x), 0 };
 	return z;
 }
 
@@ -870,7 +871,7 @@ ultodc(unsigned long x)
 static inline dcomplex
 ulltodc(unsigned long long x)
 {
-	dcomplex z = { x, 0 };
+	dcomplex z = { ulltod(x), 0 };
 	return z;
 }
 
@@ -883,7 +884,7 @@ lctoc(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (char)z.real;
+		return ldtoc(z.real);
 		break;
 	default:
 		return 0;
@@ -897,7 +898,7 @@ lctosht(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (short)z.real;
+		return ldtosht(z.real);
 		break;
 	default:
 		return 0;
@@ -911,7 +912,7 @@ lctoi(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (int)z.real;
+		return ldtoi(z.real);
 		break;
 	default:
 		return 0;
@@ -925,7 +926,7 @@ lctol(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long)z.real;
+		return ldtol(z.real);
 		break;
 	default:
 		return 0;
@@ -939,7 +940,7 @@ lctoll(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (long long)z.real;
+		return ldtoll(z.real);
 		break;
 	default:
 		return 0;
@@ -954,7 +955,7 @@ lctouc(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned char)z.real;
+		return ldtouc(z.real);
 		break;
 	default:
 		return 0;
@@ -968,7 +969,7 @@ lctousht(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned short)z.real;
+		return ldtousht(z.real);
 		break;
 	default:
 		return 0;
@@ -982,7 +983,7 @@ lctoui(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned)z.real;
+		return ldtoui(z.real);
 		break;
 	default:
 		return 0;
@@ -996,7 +997,7 @@ lctoul(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned long)z.real;
+		return ldtoul(z.real);
 		break;
 	default:
 		return 0;
@@ -1010,7 +1011,7 @@ lctoull(lcomplex z)
 	switch (fpclassify(z.imag)) {
 	case FP_ZERO:
 	case FP_SUBNORMAL:
-		return (unsigned long long)z.real;
+		return ldtoull(z.real);
 		break;
 	default:
 		return 0;
@@ -1022,7 +1023,7 @@ lctoull(lcomplex z)
 static inline lcomplex
 ctolc(char x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { ctold(x), 0 };
 	return z;
 }
 
@@ -1030,7 +1031,7 @@ ctolc(char x)
 static inline lcomplex
 shttolc(short x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { shttold(x), 0 };
 	return z;
 }
 
@@ -1038,7 +1039,7 @@ shttolc(short x)
 static inline lcomplex
 itolc(int x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { itold(x), 0 };
 	return z;
 }
 
@@ -1046,7 +1047,7 @@ itolc(int x)
 static inline lcomplex
 ltolc(long x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { ltold(x), 0 };
 	return z;
 }
 
@@ -1054,7 +1055,7 @@ ltolc(long x)
 static inline lcomplex
 lltolc(long long x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { lltold(x), 0 };
 	return z;
 }
 
@@ -1063,7 +1064,7 @@ lltolc(long long x)
 static inline lcomplex
 uctolc(unsigned char x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { uctold(x), 0 };
 	return z;
 }
 
@@ -1071,7 +1072,7 @@ uctolc(unsigned char x)
 static inline lcomplex
 ushttolc(unsigned short x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { ushttold(x), 0 };
 	return z;
 }
 
@@ -1079,7 +1080,7 @@ ushttolc(unsigned short x)
 static inline lcomplex
 uitolc(unsigned x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { uitold(x), 0 };
 	return z;
 }
 
@@ -1087,7 +1088,7 @@ uitolc(unsigned x)
 static inline lcomplex
 ultolc(unsigned long x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { ultold(x), 0 };
 	return z;
 }
 
@@ -1095,7 +1096,7 @@ ultolc(unsigned long x)
 static inline lcomplex
 ulltolc(unsigned long long x)
 {
-	lcomplex z = { x, 0 };
+	lcomplex z = { ulltold(x), 0 };
 	return z;
 }
 
