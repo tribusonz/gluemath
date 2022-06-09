@@ -5,6 +5,8 @@
 	License: GPL + X11(MIT)
 *******************************************************************************/
 #include "intrinsic.h"
+#include "sys/integer/cast.h"
+#include "sys/float/cast.h"
 #include "sys/complex/class.h"
 #include "sys/complex/build.h"
 #include "sys/complex/cast.h"
@@ -52,37 +54,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.schar;
+			op1->value.float32 = ctof(op1->value.schar);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.schar;
+			op1->value.float64 = ctod(op1->value.schar);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.schar;
+			op1->value.float128 = ctold(op1->value.schar);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.schar;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ctofc(op1->value.schar);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.schar;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ctodc(op1->value.schar);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.schar;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ctolc(op1->value.schar);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -116,37 +127,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.uchar;
+			op1->value.float32 = uctof(op1->value.uchar);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.uchar;
+			op1->value.float64 = uctod(op1->value.uchar);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.uchar;
+			op1->value.float128 = uctold(op1->value.uchar);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.uchar;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = uctofc(op1->value.uchar);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.uchar;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = uctodc(op1->value.uchar);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.uchar;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = uctolc(op1->value.uchar);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -180,37 +200,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.sshort;
+			op1->value.float32 = shttof(op1->value.sshort);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.sshort;
+			op1->value.float64 = shttod(op1->value.sshort);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.sshort;
+			op1->value.float128 = shttold(op1->value.sshort);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.sshort;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = shttofc(op1->value.sshort);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.sshort;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = shttodc(op1->value.sshort);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.sshort;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = shttolc(op1->value.sshort);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -244,37 +273,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.ushort;
+			op1->value.float32 = ushttof(op1->value.ushort);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.ushort;
+			op1->value.float64 = ushttod(op1->value.ushort);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.ushort;
+			op1->value.float128 = ushttold(op1->value.ushort);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.ushort;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ushttofc(op1->value.ushort);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.ushort;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ushttodc(op1->value.ushort);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.ushort;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ushttolc(op1->value.ushort);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -308,37 +346,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.sint;
+			op1->value.float32 = itof(op1->value.sint);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.sint;
+			op1->value.float64 = itod(op1->value.sint);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.sint;
+			op1->value.float128 = itold(op1->value.sint);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.sint;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = itofc(op1->value.sint);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.sint;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = itodc(op1->value.sint);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.sint;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = itolc(op1->value.sint);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -373,37 +420,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.uint;
+			op1->value.float32 = uitof(op1->value.uint);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.uint;
+			op1->value.float64 = uitod(op1->value.uint);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.uint;
+			op1->value.float128 = uitold(op1->value.uint);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.uint;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = uitofc(op1->value.uint);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.uint;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = uitodc(op1->value.uint);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.uint;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = uitolc(op1->value.uint);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -442,37 +498,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.slong;
+			op1->value.float32 = ltof(op1->value.slong);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.slong;
+			op1->value.float64 = ltod(op1->value.slong);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.slong;
+			op1->value.float128 = ltold(op1->value.slong);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.slong;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ltofc(op1->value.slong);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.slong;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ltodc(op1->value.slong);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.slong;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ltolc(op1->value.slong);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -511,37 +576,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.ulong;
+			op1->value.float32 = ultof(op1->value.ulong);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.ulong;
+			op1->value.float64 = ultod(op1->value.ulong);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.ulong;
+			op1->value.float128 = ultold(op1->value.ulong);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.ulong;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ultofc(op1->value.ulong);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.ulong;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ultodc(op1->value.ulong);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.ulong;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ultolc(op1->value.ulong);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -580,37 +654,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.slonglong;
+			op1->value.float32 = lltof(op1->value.slonglong);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.slonglong;
+			op1->value.float64 = lltod(op1->value.slonglong);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.slonglong;
+			op1->value.float128 = lltold(op1->value.slonglong);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.slonglong;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = lltofc(op1->value.slonglong);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.slonglong;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = lltodc(op1->value.slonglong);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.slonglong;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = lltolc(op1->value.slonglong);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -649,37 +732,46 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_ULONGLONG;
 			break;
 		case T_FLOAT32:
-			op1->value.float32 = (float)op1->value.ulonglong;
+			op1->value.float32 = ulltof(op1->value.ulonglong);
 			op1->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.ulonglong;
+			op1->value.float64 = ulltod(op1->value.ulonglong);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.ulonglong;
+			op1->value.float128 = ulltold(op1->value.ulonglong);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = (float)op1->value.ulonglong;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ulltofc(op1->value.ulonglong);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.ulonglong;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ulltodc(op1->value.ulonglong);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.ulonglong;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ulltolc(op1->value.ulonglong);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -688,52 +780,52 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 	case T_FLOAT32:
 		switch (op2->type) {
 		case T_SCHAR:
-			op2->value.float32 = (float)op2->value.schar;
+			op2->value.float32 = ctof(op2->value.schar);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_UCHAR:
-			op2->value.float32 = (float)op2->value.uchar;
+			op2->value.float32 = uctof(op2->value.uchar);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_SSHORT:
-			op2->value.float32 = (float)op2->value.sshort;
+			op2->value.float32 = shttof(op2->value.sshort);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_USHORT:
-			op2->value.float32 = (float)op2->value.ushort;
+			op2->value.float32 = ushttof(op2->value.ushort);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_SINT:
-			op2->value.float32 = (float)op2->value.sint;
+			op2->value.float32 = itof(op2->value.sint);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_UINT:
-			op2->value.float32 = (float)op2->value.uint;
+			op2->value.float32 = uitof(op2->value.uint);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_SLONG:
-			op2->value.float32 = (float)op2->value.slong;
+			op2->value.float32 = ltof(op2->value.slong);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_ULONG:
-			op2->value.float32 = (float)op2->value.ulong;
+			op2->value.float32 = ultof(op2->value.ulong);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_SLONGLONG:
-			op2->value.float32 = (float)op2->value.slonglong;
+			op2->value.float32 = lltof(op2->value.slonglong);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
 		case T_ULONGLONG:
-			op2->value.float32 = (float)op2->value.ulonglong;
+			op2->value.float32 = ulltof(op2->value.ulonglong);
 			op2->type = T_FLOAT32;
 			typecast = T_FLOAT32;
 			break;
@@ -741,32 +833,41 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_FLOAT32;
 			break;
 		case T_FLOAT64:
-			op1->value.float64 = (double)op1->value.float32;
+			op1->value.float64 = ftod(op1->value.float32);
 			op1->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.float32;
+			op1->value.float128 = ftold(op1->value.float32);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex32.real = op1->value.float32;
-			op1->value.complex32.imag = 0.0;
-			op1->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ftofc(op1->value.float32);
+				op1->value.complex32.real = temp.real;
+				op1->value.complex32.imag = temp.imag;
+				op1->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = (double)op1->value.float32;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ftodc(op1->value.float32);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.float32;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ftolc(op1->value.float32);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -775,57 +876,57 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 	case T_FLOAT64:
 		switch (op2->type) {
 		case T_SCHAR:
-			op2->value.float64 = (double)op2->value.schar;
+			op2->value.float64 = ctod(op2->value.schar);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_UCHAR:
-			op2->value.float64 = (double)op2->value.uchar;
+			op2->value.float64 = uctod(op2->value.uchar);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_SSHORT:
-			op2->value.float64 = (double)op2->value.sshort;
+			op2->value.float64 = shttod(op2->value.sshort);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_USHORT:
-			op2->value.float64 = (double)op2->value.ushort;
+			op2->value.float64 = ushttod(op2->value.ushort);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_SINT:
-			op2->value.float64 = (double)op2->value.sint;
+			op2->value.float64 = itod(op2->value.sint);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_UINT:
-			op2->value.float64 = (double)op2->value.uint;
+			op2->value.float64 = uitod(op2->value.uint);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_SLONG:
-			op2->value.float64 = (double)op2->value.slong;
+			op2->value.float64 = ltod(op2->value.slong);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_ULONG:
-			op2->value.float64 = (double)op2->value.ulong;
+			op2->value.float64 = ultod(op2->value.ulong);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_SLONGLONG:
-			op2->value.float64 = (double)op2->value.slonglong;
+			op2->value.float64 = lltod(op2->value.slonglong);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_ULONGLONG:
-			op2->value.float64 = (double)op2->value.ulonglong;
+			op2->value.float64 = ulltod(op2->value.ulonglong);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT32:
-			op2->value.float64 = (double)op2->value.float32;
+			op2->value.float64 = ftod(op2->value.float32);
 			op2->type = T_FLOAT64;
 			typecast = T_FLOAT64;
 			break;
@@ -833,35 +934,42 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_FLOAT64;
 			break;
 		case T_FLOAT128:
-			op1->value.float128 = (long double)op1->value.float64;
+			op1->value.float128 = dtold(op1->value.float64);
 			op1->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex64.real = op1->value.float64;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
 			{
-				dcomplex temp;
-				temp.real = (double)op2->value.complex32.real;
-				temp.imag = (double)op2->value.complex32.imag;
+				dcomplex temp = dtodc(op1->value.float64);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				temp = fctodc(fcbuild(
+				       op2->value.complex32.real,
+				       op2->value.complex32.imag));
 				op2->value.complex64.real = temp.real;
 				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
 			}
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
 			break;
 		case T_COMPLEX64:
-			op1->value.complex64.real = op1->value.float64;
-			op1->value.complex64.imag = 0.0;
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = dtodc(op1->value.float64);
+				op1->value.complex64.real = temp.real;
+				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = (long double)op1->value.float64;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = dtolc(op1->value.float64);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -870,62 +978,62 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 	case T_FLOAT128:
 		switch (op2->type) {
 		case T_SCHAR:
-			op2->value.float128 = (long double)op2->value.schar;
+			op2->value.float128 = ctold(op2->value.schar);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_UCHAR:
-			op2->value.float128 = (long double)op2->value.uchar;
+			op2->value.float128 = uctold(op2->value.uchar);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_SSHORT:
-			op2->value.float128 = (long double)op2->value.sshort;
+			op2->value.float128 = shttold(op2->value.sshort);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_USHORT:
-			op2->value.float128 = (long double)op2->value.ushort;
+			op2->value.float128 = ushttold(op2->value.ushort);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_SINT:
-			op2->value.float128 = (long double)op2->value.sint;
+			op2->value.float128 = itold(op2->value.sint);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_UINT:
-			op2->value.float128 = (long double)op2->value.uint;
+			op2->value.float128 = uitold(op2->value.uint);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_SLONG:
-			op2->value.float128 = (long double)op2->value.slong;
+			op2->value.float128 = ltold(op2->value.slong);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_ULONG:
-			op2->value.float128 = (long double)op2->value.ulong;
+			op2->value.float128 = ultold(op2->value.ulong);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_SLONGLONG:
-			op2->value.float128 = (long double)op2->value.slonglong;
+			op2->value.float128 = lltold(op2->value.slonglong);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_ULONGLONG:
-			op2->value.float128 = (long double)op2->value.ulonglong;
+			op2->value.float128 = ulltold(op2->value.ulonglong);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_FLOAT32:
-			op2->value.float128 = (long double)op2->value.float32;
+			op2->value.float128 = ftold(op2->value.float32);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
 		case T_FLOAT64:
-			op2->value.float128 = (long double)op2->value.float64;
+			op2->value.float128 = dtold(op2->value.float64);
 			op2->type = T_FLOAT128;
 			typecast = T_FLOAT128;
 			break;
@@ -933,38 +1041,43 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 			typecast = T_FLOAT128;
 			break;
 		case T_COMPLEX32:
-			op1->value.complex128.real = op1->value.float128;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
 			{
-				lcomplex temp;
-				temp.real = (long double)op2->value.complex32.real;
-				temp.imag = (long double)op2->value.complex32.imag;
+				lcomplex temp = ldtolc(op1->value.float128);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				temp = fctolc(fcbuild(
+				       op2->value.complex32.real,
+				       op2->value.complex32.imag));
 				op2->value.complex128.real = temp.real;
 				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		case T_COMPLEX64:
-			op1->value.complex128.real = op1->value.float128;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
 			{
-				lcomplex temp;
-				temp.real = (long double)op2->value.complex64.real;
-				temp.imag = (long double)op2->value.complex64.imag;
+				lcomplex temp = ldtolc(op1->value.float128);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				temp = dctolc(cbuild(
+				       op2->value.complex64.real,
+				       op2->value.complex64.imag));
 				op2->value.complex128.real = temp.real;
 				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		case T_COMPLEX128:
-			op1->value.complex128.real = op1->value.float128;
-			op1->value.complex128.imag = 0.0L;
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ldtolc(op1->value.float128);
+				op1->value.complex128.real = temp.real;
+				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		default:
 			break;
@@ -973,70 +1086,103 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 	case T_COMPLEX32:
 		switch (op2->type) {
 		case T_SCHAR:
-			op2->value.complex32.real = (float)op2->value.schar;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ctofc(op2->value.schar);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_UCHAR:
-			op2->value.complex32.real = (float)op2->value.uchar;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = uctofc(op2->value.uchar);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_SSHORT:
-			op2->value.complex32.real = (float)op2->value.sshort;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = shttofc(op2->value.sshort);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_USHORT:
-			op2->value.complex32.real = (float)op2->value.ushort;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ushttofc(op2->value.ushort);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_SINT:
-			op2->value.complex32.real = (float)op2->value.sint;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = itofc(op2->value.sint);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_UINT:
-			op2->value.complex32.real = (float)op2->value.uint;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = uitofc(op2->value.uint);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_SLONG:
-			op2->value.complex32.real = (float)op2->value.slong;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ltofc(op2->value.slong);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_ULONG:
-			op2->value.complex32.real = (float)op2->value.ulong;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ultofc(op2->value.ulong);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_SLONGLONG:
-			op2->value.complex32.real = (float)op2->value.slonglong;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = lltofc(op2->value.slonglong);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_ULONGLONG:
-			op2->value.complex32.real = (float)op2->value.ulonglong;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ulltofc(op2->value.ulonglong);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_FLOAT32:
-			op2->value.complex32.real = op2->value.float32;
-			op2->value.complex32.imag = 0.0;
-			op2->type = T_COMPLEX32;
-			typecast = T_COMPLEX32;
+			{
+				fcomplex temp = ftofc(op2->value.float32);
+				op2->value.complex32.real = temp.real;
+				op2->value.complex32.imag = temp.imag;
+				op2->type = T_COMPLEX32;
+				typecast = T_COMPLEX32;
+			}
 			break;
 		case T_FLOAT64:
 			{
@@ -1045,12 +1191,13 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op1->value.complex32.imag));
 				op1->value.complex64.real = temp.real;
 				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				temp = dtodc(op2->value.float64);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
 			}
-			op1->type = T_COMPLEX64;
-			op2->value.complex64.real = op2->value.float64;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
 			break;
 		case T_FLOAT128:
 			{
@@ -1059,12 +1206,13 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op1->value.complex32.imag));
 				op1->value.complex128.real = temp.real;
 				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				temp = ldtolc(op2->value.float128);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op1->type = T_COMPLEX128;
-			op2->value.complex128.real = op2->value.float128;
-			op2->value.complex128.imag = 0.0L;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		case T_COMPLEX32:
 			typecast = T_COMPLEX32;
@@ -1076,9 +1224,9 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op1->value.complex32.imag));
 				op1->value.complex64.real = temp.real;
 				op1->value.complex64.imag = temp.imag;
+				op1->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
 			}
-			op1->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
 			break;
 		case T_COMPLEX128:
 			{
@@ -1087,9 +1235,9 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op1->value.complex32.imag));
 				op1->value.complex128.real = temp.real;
 				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		default:
 			break;
@@ -1098,76 +1246,112 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 	case T_COMPLEX64:
 		switch (op2->type) {
 		case T_SCHAR:
-			op2->value.complex64.real = (double)op2->value.schar;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ctodc(op2->value.schar);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_UCHAR:
-			op2->value.complex64.real = (double)op2->value.uchar;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = uctodc(op2->value.uchar);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_SSHORT:
-			op2->value.complex64.real = (double)op2->value.sshort;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = shttodc(op2->value.sshort);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_USHORT:
-			op2->value.complex64.real = (double)op2->value.ushort;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ushttodc(op2->value.ushort);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_SINT:
-			op2->value.complex64.real = (double)op2->value.sint;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = itodc(op2->value.sint);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_UINT:
-			op2->value.complex64.real = (double)op2->value.uint;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = uitodc(op2->value.uint);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_SLONG:
-			op2->value.complex64.real = (double)op2->value.slong;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ltodc(op2->value.slong);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_ULONG:
-			op2->value.complex64.real = (double)op2->value.ulong;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ultodc(op2->value.ulong);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_SLONGLONG:
-			op2->value.complex64.real = (double)op2->value.slonglong;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ltodc(op2->value.slonglong);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_ULONGLONG:
-			op2->value.complex64.real = (double)op2->value.ulonglong;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ultodc(op2->value.ulonglong);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_FLOAT32:
-			op2->value.complex64.real = (double)op2->value.float32;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = ftodc(op2->value.float32);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_FLOAT64:
-			op2->value.complex64.real = op2->value.float64;
-			op2->value.complex64.imag = 0.0;
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
+			{
+				dcomplex temp = dtodc(op2->value.float64);
+				op2->value.complex64.real = temp.real;
+				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
+			}
 			break;
 		case T_FLOAT128:
 			{
@@ -1176,12 +1360,13 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op1->value.complex64.imag));
 				op1->value.complex128.real = temp.real;
 				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				temp = ldtolc(op2->value.float128);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op1->type = T_COMPLEX128;
-			op2->value.complex128.real = op2->value.float128;
-			op2->value.complex128.imag = 0.0L;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		case T_COMPLEX32:
 			{
@@ -1190,9 +1375,9 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op2->value.complex32.imag));
 				op2->value.complex64.real = temp.real;
 				op2->value.complex64.imag = temp.imag;
+				op2->type = T_COMPLEX64;
+				typecast = T_COMPLEX64;
 			}
-			op2->type = T_COMPLEX64;
-			typecast = T_COMPLEX64;
 			break;
 		case T_COMPLEX64:
 			typecast = T_COMPLEX64;
@@ -1204,9 +1389,9 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op1->value.complex64.imag));
 				op1->value.complex128.real = temp.real;
 				op1->value.complex128.imag = temp.imag;
+				op1->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op1->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		default:
 			break;
@@ -1215,82 +1400,121 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 	case T_COMPLEX128:
 		switch (op2->type) {
 		case T_SCHAR:
-			op2->value.complex128.real = (long double)op2->value.schar;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ctolc(op2->value.schar);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_UCHAR:
-			op2->value.complex128.real = (long double)op2->value.uchar;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = uctolc(op2->value.uchar);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_SSHORT:
-			op2->value.complex128.real = (long double)op2->value.sshort;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = shttolc(op2->value.sshort);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_USHORT:
-			op2->value.complex128.real = (long double)op2->value.ushort;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ushttolc(op2->value.ushort);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_SINT:
-			op2->value.complex128.real = (long double)op2->value.sint;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = itolc(op2->value.sint);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_UINT:
-			op2->value.complex128.real = (long double)op2->value.uint;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = uitolc(op2->value.uint);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_SLONG:
-			op2->value.complex128.real = (long double)op2->value.slong;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ltolc(op2->value.slong);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_ULONG:
-			op2->value.complex128.real = (long double)op2->value.ulong;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ultolc(op2->value.ulong);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_SLONGLONG:
-			op2->value.complex128.real = (long double)op2->value.slonglong;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = lltolc(op2->value.slonglong);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_ULONGLONG:
-			op2->value.complex128.real = (long double)op2->value.ulonglong;
-			op2->value.complex128.imag = 0.0;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ulltolc(op2->value.ulonglong);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_FLOAT32:
-			op2->value.complex128.real = (long double)op2->value.float32;
-			op2->value.complex128.imag = 0.0L;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ftolc(op2->value.float32);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_FLOAT64:
-			op2->value.complex128.real = (long double)op2->value.float64;
-			op2->value.complex128.imag = 0.0L;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = dtolc(op2->value.float64);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_FLOAT128:
-			op2->value.complex128.real = op2->value.float128;
-			op2->value.complex128.imag = 0.0L;
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
+			{
+				lcomplex temp = ltolc(op2->value.float128);
+				op2->value.complex128.real = temp.real;
+				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
+			}
 			break;
 		case T_COMPLEX32:
 			{
@@ -1299,9 +1523,9 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op2->value.complex32.imag));
 				op2->value.complex128.real = temp.real;
 				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		case T_COMPLEX64:
 			{
@@ -1310,9 +1534,9 @@ autocast_2operands(c_operand_t *op1, c_operand_t *op2)
 				                op2->value.complex64.imag));
 				op2->value.complex128.real = temp.real;
 				op2->value.complex128.imag = temp.imag;
+				op2->type = T_COMPLEX128;
+				typecast = T_COMPLEX128;
 			}
-			op2->type = T_COMPLEX128;
-			typecast = T_COMPLEX128;
 			break;
 		case T_COMPLEX128:
 			typecast = T_COMPLEX128;
@@ -1339,40 +1563,40 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 			retv->value = orgv->value;
 			break;
 		case T_UCHAR:
-			retv->value.schar = (char)orgv->value.uchar;
+			retv->value.schar = uctoc(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.schar = (char)orgv->value.sshort;
+			retv->value.schar = shttoc(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.schar = (char)orgv->value.ushort;
+			retv->value.schar = ushttoc(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.schar = (char)orgv->value.sint;
+			retv->value.schar = itoc(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.schar = (char)orgv->value.uint;
+			retv->value.schar = uitoc(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.schar = (char)orgv->value.slong;
+			retv->value.schar = ltoc(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.schar = (char)orgv->value.ulong;
+			retv->value.schar = ultoc(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.schar = (char)orgv->value.slonglong;
+			retv->value.schar = lltoc(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.schar = (char)orgv->value.ulonglong;
+			retv->value.schar = ulltoc(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.schar = (char)orgv->value.float32;
+			retv->value.schar = ftoc(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.schar = (char)orgv->value.float64;
+			retv->value.schar = dtoc(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.schar = (char)orgv->value.float128;
+			retv->value.schar = ldtoc(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1405,43 +1629,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_UCHAR:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.uchar = (unsigned char)orgv->value.schar;
+			retv->value.uchar = ctouc(orgv->value.schar);
 			break;
 		case T_UCHAR:
 			retv->value = orgv->value;
 			break;
 		case T_SSHORT:
-			retv->value.uchar = (unsigned char)orgv->value.sshort;
+			retv->value.uchar = shttouc(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.uchar = (unsigned char)orgv->value.ushort;
+			retv->value.uchar = ushttouc(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.uchar = (unsigned char)orgv->value.sint;
+			retv->value.uchar = itouc(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.uchar = (unsigned char)orgv->value.uint;
+			retv->value.uchar = uitouc(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.uchar = (unsigned char)orgv->value.sint;
+			retv->value.uchar = ltouc(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.uchar = (unsigned char)orgv->value.ulong;
+			retv->value.uchar = ultouc(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.uchar = (unsigned char)orgv->value.slonglong;
+			retv->value.uchar = lltouc(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.uchar = (unsigned char)orgv->value.ulonglong;
+			retv->value.uchar = ulltouc(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.uchar = (unsigned char)orgv->value.float32;
+			retv->value.uchar = ftouc(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.uchar = (unsigned char)orgv->value.float64;
+			retv->value.uchar = dtouc(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.uchar = (unsigned char)orgv->value.float128;
+			retv->value.uchar = ldtouc(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1474,43 +1698,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_SSHORT:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.sshort = (short)orgv->value.schar;
+			retv->value.sshort = ctosht(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.sshort = (short)orgv->value.uchar;
+			retv->value.sshort = uctosht(orgv->value.uchar);
 			break;
 		case T_SSHORT:
 			retv->value = orgv->value;
 			break;
 		case T_USHORT:
-			retv->value.sshort = (short)orgv->value.ushort;
+			retv->value.sshort = ushttosht(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.sshort = (short)orgv->value.sint;
+			retv->value.sshort = itosht(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.sshort = (short)orgv->value.uint;
+			retv->value.sshort = uitosht(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.sshort = (short)orgv->value.slong;
+			retv->value.sshort = ltosht(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.sshort = (short)orgv->value.ulong;
+			retv->value.sshort = ultosht(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.sshort = (short)orgv->value.slonglong;
+			retv->value.sshort = lltosht(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.sshort = (short)orgv->value.ulonglong;
+			retv->value.sshort = ulltosht(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.sshort = (short)orgv->value.float32;
+			retv->value.sshort = ftosht(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.sshort = (short)orgv->value.float64;
+			retv->value.sshort = dtosht(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.sshort = (short)orgv->value.float128;
+			retv->value.sshort = ldtosht(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1543,43 +1767,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_USHORT:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.ushort = (unsigned short)orgv->value.schar;
+			retv->value.ushort = ctousht(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.ushort = (unsigned short)orgv->value.uchar;
+			retv->value.ushort = uctousht(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.ushort = (unsigned short)orgv->value.sshort;
+			retv->value.ushort = shttousht(orgv->value.sshort);
 			break;
 		case T_USHORT:
 			retv->value = orgv->value;
 			break;
 		case T_SINT:
-			retv->value.ushort = (unsigned short)orgv->value.sint;
+			retv->value.ushort = itousht(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.ushort = (unsigned short)orgv->value.uint;
+			retv->value.ushort = uitousht(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.ushort = (unsigned short)orgv->value.slong;
+			retv->value.ushort = ltousht(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.ushort = (unsigned short)orgv->value.ulong;
+			retv->value.ushort = ultousht(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.ushort = (unsigned short)orgv->value.slonglong;
+			retv->value.ushort = lltousht(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.ushort = (unsigned short)orgv->value.ulonglong;
+			retv->value.ushort = ulltousht(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.ushort = (unsigned short)orgv->value.float32;
+			retv->value.ushort = ftousht(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.ushort = (unsigned short)orgv->value.float64;
+			retv->value.ushort = dtousht(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.ushort = (unsigned short)orgv->value.float128;
+			retv->value.ushort = ldtousht(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1612,43 +1836,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_SINT:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.sint = (int)orgv->value.schar;
+			retv->value.sint = ctoi(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.sint = (int)orgv->value.uchar;
+			retv->value.sint = uctoi(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.sint = (int)orgv->value.sshort;
+			retv->value.sint = shttoi(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.sint = (int)orgv->value.ushort;
+			retv->value.sint = ushttoi(orgv->value.ushort);
 			break;
 		case T_SINT:
 			retv->value = orgv->value;
 			break;
 		case T_UINT:
-			retv->value.sint = (int)orgv->value.uint;
+			retv->value.sint = uitoi(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.sint = (int)orgv->value.slong;
+			retv->value.sint = ltoi(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.sint = (int)orgv->value.ulong;
+			retv->value.sint = ultoi(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.sint = (int)orgv->value.slonglong;
+			retv->value.sint = lltoi(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.sint = (int)orgv->value.ulonglong;
+			retv->value.sint = ulltoi(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.sint = (int)orgv->value.float32;
+			retv->value.sint = ftoi(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.sint = (int)orgv->value.float64;
+			retv->value.sint = dtoi(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.sint = (int)orgv->value.float128;
+			retv->value.sint = ldtoi(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1681,43 +1905,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_UINT:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.uint = (unsigned int)orgv->value.schar;
+			retv->value.uint = ctoui(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.uint = (unsigned int)orgv->value.uchar;
+			retv->value.uint = uctoui(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.uint = (unsigned int)orgv->value.sshort;
+			retv->value.uint = shttoui(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.uint = (unsigned int)orgv->value.ushort;
+			retv->value.uint = ushttoui(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.uint = (unsigned int)orgv->value.sint;
+			retv->value.uint = itoui(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.uint = (unsigned int)orgv->value.uint;
+			retv->value = orgv->value;
 			break;
 		case T_SLONG:
-			retv->value.uint = (unsigned int)orgv->value.slong;
+			retv->value.uint = ltoui(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.uint = (unsigned int)orgv->value.ulong;
+			retv->value.uint = ultoui(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.uint = (unsigned int)orgv->value.slonglong;
+			retv->value.uint = lltoui(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.uint = (unsigned int)orgv->value.ulonglong;
+			retv->value.uint = ulltoui(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.uint = (unsigned int)orgv->value.float32;
+			retv->value.uint = ftoui(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.uint = (unsigned int)orgv->value.float64;
+			retv->value.uint = dtoui(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.uint = (unsigned int)orgv->value.float128;
+			retv->value.uint = ldtoui(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1750,43 +1974,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_SLONG:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.slong = (long)orgv->value.schar;
+			retv->value.slong = ctol(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.slong = (long)orgv->value.uchar;
+			retv->value.slong = uctol(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.slong = (long)orgv->value.sshort;
+			retv->value.slong = shttol(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.slong = (long)orgv->value.ushort;
+			retv->value.slong = ushttol(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.slong = (long)orgv->value.sint;
+			retv->value.slong = itol(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.slong = (long)orgv->value.uint;
+			retv->value.slong = uitol(orgv->value.uint);
 			break;
 		case T_SLONG:
 			retv->value = orgv->value;
 			break;
 		case T_ULONG:
-			retv->value.slong = (long)orgv->value.ulong;
+			retv->value.slong = ultol(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.slong = (long)orgv->value.slonglong;
+			retv->value.slong = lltol(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.slong = (long)orgv->value.ulonglong;
+			retv->value.slong = ulltol(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.slong = (long)orgv->value.float32;
+			retv->value.slong = ftol(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.slong = (long)orgv->value.float64;
+			retv->value.slong = dtol(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.slong = (long)orgv->value.float128;
+			retv->value.slong = ldtol(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1819,43 +2043,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_ULONG:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.ulong = (unsigned long)orgv->value.schar;
+			retv->value.ulong = ctoul(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.ulong = (unsigned long)orgv->value.uchar;
+			retv->value.ulong = uctoul(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.ulong = (unsigned long)orgv->value.sshort;
+			retv->value.ulong = shttoul(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.ulong = (unsigned long)orgv->value.ushort;
+			retv->value.ulong = ushttoul(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.ulong = (unsigned long)orgv->value.sint;
+			retv->value.ulong = itoul(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.ulong = (unsigned long)orgv->value.uint;
+			retv->value.ulong = uitoul(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.ulong = (unsigned long)orgv->value.slong;
+			retv->value.ulong = ltoul(orgv->value.slong);
 			break;
 		case T_ULONG:
 			retv->value = orgv->value;
 			break;
 		case T_SLONGLONG:
-			retv->value.ulong = (unsigned long)orgv->value.slonglong;
+			retv->value.ulong = lltoul(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.ulong = (unsigned long)orgv->value.ulonglong;
+			retv->value.ulong = ulltoul(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.ulong = (unsigned long)orgv->value.float32;
+			retv->value.ulong = ftoul(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.ulong = (unsigned long)orgv->value.float64;
+			retv->value.ulong = dtoul(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.ulong = (unsigned long)orgv->value.float128;
+			retv->value.ulong = ldtoul(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1888,43 +2112,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_SLONGLONG:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.slonglong = (long long)orgv->value.schar;
+			retv->value.slonglong = ctoll(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.slonglong = (long long)orgv->value.uchar;
+			retv->value.slonglong = uctoll(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.slonglong = (long long)orgv->value.sshort;
+			retv->value.slonglong = shttoll(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.slonglong = (long long)orgv->value.ushort;
+			retv->value.slonglong = ushttoll(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.slonglong = (long long)orgv->value.sint;
+			retv->value.slonglong = itoll(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.slonglong = (long long)orgv->value.uint;
+			retv->value.slonglong = uitoll(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.slonglong = (long long)orgv->value.slong;
+			retv->value.slonglong = ltoll(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.slonglong = (long long)orgv->value.ulong;
+			retv->value.slonglong = ultoll(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
 			retv->value = orgv->value;
 			break;
 		case T_ULONGLONG:
-			retv->value.slonglong = (long long)orgv->value.ulonglong;
+			retv->value.slonglong = ulltoll(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.slonglong = (long long)orgv->value.float32;
+			retv->value.slonglong = ftoll(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.slonglong = (long long)orgv->value.float64;
+			retv->value.slonglong = dtoll(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.slonglong = (long long)orgv->value.float128;
+			retv->value.slonglong = ldtoll(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -1957,43 +2181,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_ULONGLONG:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.ulonglong = (unsigned long long)orgv->value.schar;
+			retv->value.ulonglong = ctoull(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.ulonglong = (unsigned long long)orgv->value.uchar;
+			retv->value.ulonglong = uctoull(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.ulonglong = (unsigned long long)orgv->value.sshort;
+			retv->value.ulonglong = shttoull(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.ulonglong = (unsigned long long)orgv->value.ushort;
+			retv->value.ulonglong = ushttoull(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.ulonglong = (unsigned long long)orgv->value.sint;
+			retv->value.ulonglong = itoull(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.ulonglong = (unsigned long long)orgv->value.uint;
+			retv->value.ulonglong = uitoull(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.ulonglong = (unsigned long long)orgv->value.slong;
+			retv->value.ulonglong = ltoull(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.ulonglong = (unsigned long long)orgv->value.ulong;
+			retv->value.ulonglong = ultoull(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.ulonglong = (unsigned long long)orgv->value.slonglong;
+			retv->value.ulonglong = lltoull(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
 			retv->value = orgv->value;
 			break;
 		case T_FLOAT32:
-			retv->value.ulonglong = (unsigned long long)orgv->value.float32;
+			retv->value.ulonglong = ftoull(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.ulonglong = (unsigned long long)orgv->value.float64;
+			retv->value.ulonglong = dtoull(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.ulonglong = (unsigned long long)orgv->value.float128;
+			retv->value.ulonglong = ldtoull(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -2026,43 +2250,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_FLOAT32:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.float32 = (float)orgv->value.schar;
+			retv->value.float32 = ctof(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.float32 = (float)orgv->value.uchar;
+			retv->value.float32 = uctof(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.float32 = (float)orgv->value.sshort;
+			retv->value.float32 = shttof(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.float32 = (float)orgv->value.ushort;
+			retv->value.float32 = ushttof(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.float32 = (float)orgv->value.sint;
+			retv->value.float32 = itof(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.float32 = (float)orgv->value.uint;
+			retv->value.float32 = uitof(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.float32 = (float)orgv->value.slong;
+			retv->value.float32 = ltof(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.float32 = (float)orgv->value.ulong;
+			retv->value.float32 = ultof(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.float32 = (float)orgv->value.slonglong;
+			retv->value.float32 = lltof(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.float32 = (float)orgv->value.ulonglong;
+			retv->value.float32 = ulltof(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
 			retv->value = orgv->value;
 			break;
 		case T_FLOAT64:
-			retv->value.float32 = (float)orgv->value.float64;
+			retv->value.float32 = dtof(orgv->value.float64);
 			break;
 		case T_FLOAT128:
-			retv->value.float32 = (float)orgv->value.float128;
+			retv->value.float32 = ldtof(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -2095,43 +2319,43 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_FLOAT64:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.float64 = (double)orgv->value.schar;
+			retv->value.float64 = ctod(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.float64 = (double)orgv->value.uchar;
+			retv->value.float64 = uctod(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.float64 = (double)orgv->value.sshort;
+			retv->value.float64 = shttod(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.float64 = (double)orgv->value.ushort;
+			retv->value.float64 = ushttod(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.float64 = (double)orgv->value.sint;
+			retv->value.float64 = itod(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.float64 = (double)orgv->value.uint;
+			retv->value.float64 = uitod(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.float64 = (double)orgv->value.slong;
+			retv->value.float64 = ltod(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.float64 = (double)orgv->value.ulong;
+			retv->value.float64 = ultod(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.float64 = (double)orgv->value.slonglong;
+			retv->value.float64 = lltod(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.float64 = (double)orgv->value.ulonglong;
+			retv->value.float64 = ulltod(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.float64 = (double)orgv->value.float32;
+			retv->value.float64 = ftod(orgv->value.float32);
 			break;
 		case T_FLOAT64:
 			retv->value = orgv->value;
 			break;
 		case T_FLOAT128:
-			retv->value.float64 = (double)orgv->value.float128;
+			retv->value.float64 = ldtod(orgv->value.float128);
 			break;
 		case T_COMPLEX32:
 			{
@@ -2164,40 +2388,40 @@ adcast(c_operand_t *orgv, c_operand_t *retv)
 	case T_FLOAT128:
 		switch (orgv->type) {
 		case T_SCHAR:
-			retv->value.float128 = (long double)orgv->value.schar;
+			retv->value.float128 = ctold(orgv->value.schar);
 			break;
 		case T_UCHAR:
-			retv->value.float128 = (long double)orgv->value.uchar;
+			retv->value.float128 = uctold(orgv->value.uchar);
 			break;
 		case T_SSHORT:
-			retv->value.float128 = (long double)orgv->value.sshort;
+			retv->value.float128 = shttold(orgv->value.sshort);
 			break;
 		case T_USHORT:
-			retv->value.float128 = (long double)orgv->value.ushort;
+			retv->value.float128 = ushttold(orgv->value.ushort);
 			break;
 		case T_SINT:
-			retv->value.float128 = (long double)orgv->value.sint;
+			retv->value.float128 = itold(orgv->value.sint);
 			break;
 		case T_UINT:
-			retv->value.float128 = (long double)orgv->value.uint;
+			retv->value.float128 = uitold(orgv->value.uint);
 			break;
 		case T_SLONG:
-			retv->value.float128 = (long double)orgv->value.slong;
+			retv->value.float128 = ltold(orgv->value.slong);
 			break;
 		case T_ULONG:
-			retv->value.float128 = (long double)orgv->value.ulong;
+			retv->value.float128 = ultold(orgv->value.ulong);
 			break;
 		case T_SLONGLONG:
-			retv->value.float128 = (long double)orgv->value.slonglong;
+			retv->value.float128 = lltold(orgv->value.slonglong);
 			break;
 		case T_ULONGLONG:
-			retv->value.float128 = (long double)orgv->value.ulonglong;
+			retv->value.float128 = ulltold(orgv->value.ulonglong);
 			break;
 		case T_FLOAT32:
-			retv->value.float128 = (long double)orgv->value.float32;
+			retv->value.float128 = ftold(orgv->value.float32);
 			break;
 		case T_FLOAT64:
-			retv->value.float128 = (long double)orgv->value.float64;
+			retv->value.float128 = dtold(orgv->value.float64);
 			break;
 		case T_FLOAT128:
 			retv->value = orgv->value;
