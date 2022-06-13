@@ -17,6 +17,9 @@ extern "C" {
 #include "../../tuning/pow_bin_calc.h"
 #include <limits.h>  /* INT_MAX */
 // uses math library: fabsl(), expl(), logl(), ipowl() */
+#include "../../sys/float/fpclassify.h"
+#include "../sys/primitive/float/fpclassify.h"
+#include "../../sys/float/huge_val_nan.h"
 #include "../../sys/float/absolute.h"
 #if _POW_BINARY_CALC == 1
 # include "exp2l.h"
@@ -27,8 +30,269 @@ extern "C" {
 #endif
 #include "ur_ipowl.h"
 
+static inline long double ur_powl(long double, long double);
+
 static inline long double
-powl_core(register long double x, register long double y)
+powl_core(long double x, long double y)
+{
+	int attr = 0;
+	
+	switch (fpclassify(y)) {
+	case FP_NAN:
+		break;
+	case FP_INFINITE:
+		attr |= 0x1;
+		if (y < 0)  attr |= 0x100;
+		break;
+	case FP_ZERO:
+	case FP_SUBNORMAL:
+		attr |= 0x4;
+		if (y < 0)  attr |= 0x100;
+		break;
+	case FP_NORMAL:
+	default:
+		switch (fpclassify(fabsl(y) - 1)) {
+		case FP_ZERO:
+		case FP_SUBNORMAL:
+			attr |= 0x2;
+			break;
+		default:
+			attr |= 0x8;
+			break;
+		}
+		if (y < 0)  attr |= 0x100;
+		break;
+	}
+	switch (fpclassify(x)) {
+	case FP_NAN:
+		break;
+	case FP_INFINITE:
+		attr |= 0x10;
+		if (x < 0)  attr |= 0x1000;
+		break;
+	case FP_ZERO:
+	case FP_SUBNORMAL:
+		attr |= 0x40;
+		if (x < 0)  attr |= 0x1000;
+		break;
+	case FP_NORMAL:
+	default:
+		switch (fpclassify(fabsl(x) - 1)) {
+		case FP_ZERO:
+		case FP_SUBNORMAL:
+			attr |= 0x20;
+			break;
+		default:
+			attr |= 0x80;
+			break;
+		}
+		if (x < 0)  attr |= 0x1000;
+		break;
+	}
+	// Branch the singular point for the power series ring
+	switch (attr) {
+	case 0x0011: /* +Infinity ** +Infinity */
+		return HUGE_VALL;
+		break;
+	case 0x0012: /* +Infinity ** +1 */
+		return HUGE_VALL;
+		break;
+	case 0x0014: /* +Infinity ** +0 */
+		return 1.0L;
+		break;
+	case 0x0018: /* +Infinity ** +Re(y) */
+		return HUGE_VALL;
+		break;
+	case 0x0111: /* +Infinity ** -Infinity */
+		return 0.0L;
+		break;
+	case 0x0112: /* +Infinity ** -1 */
+		return 0.0L;
+		break;
+	case 0x0114: /* +Infinity ** -0 */
+		return 1.0L;
+		break;
+	case 0x0118: /* +Infinity ** -Re(y) */
+		return 0.0L;
+		break;
+	case 0x1011: /* -Infinity ** +Infinity */
+		return -HUGE_VALL;
+		break;
+	case 0x1012: /* -Infinity ** +1 */
+		return -HUGE_VALL;
+		break;
+	case 0x1014: /* -Infinity ** +0 */
+		return -1.0L;
+		break;
+	case 0x1018: /* -Infinity ** +Re(y) */
+		return -HUGE_VALL;
+		break;
+	case 0x1111: /* -Infinity ** -Infinity */
+		return -0.0L;
+		break;
+	case 0x1112: /* -Infinity ** -1 */
+		return -0.0L;
+		break;
+	case 0x1114: /* -Infinity ** -0 */
+		return -1.0L;
+		break;
+	case 0x1118: /* -Infinity ** -Re(y) */
+		return -0.0L;
+		break;
+
+	case 0x0021: /* +1 ** +Infinity */
+		return 1.0L;
+		break;
+	case 0x0022: /* +1 ** +1 */
+		return 1.0L;
+		break;
+	case 0x0024: /* +1 ** +0 */
+		return 1.0L;
+		break;
+	case 0x0028: /* +1 ** +Re(y) */
+		return 1.0L;
+		break;
+	case 0x0121: /* +1 ** -Infinity */
+		return 1.0L;
+		break;
+	case 0x0122: /* +1 ** -1 */
+		return 1.0L;
+		break;
+	case 0x0124: /* +1 ** -0 */
+		return 1.0L;
+		break;
+	case 0x0128: /* +1 ** -Re(y) */
+		return 1.0L;
+		break;
+	case 0x1021: /* -1 ** +Infinity */
+		return -1.0L;
+		break;
+	case 0x1022: /* -1 ** +1 */
+		return -1.0L;
+		break;
+	case 0x1024: /* -1 ** +0 */
+		return -1.0L;
+		break;
+	case 0x1028: /* -1 ** +Re(y) */
+		return -1.0L;
+		break;
+	case 0x1121: /* -1 ** -Infinity */
+		return -1.0L;
+		break;
+	case 0x1122: /* -1 ** -1 */
+		return -1.0L;
+		break;
+	case 0x1124: /* -1 ** -0 */
+		return -1.0L;
+		break;
+	case 0x1128: /* -1 ** -Re(y) */
+		return -1.0L;
+		break;
+
+	case 0x0041: /* +0 ** +Infinity */
+		return 0.0L;
+		break;
+	case 0x0042: /* +0 ** +1 */
+		return 0.0L;
+		break;
+	case 0x0044: /* +0 ** +0 */
+		return 1.0L;
+		break;
+	case 0x0048: /* +0 ** +Re(y) */
+		return 0.0L;
+		break;
+	case 0x0141: /* +0 ** -Infinity */
+		return HUGE_VALL;
+		break;
+	case 0x0142: /* +0 ** -1 */
+		return HUGE_VALL;
+		break;
+	case 0x0144: /* +0 ** -0 */
+		return 1.0L;
+		break;
+	case 0x0148: /* +0 ** -Re(y) */
+		return HUGE_VALL;
+		break;
+	case 0x1041: /* -0 ** +Infinity */
+		return -0.0L;
+		break;
+	case 0x1042: /* -0 ** +1 */
+		return -0.0L;
+		break;
+	case 0x1044: /* -0 ** +0 */
+		return -1.0L;
+		break;
+	case 0x1048: /* -0 ** +Re(y) */
+		return -0.0L;
+		break;
+	case 0x1141: /* -0 ** -Infinity */
+		return -HUGE_VALL;
+		break;
+	case 0x1142: /* -0 ** -1 */
+		return -HUGE_VALL;
+		break;
+	case 0x1144: /* -0 ** -0 */
+		return -1.0L;
+		break;
+	case 0x1148: /* -0 ** -Re(y) */
+		return -HUGE_VALL;
+		break;
+
+	case 0x0081: /* +Re(x) ** +Infinity */
+		return x > 1 ? HUGE_VALL : 0.0L;
+		break;
+	case 0x0082: /* +Re(x) ** +1 */
+		return x;
+		break;
+	case 0x0084: /* +Re(x) ** +0 */
+		return 1.0L;
+		break;
+	case 0x0088: /* +Re(x) ** +Re(y) */
+		return ur_powl(x, y);
+		break;
+	case 0x0181: /* +Re(x) ** -Infinity */
+		return x > 1 ? 0.0L : HUGE_VALL;
+		break;
+	case 0x0182: /* +Re(x) ** -1 */
+		return 1.0L / x;
+		break;
+	case 0x0184: /* +Re(x) ** -0 */
+		return 1.0L;
+		break;
+	case 0x0188: /* +Re(x) ** -Re(y) */
+		return ur_powl(x, y);
+		break;
+	case 0x1081: /* -Re(x) ** +Infinity */
+		return x < -1 ? -HUGE_VALL : -0.0L;
+		break;
+	case 0x1082: /* -Re(x) ** +1 */
+		return x;
+		break;
+	case 0x1084: /* -Re(x) ** +0 */
+		return -1.0L;
+		break;
+	case 0x1088: /* -Re(x) ** +Re(y) */
+		return ur_powl(x, y);
+		break;
+	case 0x1181: /* -Re(x) ** -Infinity */
+		return x < -1 ? -0.0L : -HUGE_VALL;
+		break;
+	case 0x1182: /* -Re(x) ** -1 */
+		return 1.0L / x;
+		break;
+	case 0x1184: /* -Re(x) ** -0 */
+		return -1.0L;
+		break;
+	case 0x1188: /* -Re(x) ** -Re(y) */
+		return ur_powl(x, y);
+		break;
+	default:
+		return NAN;
+	}
+}
+
+static inline long double
+ur_powl(register long double x, register long double y)
 {
 	if (y <= INT_MAX && y >= -INT_MAX && y == (int)y)
 		// NOTE: According to the exponential law, if the denominator is 0

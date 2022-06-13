@@ -24,19 +24,19 @@ for double:
 2 ** -2 = 0.25
 1 ** 0 = 1
 -1 ** 0 = -1
-nan ** 0 = 1
+nan ** 0 = nan
 nan ** inf = nan
 nan ** -inf = nan
-1 ** inf = nan
--1 ** inf = nan
-1 ** -inf = nan
--1 ** -inf = nan
+1 ** inf = 1
+-1 ** inf = -1
+1 ** -inf = 1
+-1 ** -inf = -1
 inf ** 1 = inf
 inf ** -1 = 0
 -inf ** 1 = -inf
 -inf ** -1 = -0
-0 ** nan = 0
-nan ** 0 = 1
+0 ** nan = nan
+nan ** 0 = nan
 nan ** nan = nan
 
 for long double:
@@ -49,19 +49,19 @@ for long double:
 2 ** -2 = 0.25
 1 ** 0 = 1
 -1 ** 0 = -1
-nan ** 0 = 1
+nan ** 0 = nan
 nan ** inf = nan
 nan ** -inf = nan
-1 ** inf = nan
--1 ** inf = nan
-1 ** -inf = nan
--1 ** -inf = nan
+1 ** inf = 1
+-1 ** inf = -1
+1 ** -inf = 1
+-1 ** -inf = -1
 inf ** 1 = inf
 inf ** -1 = 0
 -inf ** 1 = -inf
 -inf ** -1 = -0
-0 ** nan = 0
-nan ** 0 = 1
+0 ** nan = nan
+nan ** 0 = nan
 nan ** nan = nan
 
 for float:
@@ -74,19 +74,19 @@ for float:
 2 ** -2 = 0.25
 1 ** 0 = 1
 -1 ** 0 = -1
-nan ** 0 = 1
+nan ** 0 = nan
 nan ** inf = nan
 nan ** -inf = nan
-1 ** inf = nan
--1 ** inf = nan
-1 ** -inf = nan
--1 ** -inf = nan
+1 ** inf = 1
+-1 ** inf = -1
+1 ** -inf = 1
+-1 ** -inf = -1
 inf ** 1 = inf
 inf ** -1 = 0
 -inf ** 1 = -inf
 -inf ** -1 = -0
-0 ** nan = 0
-nan ** 0 = 1
+0 ** nan = nan
+nan ** 0 = nan
 nan ** nan = nan
 *******************************************************************************/
 
