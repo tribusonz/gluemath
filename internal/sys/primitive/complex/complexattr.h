@@ -17,6 +17,8 @@ extern "C" {
 
 #include "../../../../sys/float/fpclassify.h"
 #include "../float/fpclassify.h"
+#include "../../../../sys/float/absolute.h"
+#include "../../../../sys/float/signbit.h"
 
 static inline int
 gml_fltcmplx_attr(fcomplex z)
