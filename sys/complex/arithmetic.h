@@ -15,7 +15,18 @@ extern "C" {
 #endif
 
 #include "class.h"
-#include "../../sys/float/absolute.h"
+#include "../../internal/ur/caddf.h"
+#include "../../internal/ur/csubf.h"
+#include "../../internal/ur/cmulf.h"
+#include "../../internal/ur/cdivf.h"
+#include "../../internal/ur/cadd.h"
+#include "../../internal/ur/csub.h"
+#include "../../internal/ur/cmul.h"
+#include "../../internal/ur/cdiv.h"
+#include "../../internal/ur/caddl.h"
+#include "../../internal/ur/csubl.h"
+#include "../../internal/ur/cmull.h"
+#include "../../internal/ur/cdivl.h"
 
 // compiler inline function
 static inline fcomplex fc_add(fcomplex, fcomplex);
@@ -34,148 +45,88 @@ static inline lcomplex lc_div(lcomplex, lcomplex);
 // float complex
 /* 和 $x + y$ */
 static inline fcomplex
-fc_add(fcomplex x, fcomplex y)
+fc_add(fcomplex z, fcomplex w)
 {
-    x.real += y.real;
-    x.imag += y.imag;
-    return x;
+	return caddf_core(z, w);
 }
 
 /* 差 $x - y$ */
 static inline fcomplex
-fc_sub(fcomplex x, fcomplex y)
+fc_sub(fcomplex z, fcomplex w)
 {
-    x.real -= y.real;
-    x.imag -= y.imag;
-    return x;
+	return csubf_core(z, w);
 }
 
 /* 積 $xy$ */
 static inline fcomplex
-fc_mul(fcomplex x, fcomplex y)
+fc_mul(fcomplex z, fcomplex w)
 {
-    fcomplex z;
-
-    z.real = x.real * y.real - x.imag * y.imag;
-    z.imag = x.real * y.imag + x.imag * y.real;
-    return z;
+	return cmulf_core(z, w);
 }
 
-/* 商 $x / y$ (上位桁あふれ対策版) */
+/* 商 $x / y$ */
 static inline fcomplex
-fc_div(fcomplex x, fcomplex y)
+fc_div(fcomplex z, fcomplex w)
 {
-    float w, d;
-    fcomplex z;
-
-    if (fabs(y.real) >= fabs(y.imag)) {
-        w = y.imag / y.real;  d = y.real + y.imag * w;
-        z.real = (x.real + x.imag * w) / d;
-        z.imag = (x.imag - x.real * w) / d;
-    } else {
-        w = y.real / y.imag;  d = y.real * w + y.imag;
-        z.real = (x.real * w + x.imag) / d;
-        z.imag = (x.imag * w - x.real) / d;
-    }
-    return z;
+	return cdivf_core(z, w);
 }
 
 // double complex
 /* 和 $x + y$ */
 static inline dcomplex
-dc_add(dcomplex x, dcomplex y)
+dc_add(dcomplex z, dcomplex w)
 {
-    x.real += y.real;
-    x.imag += y.imag;
-    return x;
+	return cadd_core(z, w);
 }
 
 /* 差 $x - y$ */
 static inline dcomplex
-dc_sub(dcomplex x, dcomplex y)
+dc_sub(dcomplex z, dcomplex w)
 {
-    x.real -= y.real;
-    x.imag -= y.imag;
-    return x;
+	return csub_core(z, w);
 }
 
 /* 積 $xy$ */
 static inline dcomplex
-dc_mul(dcomplex x, dcomplex y)
+dc_mul(dcomplex z, dcomplex w)
 {
-    dcomplex z;
-
-    z.real = x.real * y.real - x.imag * y.imag;
-    z.imag = x.real * y.imag + x.imag * y.real;
-    return z;
+	return cmul_core(z, w);
 }
 
-/* 商 $x / y$ (上位桁あふれ対策版) */
+/* 商 $x / y$ */
 static inline dcomplex
-dc_div(dcomplex x, dcomplex y)
+dc_div(dcomplex z, dcomplex w)
 {
-    double w, d;
-    dcomplex z;
-
-    if (fabs(y.real) >= fabs(y.imag)) {
-        w = y.imag / y.real;  d = y.real + y.imag * w;
-        z.real = (x.real + x.imag * w) / d;
-        z.imag = (x.imag - x.real * w) / d;
-    } else {
-        w = y.real / y.imag;  d = y.real * w + y.imag;
-        z.real = (x.real * w + x.imag) / d;
-        z.imag = (x.imag * w - x.real) / d;
-    }
-    return z;
+    return cdiv_core(z, w);
 }
 
-// double complex
+// long double complex
 /* 和 $x + y$ */
 static inline lcomplex
-lc_add(lcomplex x, lcomplex y)
+lc_add(lcomplex z, lcomplex w)
 {
-    x.real += y.real;
-    x.imag += y.imag;
-    return x;
+	return caddl_core(z, w);
 }
 
 /* 差 $x - y$ */
 static inline lcomplex
-lc_sub(lcomplex x, lcomplex y)
+lc_sub(lcomplex z, lcomplex w)
 {
-    x.real -= y.real;
-    x.imag -= y.imag;
-    return x;
+	return csubl_core(z, w);
 }
 
 /* 積 $xy$ */
 static inline lcomplex
-lc_mul(lcomplex x, lcomplex y)
+lc_mul(lcomplex z, lcomplex w)
 {
-    lcomplex z;
-
-    z.real = x.real * y.real - x.imag * y.imag;
-    z.imag = x.real * y.imag + x.imag * y.real;
-    return z;
+	return cmull_core(z, w);
 }
 
-/* 商 $x / y$ (上位桁あふれ対策版) */
+/* 商 $x / y$ */
 static inline lcomplex
-lc_div(lcomplex x, lcomplex y)
+lc_div(lcomplex z, lcomplex w)
 {
-    long double w, d;
-    lcomplex z;
-
-    if (fabs(y.real) >= fabs(y.imag)) {
-        w = y.imag / y.real;  d = y.real + y.imag * w;
-        z.real = (x.real + x.imag * w) / d;
-        z.imag = (x.imag - x.real * w) / d;
-    } else {
-        w = y.real / y.imag;  d = y.real * w + y.imag;
-        z.real = (x.real * w + x.imag) / d;
-        z.imag = (x.imag * w - x.real) / d;
-    }
-    return z;
+	return cdivl_core(z, w);
 }
 
 #if defined(__cplusplus)
