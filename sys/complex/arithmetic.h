@@ -28,6 +28,15 @@ extern "C" {
  * Multiplication and division are an in-partly architecture-dependent
  * because they build a dedicated algorithm at the singularity.
  * 
+ * The calculation when the values are singularities is what we call
+ * "the calculation of singularities."
+ * Special values such as 0, 1, and infinity should be treated as 0 for
+ * denormalized numbers, based on the idea that slight errors should be
+ * allowed in numerical calculations.
+ * Multiplication and division are more likely to manifest this in variables.
+ * If we define that only singularity calculations return a specified value,
+ * then the dependency is a fallback.
+ * 
  * | func | dependency |  denormal  |
  * |:----:|:----------:|:----------:|
  * | add  |    model   |   usable   |
