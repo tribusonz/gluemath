@@ -21,6 +21,7 @@ extern "C" {
 #include "../sys/primitive/float/fpclassify.h"
 #include "../../sys/float/huge_val_nan.h"
 #include "../../sys/float/absolute.h"
+#include "../../sys/float/signbit.h"
 #if _POW_BINARY_CALC == 1
 # include "exp2l.h"
 # include "log2l.h"
@@ -42,12 +43,12 @@ powl_core(long double x, long double y)
 		break;
 	case FP_INFINITE:
 		attr |= 0x1;
-		if (y < 0)  attr |= 0x100;
+		if (signbit(y))  attr |= 0x100;
 		break;
 	case FP_ZERO:
 	case FP_SUBNORMAL:
 		attr |= 0x4;
-		if (y < 0)  attr |= 0x100;
+		if (signbit(y))  attr |= 0x100;
 		break;
 	case FP_NORMAL:
 	default:
@@ -60,7 +61,7 @@ powl_core(long double x, long double y)
 			attr |= 0x8;
 			break;
 		}
-		if (y < 0)  attr |= 0x100;
+		if (signbit(y))  attr |= 0x100;
 		break;
 	}
 	switch (fpclassify(x)) {
@@ -68,12 +69,12 @@ powl_core(long double x, long double y)
 		break;
 	case FP_INFINITE:
 		attr |= 0x10;
-		if (x < 0)  attr |= 0x1000;
+		if (signbit(x))  attr |= 0x1000;
 		break;
 	case FP_ZERO:
 	case FP_SUBNORMAL:
 		attr |= 0x40;
-		if (x < 0)  attr |= 0x1000;
+		if (signbit(x))  attr |= 0x1000;
 		break;
 	case FP_NORMAL:
 	default:
@@ -86,7 +87,7 @@ powl_core(long double x, long double y)
 			attr |= 0x80;
 			break;
 		}
-		if (x < 0)  attr |= 0x1000;
+		if (signbit(x))  attr |= 0x1000;
 		break;
 	}
 	// Branch the singular point for the power series ring
@@ -141,50 +142,22 @@ powl_core(long double x, long double y)
 		break;
 
 	case 0x0021: /* +1 ** +Infinity */
-		return 1.0L;
-		break;
 	case 0x0022: /* +1 ** +1 */
-		return 1.0L;
-		break;
 	case 0x0024: /* +1 ** +0 */
-		return 1.0L;
-		break;
 	case 0x0028: /* +1 ** +Re(y) */
-		return 1.0L;
-		break;
 	case 0x0121: /* +1 ** -Infinity */
-		return 1.0L;
-		break;
 	case 0x0122: /* +1 ** -1 */
-		return 1.0L;
-		break;
 	case 0x0124: /* +1 ** -0 */
-		return 1.0L;
-		break;
 	case 0x0128: /* +1 ** -Re(y) */
 		return 1.0L;
 		break;
 	case 0x1021: /* -1 ** +Infinity */
-		return -1.0L;
-		break;
 	case 0x1022: /* -1 ** +1 */
-		return -1.0L;
-		break;
 	case 0x1024: /* -1 ** +0 */
-		return -1.0L;
-		break;
 	case 0x1028: /* -1 ** +Re(y) */
-		return -1.0L;
-		break;
 	case 0x1121: /* -1 ** -Infinity */
-		return -1.0L;
-		break;
 	case 0x1122: /* -1 ** -1 */
-		return -1.0L;
-		break;
 	case 0x1124: /* -1 ** -0 */
-		return -1.0L;
-		break;
 	case 0x1128: /* -1 ** -Re(y) */
 		return -1.0L;
 		break;
